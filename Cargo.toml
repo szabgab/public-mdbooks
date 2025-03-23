@@ -1,0 +1,11 @@
+[package]
+name = "public-mdbooks"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+git-digger = "0.1.0"
+git2 = "0.20.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_yaml = "0.9.34"
+toml = "0.8.20"

@@ -1,0 +1,24 @@
+- title: Asynchronous Programming in Rust
+  repo: https://github.com/softprops/awesome-mdbook
+  site: https://rust-lang.github.io/async-book/index.html
+- title: Async programming in Rust with async-std
+  repo: https://github.com/async-rs/async-std/
+  folder: docs
+  site: https://book.async.rs/  
+- title: The cargo book
+  repo: https://github.com/rust-lang/cargo/
+  folder: doc/src
+  site: https://doc.rust-lang.org/cargo/
+- title: Code Maven in Hebrew
+  repo: https://github.com/szabgab/he.code-maven.com
+  site: https://he.code-maven.com/
+  comment: Hebrew, RTL
+- title: Void Docs
+  repo: https://github.com/void-linux/void-docs
+  site: https://docs.voidlinux.org/ 
+- title: The Complete Works of Da Li Ao
+  repo: https://github.com/whatot/leeao
+  site: https://whatot.github.io/leeao/index.html
+- title: Whisky-book
+  repo: https://github.com/Whisky-App/whisky-book
+  site: https://docs.getwhisky.app/
