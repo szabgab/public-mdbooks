@@ -14,11 +14,6 @@
   folder: doc/src
   site: https://doc.rust-lang.org/cargo/
 
-- title: Code Maven in Hebrew
-  repo: https://github.com/szabgab/he.code-maven.com
-  site: https://he.code-maven.com/
-  comment: Hebrew, RTL
-
 - title: Void Docs
   repo: https://github.com/void-linux/void-docs
   site: https://docs.voidlinux.org/
@@ -65,4 +60,102 @@
   site: https://rust-lang.github.io/mdBook/
   repo: https://github.com/rust-lang/mdBook
   folder: guide
+
+- title: Pest Book
+  description: A thoughtful introduction to the pest parser
+  site: https://pest.rs/book/
+  repo: https://github.com/pest-parser/book
+
+- title: Proptest Book
+  site: https://altsysrq.github.io/proptest-book/intro.html
+  repo: https://github.com/proptest-rs/proptest/
+  folder: book
+
+- title: Rust Book with quizzes
+  description: A version of the Rust Book with additional quizzes to better understand Rust from the Cognitive Engineering Lab at Brown University in Providence
+  site: https://rust-book.cs.brown.edu/
+  repo: https://github.com/cognitive-engineering-lab/rust-book
+
+- title: Rustdoc Book
+  description: Guide for Rustdoc
+  site: https://doc.rust-lang.org/stable/rustdoc/
+  repo: https://github.com/rust-lang/rust/
+  folder: src/doc/rustdoc
+
+- title: Rust and Web Assembly
+  description: How to use Rust and WebAssembly together
+  site: https://rustwasm.github.io/book/
+  repo: https://github.com/rustwasm/book/
+
+- title: Rust Cookbook
+  description: Recipes using curated crates
+  site: https://rust-lang-nursery.github.io/rust-cookbook/
+  repo: https://github.com/rust-lang-nursery/rust-cookbook
+
+
+- title: Rust Fuzz Book
+  description: Guides and tutorials on how to fuzz Rust code
+  site: https://rust-fuzz.github.io/book/
+  repo: https://github.com/rust-fuzz/book
+
+- title: Rust Programming Language
+  description: The book of Rust
+  site: https://doc.rust-lang.org/book/
+  repo: https://github.com/rust-lang/book
+
+
+- title: Rusty ECMA Book
+  description: Build JavaScript Development Tools with Rust
+  site: https://rusty-ecma.github.io/rusty-ecma-book/
+  repo: https://github.com/rusty-ecma/rusty-ecma-book
+
+- title: Code Maven in Hebrew
+  repo: https://github.com/szabgab/he.code-maven.com
+  site: https://he.code-maven.com/
+  comment: Hebrew, RTL
+
+- title: Rust Maven in Hebrew
+  site: https://rust-he.code-maven.com/
+  repo: https://github.com/szabgab/rust-he.code-maven.com
+  comment: Hebrew, RTL
+
+- title: Python Maven in Hebrew
+  site: https://python-he.code-maven.com/
+  repo: https://github.com/szabgab/python-he.code-maven.com
+  comment: Hebrew, RTL
+
+- title: Git Maven in Hebrew
+  site: https://git-he.code-maven.com/
+  repo: https://github.com/szabgab/git-he.code-maven.com
+  comment: Hebrew, RTL
+
+- title: mdBook Maven
+  site: https://mdbook.code-maven.com/
+  repo: https://github.com/szabgab/mdbook.code-maven.com
+
+- title: The axum by examples book
+  site: https://axum.code-maven.com/
+  repo: https://github.com/szabgab/axum/
+  folder: book
+
+- title: C Maven
+  site: https://c.code-maven.com/
+  repo: https://github.com/szabgab/c.code-maven.com
+
+- title: Exercises
+  site: https://exercises.code-maven.com/
+  repo: https://github.com/szabgab/exercises.code-maven.com
+
+- title: Git Maven
+  site: https://git.code-maven.com/
+  repo: https://github.com/szabgab/git.code-maven.com
+
+- title: Groovy Maven
+  site: https://groovy.code-maven.com/
+  repo: https://github.com/szabgab/groovy.code-maven.com
+
+- title: Ruby Maven
+  site: https://ruby.code-maven.com/
+  repo: https://github.com/szabgab/ruby.code-maven.com
+
 
