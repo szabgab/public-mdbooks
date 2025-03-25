@@ -1,24 +1,68 @@
-- title: Asynchronous Programming in Rust
+- title: Async Book
+  description: Asynchronous Programming in Rust
   repo: https://github.com/softprops/awesome-mdbook
   site: https://rust-lang.github.io/async-book/index.html
-- title: Async programming in Rust with async-std
+
+- title: Async Std Book
+  description: Async programming in Rust with async-std
   repo: https://github.com/async-rs/async-std/
   folder: docs
-  site: https://book.async.rs/  
+  site: https://book.async.rs/
+
 - title: The cargo book
   repo: https://github.com/rust-lang/cargo/
   folder: doc/src
   site: https://doc.rust-lang.org/cargo/
+
 - title: Code Maven in Hebrew
   repo: https://github.com/szabgab/he.code-maven.com
   site: https://he.code-maven.com/
   comment: Hebrew, RTL
+
 - title: Void Docs
   repo: https://github.com/void-linux/void-docs
-  site: https://docs.voidlinux.org/ 
+  site: https://docs.voidlinux.org/
+
 - title: The Complete Works of Da Li Ao
   repo: https://github.com/whatot/leeao
   site: https://whatot.github.io/leeao/index.html
+
 - title: Whisky-book
   repo: https://github.com/Whisky-App/whisky-book
   site: https://docs.getwhisky.app/
+
+- title: Command Line Applications in Rust
+  repo: https://github.com/rust-cli/book
+  site: https://rust-cli.github.io/book/index.html
+
+- title: Discovery
+  description: The Discovery Book will teach you about microcontrollers, peripherals, sensors and bare metal programming in Rust
+  repo: https://github.com/rust-embedded/discovery
+  site: https://docs.rust-embedded.org/discovery/index.html
+
+- title: The Embedded Rust Book
+  description: The Embedded Rust Book will get you up to speed with embedded Rust development
+  repo: https://github.com/rust-embedded/book
+  site: https://docs.rust-embedded.org/book/index.html
+
+- title: The Embedonomicon
+  description: For those that want to dive into the implementation of the foundational crates of the embedded ecosystem
+  repo: https://github.com/rust-embedded/embedonomicon
+  site: https://docs.rust-embedded.org/embedonomicon/index.html
+
+- title: Firefox Data Documentation
+  description: A guide for interpreting data gathered by the Firefox Telemetry system
+  repo: https://github.com/mozilla/data-docs
+
+- title: Hello wasm-pack!
+  description: The wasm-pack guide
+  site: https://rustwasm.github.io/wasm-pack/book/
+  repo: https://github.com/rustwasm/wasm-pack/
+  folder: docs
+
+- title: mdbook
+  description: The mdBook user guide
+  site: https://rust-lang.github.io/mdBook/
+  repo: https://github.com/rust-lang/mdBook
+  folder: guide
+
