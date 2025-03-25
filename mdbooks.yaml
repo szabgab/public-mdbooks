@@ -158,4 +158,38 @@
   site: https://ruby.code-maven.com/
   repo: https://github.com/szabgab/ruby.code-maven.com
 
+- title: maubot
+  repo: https://github.com/mautrix/docs
+  folder: maubot
+
+- title: Foundry Book
+  repo: https://github.com/foundry-rs/book
+  site: https://book.getfoundry.sh/
+
+- title: The Little Book of Rust Books
+  repo: https://github.com/lborb/book
+  site: https://lborb.github.io/book/
+
+- title: fltk-book
+  repo: https://github.com/fltk-rs/fltk-book
+  site: https://fltk-rs.github.io/fltk-book/
+
+- title: fltk-book in Chinese
+  repo: https://github.com/Flatigers/fltk-book-zh
+  site: https://fltk.flatig.vip/
+  comment: Chinese
+
+- title: Physics-Based Simulation
+  repo: https://github.com/phys-sim-book/mdbook-src
+
+- title: EA-practices in Chinese
+  repo: https://github.com/tonydeng/EA-practices
+
+- title: Uniswap V3 Development Book
+  repo: https://github.com/Jeiwan/uniswapv3-book
+  site: https://uniswapv3book.com/
+
+- title: learn-haskell-blog-generator
+  repo: https://github.com/soupi/learn-haskell-blog-generator
+  site: https://learn-haskell.blog/
 
