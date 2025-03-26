@@ -162,6 +162,7 @@ fn main() {
     src_page(&mdbooks);
     language_page(&mdbooks);
     text_direction_page(&mdbooks);
+    multilingual_page(&mdbooks);
     rust_page(&mdbooks);
     build_page(&mdbooks);
     extra_page(&mdbooks);
@@ -298,6 +299,37 @@ fn text_direction_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/text-direction.md", md).unwrap();
+}
+
+fn multilingual_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# The book.multilingual field\n\n");
+
+    md += "| Title | Repo | multilingual |\n";
+    md += "|-------|------|-------------|\n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let bk = mdbook.book.as_ref().unwrap();
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            if bk.book.multilingual.is_none() {
+                "-".to_string()
+            } else {
+                match bk.book.multilingual {
+                    None => String::from("?"),
+                    Some(multilingual) => multilingual.to_string(),
+                }
+            }
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/multilingual.md", md).unwrap();
 }
 
 fn rust_page(mdbooks: &Vec<MDBook>) {
