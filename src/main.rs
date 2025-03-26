@@ -17,7 +17,7 @@ struct Cli {
 #[derive(Debug, Deserialize)]
 #[allow(unused)]
 #[serde(deny_unknown_fields)]
-struct BookMeta {
+struct MDBook {
     title: String,
 
     #[serde(deserialize_with = "from_url")]
@@ -30,6 +30,12 @@ struct BookMeta {
 
     book: Option<BookToml>,
     error: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct BookToml {
+    book: Book,
+    rust: Option<Rust>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -47,8 +53,9 @@ struct Book {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct BookToml {
-    book: Book,
+#[serde(deny_unknown_fields)]
+struct Rust {
+    edition: String,
 }
 
 fn main() {
@@ -129,6 +136,7 @@ fn main() {
     index_page(&books);
     errors_page(&books);
     src_page(&books);
+    rust_page(&books);
 
     if errors > 0 {
         log::error!("There were {errors} errors");
@@ -136,7 +144,7 @@ fn main() {
     }
 }
 
-fn index_page(books: &Vec<BookMeta>) {
+fn index_page(books: &Vec<MDBook>) {
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks for which the source is also available available.\n";
     md += "The list is generated from the `mdbooks.yaml` file.\n\n";
@@ -157,7 +165,7 @@ fn index_page(books: &Vec<BookMeta>) {
     std::fs::write("report/src/index.md", md).unwrap();
 }
 
-fn errors_page(books: &Vec<BookMeta>) {
+fn errors_page(books: &Vec<MDBook>) {
     let mut md = String::from("# Errors in the mdbooks\n\n");
     md += "The errors are as reported by our parser. They might or might not be real problems.\n\n";
     md += "If you think the error is incorrect, please open an issue.\n\n";
@@ -179,8 +187,8 @@ fn errors_page(books: &Vec<BookMeta>) {
     std::fs::write("report/src/errors.md", md).unwrap();
 }
 
-fn src_page(books: &Vec<BookMeta>) {
-    let mut md = String::from("# The src field\n\n");
+fn src_page(books: &Vec<MDBook>) {
+    let mut md = String::from("# The book.src field\n\n");
 
     md += "| Title | Repo | src |\n";
     md += "|-------|------|-------------|\n";
@@ -207,9 +215,36 @@ fn src_page(books: &Vec<BookMeta>) {
     std::fs::write("report/src/src.md", md).unwrap();
 }
 
-fn read_the_mdbooks_file() -> Vec<BookMeta> {
+fn rust_page(books: &Vec<MDBook>) {
+    let mut md = String::from("# The rust.edition field\n\n");
+
+    md += "| Title | Repo | editon |\n";
+    md += "|-------|------|-------------|\n";
+    for book in books {
+        if book.book.is_none() {
+            continue;
+        }
+
+        let bk = book.book.as_ref().unwrap();
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            book.title,
+            book.site.clone().unwrap_or("".to_string()),
+            book.repo.url(),
+            match &bk.rust {
+                None => String::new(),
+                Some(rust) => rust.edition.clone(),
+            }
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/rust.md", md).unwrap();
+}
+
+fn read_the_mdbooks_file() -> Vec<MDBook> {
     let file = std::fs::read_to_string("mdbooks.yaml").unwrap();
-    let books: Vec<BookMeta> = serde_yaml::from_str(&file).unwrap();
+    let books: Vec<MDBook> = serde_yaml::from_str(&file).unwrap();
     books
 }
 
