@@ -65,17 +65,17 @@ fn main() {
 
     let repos_dir = std::fs::canonicalize("repos").unwrap();
 
-    let mut books = read_the_mdbooks_file();
+    let mut mdbooks = read_the_mdbooks_file();
 
     let mut count = 0;
-    for book in &mut books {
-        log::info!("book: {:?}", book);
-        match book.repo.update_repository(&repos_dir, false) {
+    for mdbook in &mut mdbooks {
+        log::info!("book: {:?}", mdbook);
+        match mdbook.repo.update_repository(&repos_dir, false) {
             Ok(_) => {}
             Err(err) => {
                 log::error!("Error updating repo: {:?}", err);
                 errors += 1;
-                book.error = Some(format!("{:?}", err));
+                mdbook.error = Some(format!("{:?}", err));
                 continue;
             }
         }
@@ -87,23 +87,23 @@ fn main() {
 
     log::info!("Start processing repos");
     let mut count = 0;
-    for book in &mut books {
-        log::info!("book: {:?}", book);
+    for mdbook in &mut mdbooks {
+        log::info!("book: {:?}", mdbook);
         count += 1;
         if args.limit > 0 && count >= args.limit {
             break;
         }
-        let book_toml_file = if let Some(folder) = book.folder.clone() {
-            book.repo.path(&repos_dir).join(folder).join("book.toml")
+        let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
+            mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
         } else {
-            book.repo.path(&repos_dir).join("book.toml")
+            mdbook.repo.path(&repos_dir).join("book.toml")
         };
 
         log::info!("book.toml: {:?}", book_toml_file);
         if !book_toml_file.exists() {
             log::error!("book.toml does not exist: {:?}", book_toml_file);
             errors += 1;
-            book.error = Some("book.toml does not exist".to_string());
+            mdbook.error = Some("book.toml does not exist".to_string());
             continue;
         }
 
@@ -114,11 +114,11 @@ fn main() {
             Err(err) => {
                 log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
                 errors += 1;
-                book.error = Some(err.to_string());
+                mdbook.error = Some(err.to_string());
                 continue;
             }
         };
-        book.book = Some(data);
+        mdbook.book = Some(data);
     }
 
     // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
@@ -133,10 +133,10 @@ fn main() {
     //    std::process::exit(0);
     //}
 
-    index_page(&books);
-    errors_page(&books);
-    src_page(&books);
-    rust_page(&books);
+    index_page(&mdbooks);
+    errors_page(&mdbooks);
+    src_page(&mdbooks);
+    rust_page(&mdbooks);
 
     if errors > 0 {
         log::error!("There were {errors} errors");
@@ -144,65 +144,65 @@ fn main() {
     }
 }
 
-fn index_page(books: &Vec<MDBook>) {
+fn index_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks for which the source is also available available.\n";
     md += "The list is generated from the `mdbooks.yaml` file.\n\n";
     md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
     md += "| Title | Repo | Description | Comment |\n";
     md += "|-------|------|-------------|---------|\n";
-    for book in books {
+    for mdbook in mdbooks {
         md += format!(
             "| [{}]({}) | [repo]({}) | {} | {} |\n",
-            book.title,
-            book.site.clone().unwrap_or("".to_string()),
-            book.repo.url(),
-            book.description.clone().unwrap_or("".to_string()),
-            book.comment.clone().unwrap_or("".to_string()),
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            mdbook.description.clone().unwrap_or("".to_string()),
+            mdbook.comment.clone().unwrap_or("".to_string()),
         )
         .as_str();
     }
     std::fs::write("report/src/index.md", md).unwrap();
 }
 
-fn errors_page(books: &Vec<MDBook>) {
+fn errors_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# Errors in the mdbooks\n\n");
     md += "The errors are as reported by our parser. They might or might not be real problems.\n\n";
     md += "If you think the error is incorrect, please open an issue.\n\n";
     md += "We still need to clean up the error messages.\n\n";
 
-    for book in books {
-        if book.error.is_none() {
+    for mdbook in mdbooks {
+        if mdbook.error.is_none() {
             continue;
         }
         md += format!(
             "* [{}]({})\n* [repo]({})\n\n{}\n\n---\n\n",
-            book.title,
-            book.site.clone().unwrap_or("".to_string()),
-            book.repo.url(),
-            book.error.clone().unwrap_or("".to_string())
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            mdbook.error.clone().unwrap_or("".to_string())
         )
         .as_str();
     }
     std::fs::write("report/src/errors.md", md).unwrap();
 }
 
-fn src_page(books: &Vec<MDBook>) {
+fn src_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# The book.src field\n\n");
 
     md += "| Title | Repo | src |\n";
     md += "|-------|------|-------------|\n";
-    for book in books {
-        if book.book.is_none() {
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
             continue;
         }
 
-        let bk = book.book.as_ref().unwrap();
+        let bk = mdbook.book.as_ref().unwrap();
         md += format!(
             "| [{}]({}) | [repo]({}) | {} | \n",
-            book.title,
-            book.site.clone().unwrap_or("".to_string()),
-            book.repo.url(),
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
             if bk.book.src.is_none() {
                 "-".to_string()
             } else {
@@ -215,22 +215,22 @@ fn src_page(books: &Vec<MDBook>) {
     std::fs::write("report/src/src.md", md).unwrap();
 }
 
-fn rust_page(books: &Vec<MDBook>) {
+fn rust_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# The rust.edition field\n\n");
 
     md += "| Title | Repo | editon |\n";
     md += "|-------|------|-------------|\n";
-    for book in books {
-        if book.book.is_none() {
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
             continue;
         }
 
-        let bk = book.book.as_ref().unwrap();
+        let bk = mdbook.book.as_ref().unwrap();
         md += format!(
             "| [{}]({}) | [repo]({}) | {} | \n",
-            book.title,
-            book.site.clone().unwrap_or("".to_string()),
-            book.repo.url(),
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
             match &bk.rust {
                 None => String::new(),
                 Some(rust) => rust.edition.clone(),

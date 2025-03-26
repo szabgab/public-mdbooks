@@ -1,6 +1,6 @@
 # The rust.edition field
 
-| Title | Repo | editoon |
+| Title | Repo | editon |
 |-------|------|-------------|
 | [Async Book](https://rust-lang.github.io/async-book/index.html) | [repo](https://github.com/rust-lang/async-book) |  | 
 | [Async Std Book](https://book.async.rs/) | [repo](https://github.com/async-rs/async-std) |  | 
