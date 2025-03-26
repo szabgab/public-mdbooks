@@ -42,18 +42,6 @@ unknown field `author`, expected one of `title`, `src`, `language`, `text-direct
 
 ---
 
-* [Firefox Data Documentation]()
-* [repo](https://github.com/mozilla/data-docs)
-
-TOML parse error at line 1, column 1
-  |
-1 | [book]
-  | ^^^^^^
-missing field `authors`
-
-
----
-
 * [Pest Book](https://pest.rs/book/)
 * [repo](https://github.com/pest-parser/book)
 
@@ -62,18 +50,6 @@ TOML parse error at line 4, column 1
 4 | author = "Dragoș Tiselice"
   | ^^^^^^
 unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
-
-
----
-
-* [Rustdoc Book](https://doc.rust-lang.org/stable/rustdoc/)
-* [repo](https://github.com/rust-lang/rust)
-
-TOML parse error at line 1, column 1
-  |
-1 | [book]
-  | ^^^^^^
-missing field `authors`
 
 
 ---
@@ -111,13 +87,6 @@ TOML parse error at line 1, column 1
   | ^^^^^^^^^^^^^^^^^^^^^^^^
 missing field `book`
 
-
----
-
-* [The axum by examples book](https://axum.code-maven.com/)
-* [repo](https://github.com/szabgab/axum)
-
-book.toml does not exist
 
 ---
 

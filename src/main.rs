@@ -36,6 +36,7 @@ struct MDBook {
 struct BookToml {
     book: Book,
     rust: Option<Rust>,
+    build: Option<Build>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -48,7 +49,7 @@ struct Book {
     #[serde(alias = "text-direction")]
     text_direction: Option<String>,
     multilingual: Option<bool>,
-    authors: Vec<String>,
+    authors: Option<Vec<String>>,
     description: Option<String>,
 }
 
@@ -56,6 +57,15 @@ struct Book {
 #[serde(deny_unknown_fields)]
 struct Rust {
     edition: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Build {
+    #[serde(alias = "build-dir")]
+    build_dir: Option<String>,
+    #[serde(alias = "create-missing")]
+    create_missing: Option<bool>,
 }
 
 fn main() {
@@ -137,6 +147,7 @@ fn main() {
     errors_page(&mdbooks);
     src_page(&mdbooks);
     rust_page(&mdbooks);
+    build_page(&mdbooks);
 
     if errors > 0 {
         log::error!("There were {errors} errors");
@@ -240,6 +251,43 @@ fn rust_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/rust.md", md).unwrap();
+}
+
+fn build_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# The build table\n\n");
+
+    md += "| Title | Repo | build-dir | create-missing |\n";
+    md += "|-------|------|-------------|--------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let bk = mdbook.book.as_ref().unwrap();
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | {} |\n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            match &bk.build {
+                None => String::new(),
+                Some(build) => match build.build_dir.clone() {
+                    None => String::new(),
+                    Some(build_dir) => build_dir.clone(),
+                },
+            },
+            match &bk.build {
+                None => String::new(),
+                Some(build) => match build.create_missing.clone() {
+                    None => String::new(),
+                    Some(create_missing) => create_missing.to_string(),
+                },
+            }
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/build.md", md).unwrap();
 }
 
 fn read_the_mdbooks_file() -> Vec<MDBook> {
