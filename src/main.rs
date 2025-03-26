@@ -180,6 +180,7 @@ fn index_page(mdbooks: &Vec<MDBook>) {
     md += "This is a list of mdBooks for which the source is also available available.\n";
     md += "The list is generated from the `mdbooks.yaml` file.\n\n";
     md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
+    md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
     md += "| Title | Repo | Description | Comment |\n";
     md += "|-------|------|-------------|---------|\n";
     for mdbook in mdbooks {
@@ -198,10 +199,23 @@ fn index_page(mdbooks: &Vec<MDBook>) {
 
 fn errors_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# Errors in the mdbooks\n\n");
-    md += "The errors are as reported by our parser. They might or might not be real problems.\n\n";
-    md += "If you think the error is incorrect, please open an issue on [our repository](https://github.com/szabgab/public-mdbooks).\n\n";
-    md += "If you think the problem is with the specific mdbook, please open an issue on the repository of that mdbook.\n\n";
+
+    let count_errors = mdbooks
+        .iter()
+        .filter(|mdbook| mdbook.error.is_some())
+        .count();
+
+    md += "The errors are as reported by our parser. They might or might not be real problems.\n";
+    md += "If you think the error is incorrect, please open an issue on [our repository](https://github.com/szabgab/public-mdbooks).\n";
+    md += "If you think the problem is with the specific mdbook, please open an issue on the repository of that mdbook.\n";
     md += "We still need to clean up the error messages.\n\n";
+    md += format!(
+        "Total number of errors {} (in {} books)\n\n",
+        count_errors,
+        mdbooks.len()
+    )
+    .as_str();
+    md += "---\n\n";
 
     for mdbook in mdbooks {
         if mdbook.error.is_none() {
@@ -386,7 +400,7 @@ fn build_page(mdbooks: &Vec<MDBook>) {
             },
             match &bk.build {
                 None => String::new(),
-                Some(build) => match build.create_missing.clone() {
+                Some(build) => match build.create_missing {
                     None => String::new(),
                     Some(create_missing) => create_missing.to_string(),
                 },

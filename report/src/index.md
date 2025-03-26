@@ -5,6 +5,8 @@ The list is generated from the `mdbooks.yaml` file.
 
 If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.
 
+Total number of books: 62
+
 | Title | Repo | Description | Comment |
 |-------|------|-------------|---------|
 | [Async Book](https://rust-lang.github.io/async-book/index.html) | [repo](https://github.com/rust-lang/async-book) | Asynchronous Programming in Rust |  |
