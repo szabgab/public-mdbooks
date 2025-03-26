@@ -33,12 +33,18 @@ jobs:
         run: |
           cargo build
 
-      - name: Collect data
+      - name: Clone repositories
         env:
           RUST_LOG: debug
         run: |
           mkdir repos
-          cargo run
+          ./target/debug/public-mdbooks --clone
+
+      - name: Collect data
+        env:
+          RUST_LOG: debug
+        run: |
+          ./target/debug/public-mdbooks --repor
 
       - name: Download mdBook
         run: |
