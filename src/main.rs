@@ -27,6 +27,9 @@ struct BookMeta {
     site: Option<String>,
     description: Option<String>,
     comment: Option<String>,
+
+    book: Option<Book>,
+    error: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -55,12 +58,20 @@ fn main() {
 
     let repos_dir = std::fs::canonicalize("repos").unwrap();
 
-    let books = read_the_mdbooks_file();
+    let mut books = read_the_mdbooks_file();
 
     let mut count = 0;
-    for book in &books {
+    for book in &mut books {
         log::info!("book: {:?}", book);
-        book.repo.update_repository(&repos_dir, false).unwrap();
+        match book.repo.update_repository(&repos_dir, false) {
+            Ok(_) => {}
+            Err(err) => {
+                log::error!("Error updating repo: {:?}", err);
+                errors += 1;
+                book.error = Some(format!("{:?}", err));
+                continue;
+            }
+        }
         count += 1;
         if args.limit > 0 && count >= args.limit {
             break;
@@ -69,13 +80,13 @@ fn main() {
 
     log::info!("Start processing repos");
     let mut count = 0;
-    for book in books {
+    for book in &mut books {
         log::info!("book: {:?}", book);
         count += 1;
         if args.limit > 0 && count >= args.limit {
             break;
         }
-        let book_toml_file = if let Some(folder) = book.folder {
+        let book_toml_file = if let Some(folder) = book.folder.clone() {
             book.repo.path(&repos_dir).join(folder).join("book.toml")
         } else {
             book.repo.path(&repos_dir).join("book.toml")
@@ -85,6 +96,7 @@ fn main() {
         if !book_toml_file.exists() {
             log::error!("book.toml does not exist: {:?}", book_toml_file);
             errors += 1;
+            book.error = Some("book.toml does not exist".to_string());
             continue;
         }
 
@@ -95,6 +107,7 @@ fn main() {
             Err(err) => {
                 log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
                 errors += 1;
+                book.error = Some(format!("Error parsing toml {book_toml_file:?}: {:?}", err));
                 continue;
             }
         };
@@ -112,6 +125,23 @@ fn main() {
 
     //    std::process::exit(0);
     //}
+
+    let mut index_md = String::from("# mdbooks\n\n");
+    index_md += "| Title | Repo | Description | Comment | Error |\n";
+    index_md += "|-------|------|-------------|---------|-------|\n";
+    for book in books {
+        index_md += format!(
+            "| [{}]({}) | [repo]({}) | {} | {} | {} |\n",
+            book.title,
+            book.site.unwrap_or("".to_string()),
+            book.repo.url(),
+            book.description.unwrap_or("".to_string()),
+            book.comment.unwrap_or("".to_string()),
+            book.error.unwrap_or("".to_string())
+        )
+        .as_str();
+    }
+    std::fs::write("report/src/index.md", index_md).unwrap();
 
     if errors > 0 {
         log::error!("There were {errors} errors");
