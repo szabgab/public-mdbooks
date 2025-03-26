@@ -2,7 +2,9 @@
 
 The errors are as reported by our parser. They might or might not be real problems.
 
-If you think the error is incorrect, please open an issue.
+If you think the error is incorrect, please open an issue on [our repository](https://github.com/szabgab/public-mdbooks).
+
+If you think the problem is with the specific mdbook, please open an issue on the repository of that mdbook.
 
 We still need to clean up the error messages.
 
