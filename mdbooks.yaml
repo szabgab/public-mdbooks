@@ -1,6 +1,6 @@
 - title: Async Book
   description: Asynchronous Programming in Rust
-  repo: https://github.com/softprops/awesome-mdbook
+  repo: https://github.com/rust-lang/async-book
   site: https://rust-lang.github.io/async-book/index.html
 
 - title: Async Std Book

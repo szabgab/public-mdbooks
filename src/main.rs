@@ -1,14 +1,27 @@
-use std::path::PathBuf;
-
+use clap::Parser;
 use serde::{Deserialize, Serialize};
 
-use git_digger::get_owner_and_repo;
+use git_digger::Repository;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Parser, Debug)]
+#[command(version)]
+struct Cli {
+    #[arg(
+        long,
+        default_value_t = 0,
+        help = "Limit the number of repos we process."
+    )]
+    limit: u32,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
 struct BookMeta {
     title: String,
-    repo: String,
-    site: String,
+
+    #[serde(deserialize_with = "from_url")]
+    repo: Repository,
+    site: Option<String>,
     comment: Option<String>,
 }
 
@@ -31,32 +44,60 @@ struct BookToml {
 }
 
 fn main() {
-    let repos_dir = "repos";
+    env_logger::init();
+    let args = Cli::parse();
+
+    let repos_dir = std::fs::canonicalize("repos").unwrap();
 
     let books = read_the_mdbooks_file();
+
+    let mut count = 0;
+    for book in &books {
+        log::info!("book: {:?}", book);
+        book.repo.update_repository(&repos_dir, false).unwrap();
+        count += 1;
+        if args.limit > 0 && count >= args.limit {
+            break;
+        }
+    }
+
+    log::info!("Start processing repos");
+    let mut count = 0;
     for book in books {
-        println!("{:?}", book);
-        git_clone_repository(&book.repo);
-        // //     let book_toml = temp_dir.join("book.toml");
-        // //     let content = std::fs::read_to_string(book_toml).unwrap();
-        // //     let data = toml::from_str::<toml::Value>(&content).unwrap();
-    }
-    // println!("-------");
+        log::info!("book: {:?}", book);
+        count += 1;
+        if args.limit > 0 && count >= args.limit {
+            break;
+        }
+        let book_toml = book.repo.path(&repos_dir).join("book.toml");
+        if !book_toml.exists() {
+            log::error!("book.toml does not exist: {:?}", book_toml);
+            continue;
+        }
 
-    //list content of a directory
-    let path = PathBuf::from(repos_dir);
-    let entries = std::fs::read_dir(path).unwrap();
-    for entry in entries {
-        let entry = entry.unwrap();
-        let path = entry.path();
-        println!("{:?}", path);
-        let book_toml = path.join("book.toml");
-        let content = std::fs::read_to_string(book_toml).unwrap();
-        let data = toml::from_str::<BookToml>(&content).unwrap();
+        let content = std::fs::read_to_string(&book_toml).unwrap();
 
+        let data = match toml::from_str::<BookToml>(&content) {
+            Ok(data) => data,
+            Err(err) => {
+                log::error!("Error parsing toml {book_toml:?}: {:?}", err);
+                continue;
+            }
+        };
         println!("{:?}", data);
-        // std::process::exit(0);
     }
+
+    // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
+    //list content of a directory
+    //let path = PathBuf::from(repos_dir);
+    //let entries = std::fs::read_dir(path).unwrap();
+    //for entry in entries {
+    //    let entry = entry.unwrap();
+    //    let path = entry.path();
+    //    println!("{:?}", path);
+
+    //    std::process::exit(0);
+    //}
 }
 
 fn read_the_mdbooks_file() -> Vec<BookMeta> {
@@ -65,22 +106,13 @@ fn read_the_mdbooks_file() -> Vec<BookMeta> {
     books
 }
 
-fn git_clone_repository(repo: &str) {
-    let (host, owner, name) = get_owner_and_repo(repo);
+use serde::de;
 
-    //let temp_dir = std::env::temp_dir();
-    //let temp_dir = temp_dir.join("mdbooks");
-    //let temp_dir = temp_dir.join(repo);
-    //let temp_dir_str = temp_dir.to_str().unwrap();
-    //let _ = std::fs::create_dir_all(temp_dir_str);
-    //let _ = git2::Repository::clone(repo, temp_dir_str);
-}
-
-fn repo_to_path(repo: &str) -> PathBuf {
-    let mut path = PathBuf::from("repos");
-    let parts: Vec<&str> = repo.split('/').collect();
-    for part in parts {
-        path.push(part);
-    }
-    path
+fn from_url<'de, D>(deserializer: D) -> Result<Repository, D::Error>
+where
+    D: de::Deserializer<'de>,
+{
+    let s = String::deserialize(deserializer)?;
+    let r = Repository::from_url(&s).unwrap();
+    Ok(r)
 }
