@@ -9,12 +9,12 @@ Total number of errors 10 (in 62 books)
 
 ---
 
-* [The cargo book](https://doc.rust-lang.org/cargo/)
-* [repo](https://github.com/rust-lang/cargo)
+* [Discovery f3](https://docs.rust-embedded.org/discovery/f3discovery/)
+* [repo](https://github.com/rust-embedded/discovery)
 
-TOML parse error at line 3, column 1
+TOML parse error at line 4, column 1
   |
-3 | author = "Alex Crichton, Steve Klabnik and Carol Nichols, with contributions from the Rust community"
+4 | author = "Rust Embedded Resources Team"
   | ^^^^^^
 unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
 
@@ -33,36 +33,12 @@ unknown field `author`, expected one of `title`, `src`, `language`, `text-direct
 
 ---
 
-* [Discovery f3](https://docs.rust-embedded.org/discovery/f3discovery/)
-* [repo](https://github.com/rust-embedded/discovery)
-
-TOML parse error at line 4, column 1
-  |
-4 | author = "Rust Embedded Resources Team"
-  | ^^^^^^
-unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
-
-
----
-
 * [Pest Book](https://pest.rs/book/)
 * [repo](https://github.com/pest-parser/book)
 
 TOML parse error at line 4, column 1
   |
 4 | author = "Dragoș Tiselice"
-  | ^^^^^^
-unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
-
-
----
-
-* [Rust and Web Assembly](https://rustwasm.github.io/book/)
-* [repo](https://github.com/rustwasm/book)
-
-TOML parse error at line 3, column 1
-  |
-3 | author = "The Rust and WebAssembly Working Group"
   | ^^^^^^
 unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
 
@@ -93,14 +69,38 @@ missing field `book`
 
 ---
 
-* [maubot]()
-* [repo](https://github.com/mautrix/docs)
+* [Rust and Web Assembly](https://rustwasm.github.io/book/)
+* [repo](https://github.com/rustwasm/book)
 
-TOML parse error at line 7, column 1
+TOML parse error at line 3, column 1
   |
-7 | site-url = "/maubot/"
+3 | author = "The Rust and WebAssembly Working Group"
+  | ^^^^^^
+unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
+
+
+---
+
+* [Telegram Bots Book](https://telegrambots.github.io/book/)
+* [repo](https://github.com/telegrambots/book)
+
+TOML parse error at line 6, column 1
+  |
+6 | site-url = "https://telegrambots.github.io/book/"
   | ^^^^^^^^
 unknown field `site-url`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
+
+
+---
+
+* [The cargo book](https://doc.rust-lang.org/cargo/)
+* [repo](https://github.com/rust-lang/cargo)
+
+TOML parse error at line 3, column 1
+  |
+3 | author = "Alex Crichton, Steve Klabnik and Carol Nichols, with contributions from the Rust community"
+  | ^^^^^^
+unknown field `author`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
 
 
 ---
@@ -117,12 +117,12 @@ unknown field `git-repository-url`, expected one of `title`, `src`, `language`, 
 
 ---
 
-* [Telegram Bots Book](https://telegrambots.github.io/book/)
-* [repo](https://github.com/telegrambots/book)
+* [maubot]()
+* [repo](https://github.com/mautrix/docs)
 
-TOML parse error at line 6, column 1
+TOML parse error at line 7, column 1
   |
-6 | site-url = "https://telegrambots.github.io/book/"
+7 | site-url = "/maubot/"
   | ^^^^^^^^
 unknown field `site-url`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
 

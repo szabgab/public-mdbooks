@@ -563,7 +563,8 @@ fn extra_page(mdbooks: &Vec<MDBook>) {
 
 fn read_the_mdbooks_file() -> Vec<MDBook> {
     let file = std::fs::read_to_string("mdbooks.yaml").unwrap();
-    let books: Vec<MDBook> = serde_yaml::from_str(&file).unwrap();
+    let mut books: Vec<MDBook> = serde_yaml::from_str(&file).unwrap();
+    books.sort_by(|a, b| a.title.cmp(&b.title));
     books
 }
 
