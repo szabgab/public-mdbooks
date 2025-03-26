@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 use toml::{Table, Value, map::Map};
@@ -83,7 +85,6 @@ struct Build {
 fn main() {
     env_logger::init();
     let args = Cli::parse();
-    let mut errors = 0;
 
     let repos_dir = std::fs::canonicalize("repos").unwrap();
 
@@ -97,7 +98,6 @@ fn main() {
                 Ok(_) => {}
                 Err(err) => {
                     log::error!("Error updating repo: {:?}", err);
-                    errors += 1;
                     mdbook.error = Some(format!("{:?}", err));
                     continue;
                 }
@@ -112,7 +112,11 @@ fn main() {
     if args.report {
         log::info!("Start processing repos");
         let mut count = 0;
-        std::fs::create_dir("report/src").unwrap();
+        let src_path = Path::new("report/src");
+        if !src_path.exists() {
+            std::fs::create_dir("report/src").unwrap();
+        }
+
         std::fs::copy("report/SUMMARY.md", "report/src/SUMMARY.md").unwrap();
         for mdbook in &mut mdbooks {
             log::info!("book: {:?}", mdbook);
@@ -129,7 +133,6 @@ fn main() {
             log::info!("book.toml: {:?}", book_toml_file);
             if !book_toml_file.exists() {
                 log::error!("book.toml does not exist: {:?}", book_toml_file);
-                errors += 1;
                 mdbook.error = Some("book.toml does not exist".to_string());
                 continue;
             }
@@ -140,7 +143,6 @@ fn main() {
                 Ok(data) => data,
                 Err(err) => {
                     log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
-                    errors += 1;
                     mdbook.error = Some(err.to_string());
                     continue;
                 }
@@ -152,7 +154,6 @@ fn main() {
                 Ok(data) => data,
                 Err(err) => {
                     log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
-                    errors += 1;
                     mdbook.error = Some(err.to_string());
                     continue;
                 }
@@ -185,8 +186,13 @@ fn main() {
         extra_page(&mdbooks);
     }
 
-    if errors > 0 {
-        log::error!("There were {errors} errors");
+    let count_errors = mdbooks
+        .iter()
+        .filter(|mdbook| mdbook.error.is_some())
+        .count();
+
+    if count_errors > 0 {
+        log::error!("There were {count_errors} errors");
         //std::process::exit(1);
     }
 }
