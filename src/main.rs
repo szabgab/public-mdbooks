@@ -13,6 +13,12 @@ struct Cli {
         help = "Limit the number of repos we process."
     )]
     limit: u32,
+
+    #[arg(long, help = "Clone the repositories")]
+    clone: bool,
+
+    #[arg(long, help = "Create the report")]
+    report: bool,
 }
 
 #[derive(Debug, Deserialize)]
@@ -83,95 +89,99 @@ fn main() {
 
     let mut mdbooks = read_the_mdbooks_file();
 
-    let mut count = 0;
-    for mdbook in &mut mdbooks {
-        log::info!("book: {:?}", mdbook);
-        match mdbook.repo.update_repository(&repos_dir, false) {
-            Ok(_) => {}
-            Err(err) => {
-                log::error!("Error updating repo: {:?}", err);
-                errors += 1;
-                mdbook.error = Some(format!("{:?}", err));
-                continue;
+    if args.clone {
+        let mut count = 0;
+        for mdbook in &mut mdbooks {
+            log::info!("book: {:?}", mdbook);
+            match mdbook.repo.update_repository(&repos_dir, false) {
+                Ok(_) => {}
+                Err(err) => {
+                    log::error!("Error updating repo: {:?}", err);
+                    errors += 1;
+                    mdbook.error = Some(format!("{:?}", err));
+                    continue;
+                }
             }
-        }
-        count += 1;
-        if args.limit > 0 && count >= args.limit {
-            break;
+            count += 1;
+            if args.limit > 0 && count >= args.limit {
+                break;
+            }
         }
     }
 
-    log::info!("Start processing repos");
-    let mut count = 0;
-    for mdbook in &mut mdbooks {
-        log::info!("book: {:?}", mdbook);
-        count += 1;
-        if args.limit > 0 && count >= args.limit {
-            break;
-        }
-        let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
-            mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
-        } else {
-            mdbook.repo.path(&repos_dir).join("book.toml")
-        };
+    if args.report {
+        log::info!("Start processing repos");
+        let mut count = 0;
+        for mdbook in &mut mdbooks {
+            log::info!("book: {:?}", mdbook);
+            count += 1;
+            if args.limit > 0 && count >= args.limit {
+                break;
+            }
+            let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
+                mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
+            } else {
+                mdbook.repo.path(&repos_dir).join("book.toml")
+            };
 
-        log::info!("book.toml: {:?}", book_toml_file);
-        if !book_toml_file.exists() {
-            log::error!("book.toml does not exist: {:?}", book_toml_file);
-            errors += 1;
-            mdbook.error = Some("book.toml does not exist".to_string());
-            continue;
-        }
-
-        let content = std::fs::read_to_string(&book_toml_file).unwrap();
-
-        let everything = match toml::from_str::<Table>(&content) {
-            Ok(data) => data,
-            Err(err) => {
-                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+            log::info!("book.toml: {:?}", book_toml_file);
+            if !book_toml_file.exists() {
+                log::error!("book.toml does not exist: {:?}", book_toml_file);
                 errors += 1;
-                mdbook.error = Some(err.to_string());
+                mdbook.error = Some("book.toml does not exist".to_string());
                 continue;
             }
-        };
 
-        mdbook.everything = Some(everything);
+            let content = std::fs::read_to_string(&book_toml_file).unwrap();
 
-        let data = match toml::from_str::<BookToml>(&content) {
-            Ok(data) => data,
-            Err(err) => {
-                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
-                errors += 1;
-                mdbook.error = Some(err.to_string());
-                continue;
-            }
-        };
-        mdbook.book = Some(data);
+            let everything = match toml::from_str::<Table>(&content) {
+                Ok(data) => data,
+                Err(err) => {
+                    log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+                    errors += 1;
+                    mdbook.error = Some(err.to_string());
+                    continue;
+                }
+            };
+
+            mdbook.everything = Some(everything);
+
+            let data = match toml::from_str::<BookToml>(&content) {
+                Ok(data) => data,
+                Err(err) => {
+                    log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+                    errors += 1;
+                    mdbook.error = Some(err.to_string());
+                    continue;
+                }
+            };
+            mdbook.book = Some(data);
+        }
+
+        // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
+        //list content of a directory
+        //let path = PathBuf::from(repos_dir);
+        //let entries = std::fs::read_dir(path).unwrap();
+        //for entry in entries {
+        //    let entry = entry.unwrap();
+        //    let path = entry.path();
+        //    println!("{:?}", path);
+
+        //    std::process::exit(0);
+        //}
+
+        index_page(&mdbooks);
+        errors_page(&mdbooks);
+        src_page(&mdbooks);
+        language_page(&mdbooks);
+        text_direction_page(&mdbooks);
+        multilingual_page(&mdbooks);
+        rust_page(&mdbooks);
+        build_page(&mdbooks);
+        output_page(&mdbooks);
+        preprocessor_page(&mdbooks);
+        extra_page(&mdbooks);
     }
-
-    // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
-    //list content of a directory
-    //let path = PathBuf::from(repos_dir);
-    //let entries = std::fs::read_dir(path).unwrap();
-    //for entry in entries {
-    //    let entry = entry.unwrap();
-    //    let path = entry.path();
-    //    println!("{:?}", path);
-
-    //    std::process::exit(0);
-    //}
-
-    index_page(&mdbooks);
-    errors_page(&mdbooks);
-    src_page(&mdbooks);
-    language_page(&mdbooks);
-    text_direction_page(&mdbooks);
-    multilingual_page(&mdbooks);
-    rust_page(&mdbooks);
-    build_page(&mdbooks);
-    output_page(&mdbooks);
-    preprocessor_page(&mdbooks);
-    extra_page(&mdbooks);
 
     if errors > 0 {
         log::error!("There were {errors} errors");
