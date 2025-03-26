@@ -116,3 +116,27 @@ unknown field `git-repository-url`, expected one of `title`, `src`, `language`, 
 
 ---
 
+* [Lute manual](https://luteorg.github.io/lute-manual/)
+* [repo](https://github.com/luteorg/lute-manual)
+
+TOML parse error at line 10, column 1
+   |
+10 | extra-watch-dirs = [ "css" ]
+   | ^^^^^^^^^^^^^^^^
+unknown field `extra-watch-dirs`, expected one of `build-dir`, `build_dir`, `create-missing`, `create_missing`
+
+
+---
+
+* [Telegram Bots Book](https://telegrambots.github.io/book/)
+* [repo](https://github.com/telegrambots/book)
+
+TOML parse error at line 6, column 1
+  |
+6 | site-url = "https://telegrambots.github.io/book/"
+  | ^^^^^^^^
+unknown field `site-url`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
+
+
+---
+

@@ -36,3 +36,14 @@
 | [Physics-Based Simulation]() | [repo](https://github.com/phys-sim-book/mdbook-src) | src | 
 | [EA-practices in Chinese]() | [repo](https://github.com/tonydeng/ea-practices) | . | 
 | [Uniswap V3 Development Book](https://uniswapv3book.com/) | [repo](https://github.com/jeiwan/uniswapv3-book) | src | 
+| [Unofficial Bevy Cheat Book](https://bevy-cheatbook.github.io/) | [repo](https://github.com/bevy-cheatbook/bevy-cheatbook) | src | 
+| [The Rust on ESP Book](https://docs.esp-rs.org/book/) | [repo](https://github.com/esp-rs/book) | - | 
+| [Modern Java](https://together-java.github.io/ModernJava/) | [repo](https://github.com/together-java/modernjava) | - | 
+| [Cryptonotes](https://crypto.erhant.me/) | [repo](https://github.com/erhant/crypto-notes) | content | 
+| [Deutschsprachiges Handbuch für museum-digital](https://de.handbook.museum-digital.info/) | [repo](https://github.com/museum-digital/handbook-de) | src | 
+| [Revolt Wiki](https://developers.revolt.chat/) | [repo](https://github.com/revoltchat/wiki) | src | 
+| [Rust Tiếng Việt](https://rust-tieng-viet.github.io/) | [repo](https://github.com/rust-tieng-viet/rust-tieng-viet.github.io) | src | 
+| [Lean by Example](https://lean-ja.github.io/lean-by-example/) | [repo](https://github.com/lean-ja/lean-by-example) | booksrc | 
+| [Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz](https://szfmv2021-osz.github.io/handout/) | [repo](https://github.com/pintergreg/handout) | src | 
+| [r/GraphicsProgramming Wiki](https://cody-duncan.github.io/r-graphicsprogramming-wiki/) | [repo](https://github.com/cody-duncan/r-graphicsprogramming-wiki) | src | 
+| [Programme informatique du concours d'inspecteur PSE](https://mghrepo.github.io/pse-mdbook/) | [repo](https://github.com/mghrepo/pse-mdbook) | src | 

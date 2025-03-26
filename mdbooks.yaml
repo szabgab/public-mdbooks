@@ -200,3 +200,59 @@
   repo: https://github.com/soupi/learn-haskell-blog-generator
   site: https://learn-haskell.blog/
 
+- title: Unofficial Bevy Cheat Book
+  repo: https://github.com/bevy-cheatbook/bevy-cheatbook
+  site: https://bevy-cheatbook.github.io/
+
+- title: The Rust on ESP Book
+  repo: https://github.com/esp-rs/book
+  site: https://docs.esp-rs.org/book/
+
+- title: Modern Java
+  repo: https://github.com/Together-Java/ModernJava
+  site: https://together-java.github.io/ModernJava/
+
+- title: Lute manual
+  repo: https://github.com/LuteOrg/lute-manual
+  site: https://luteorg.github.io/lute-manual/
+
+- title: Cryptonotes
+  repo: https://github.com/erhant/crypto-notes
+  site: https://crypto.erhant.me/
+
+- title: Telegram Bots Book
+  repo: https://github.com/TelegramBots/book
+  site: https://telegrambots.github.io/book/
+
+- title: Deutschsprachiges Handbuch für museum-digital
+  repo: https://github.com/museum-digital/handbook-de
+  site: https://de.handbook.museum-digital.info/
+  comment: German
+
+- title: Revolt Wiki
+  repo: https://github.com/revoltchat/wiki
+  site: https://developers.revolt.chat/
+
+- title: Rust Tiếng Việt
+  repo: https://github.com/rust-tieng-viet/rust-tieng-viet.github.io
+  site: https://rust-tieng-viet.github.io/
+  comment: Vietnamese
+
+- title: Lean by Example
+  repo: https://github.com/lean-ja/lean-by-example
+  site: https://lean-ja.github.io/lean-by-example/
+  comment: Japanese
+
+- title: Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz
+  repo: https://github.com/pintergreg/handout
+  site: https://szfmv2021-osz.github.io/handout/
+  comment: Hungarian
+
+- title: r/GraphicsProgramming Wiki
+  repo: https://github.com/Cody-Duncan/r-graphicsprogramming-wiki
+  site: https://cody-duncan.github.io/r-graphicsprogramming-wiki/
+
+- title: Programme informatique du concours d'inspecteur PSE
+  repo: https://github.com/MghRepo/pse-mdbook
+  site: https://mghrepo.github.io/pse-mdbook/
+  comment: French

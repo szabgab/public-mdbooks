@@ -36,3 +36,14 @@
 | [Physics-Based Simulation]() | [repo](https://github.com/phys-sim-book/mdbook-src) | output preprocessor  | 
 | [EA-practices in Chinese]() | [repo](https://github.com/tonydeng/ea-practices) | output preprocessor  | 
 | [Uniswap V3 Development Book](https://uniswapv3book.com/) | [repo](https://github.com/jeiwan/uniswapv3-book) | output preprocessor  | 
+| [Unofficial Bevy Cheat Book](https://bevy-cheatbook.github.io/) | [repo](https://github.com/bevy-cheatbook/bevy-cheatbook) | output  | 
+| [The Rust on ESP Book](https://docs.esp-rs.org/book/) | [repo](https://github.com/esp-rs/book) | output preprocessor  | 
+| [Modern Java](https://together-java.github.io/ModernJava/) | [repo](https://github.com/together-java/modernjava) | output  | 
+| [Cryptonotes](https://crypto.erhant.me/) | [repo](https://github.com/erhant/crypto-notes) | output preprocessor  | 
+| [Deutschsprachiges Handbuch für museum-digital](https://de.handbook.museum-digital.info/) | [repo](https://github.com/museum-digital/handbook-de) | output preprocessor  | 
+| [Revolt Wiki](https://developers.revolt.chat/) | [repo](https://github.com/revoltchat/wiki) | output preprocessor  | 
+| [Rust Tiếng Việt](https://rust-tieng-viet.github.io/) | [repo](https://github.com/rust-tieng-viet/rust-tieng-viet.github.io) | output  | 
+| [Lean by Example](https://lean-ja.github.io/lean-by-example/) | [repo](https://github.com/lean-ja/lean-by-example) | output preprocessor  | 
+| [Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz](https://szfmv2021-osz.github.io/handout/) | [repo](https://github.com/pintergreg/handout) | output  | 
+| [r/GraphicsProgramming Wiki](https://cody-duncan.github.io/r-graphicsprogramming-wiki/) | [repo](https://github.com/cody-duncan/r-graphicsprogramming-wiki) | output  | 
+| [Programme informatique du concours d'inspecteur PSE](https://mghrepo.github.io/pse-mdbook/) | [repo](https://github.com/mghrepo/pse-mdbook) |  | 
