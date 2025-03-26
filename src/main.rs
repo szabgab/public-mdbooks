@@ -175,7 +175,7 @@ fn main() {
 
     if errors > 0 {
         log::error!("There were {errors} errors");
-        std::process::exit(1);
+        //std::process::exit(1);
     }
 }
 
