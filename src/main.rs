@@ -165,6 +165,8 @@ fn main() {
     multilingual_page(&mdbooks);
     rust_page(&mdbooks);
     build_page(&mdbooks);
+    output_page(&mdbooks);
+    preprocessor_page(&mdbooks);
     extra_page(&mdbooks);
 
     if errors > 0 {
@@ -396,13 +398,102 @@ fn build_page(mdbooks: &Vec<MDBook>) {
     std::fs::write("report/src/build.md", md).unwrap();
 }
 
+fn output_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# output\n\n");
+
+    md += "| Title | Repo | output field | \n";
+    md += "|-------|------|-------------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let table = mdbook.everything.as_ref().unwrap();
+        let fields = match table.get("output") {
+            None => String::new(),
+            Some(output) => {
+                let mut fields = String::new();
+                match output {
+                    Value::Table(t) => {
+                        t.iter().for_each(|(k, _v)| {
+                            fields += k;
+                            fields += " ";
+                        });
+                    }
+                    _ => {
+                        fields += "unknown";
+                    }
+                }
+                fields
+            }
+        };
+
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            fields,
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/output.md", md).unwrap();
+}
+
+fn preprocessor_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# preprocessor\n\n");
+
+    md += "| Title | Repo | preprocessor field | \n";
+    md += "|-------|------|-------------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let table = mdbook.everything.as_ref().unwrap();
+        let fields = match table.get("preprocessor") {
+            None => String::new(),
+            Some(preprocessor) => {
+                let mut fields = String::new();
+                match preprocessor {
+                    Value::Table(t) => {
+                        t.iter().for_each(|(k, _v)| {
+                            fields += k;
+                            fields += " ";
+                        });
+                    }
+                    _ => {
+                        fields += "unknown";
+                    }
+                }
+                fields
+            }
+        };
+
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            fields,
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/preprocessor.md", md).unwrap();
+}
+
 fn extra_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# Extra fields in book.toml\n\n");
+    md += "We have not dealt with these fields yet. If there are any fields here that should be probably reported as an error.\n\n";
 
     let known = [
         String::from("book"),
         String::from("rust"),
         String::from("build"),
+        String::from("output"),
+        String::from("preprocessor"),
     ];
 
     md += "| Title | Repo | extra fields | \n";
@@ -416,11 +507,14 @@ fn extra_page(mdbooks: &Vec<MDBook>) {
         let mut fields = String::new();
         table
             .iter()
-            .filter(|(k, v)| !known.contains(*k))
-            .for_each(|(k, v)| {
+            .filter(|(k, _v)| !known.contains(*k))
+            .for_each(|(k, _v)| {
                 fields += k;
                 fields += " ";
             });
+        if fields.is_empty() {
+            fields = String::from("-");
+        }
 
         md += format!(
             "| [{}]({}) | [repo]({}) | {} | \n",
