@@ -39,6 +39,7 @@
 | [Unofficial Bevy Cheat Book](https://bevy-cheatbook.github.io/) | [repo](https://github.com/bevy-cheatbook/bevy-cheatbook) | html  | 
 | [The Rust on ESP Book](https://docs.esp-rs.org/book/) | [repo](https://github.com/esp-rs/book) | html  | 
 | [Modern Java](https://together-java.github.io/ModernJava/) | [repo](https://github.com/together-java/modernjava) | html  | 
+| [Lute manual](https://luteorg.github.io/lute-manual/) | [repo](https://github.com/luteorg/lute-manual) | html  | 
 | [Cryptonotes](https://crypto.erhant.me/) | [repo](https://github.com/erhant/crypto-notes) | html  | 
 | [Deutschsprachiges Handbuch für museum-digital](https://de.handbook.museum-digital.info/) | [repo](https://github.com/museum-digital/handbook-de) | html linkcheck  | 
 | [Revolt Wiki](https://developers.revolt.chat/) | [repo](https://github.com/revoltchat/wiki) | html  | 
@@ -47,6 +48,7 @@
 | [Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz](https://szfmv2021-osz.github.io/handout/) | [repo](https://github.com/pintergreg/handout) | html  | 
 | [r/GraphicsProgramming Wiki](https://cody-duncan.github.io/r-graphicsprogramming-wiki/) | [repo](https://github.com/cody-duncan/r-graphicsprogramming-wiki) | html  | 
 | [Programme informatique du concours d'inspecteur PSE](https://mghrepo.github.io/pse-mdbook/) | [repo](https://github.com/mghrepo/pse-mdbook) |  | 
+| [Doc-Share](https://mr-addict.github.io/Doc-Share/) | [repo](https://github.com/mr-addict/doc-share) | html  | 
 | [privacy.noarch](https://privacy.n0ar.ch/) | [repo](https://github.com/privacy-noarch/privacy) | html  | 
 | [Let's Build a Compiler -- pretty](https://xmonader.github.io/letsbuildacompiler-pretty/) | [repo](https://github.com/xmonader/letsbuildacompiler-pretty) | html  | 
 | [XJTU-ICS Textbook](https://xjtu-ics.github.io/textbook/) | [repo](https://github.com/xjtu-ics/textbook) | html  | 

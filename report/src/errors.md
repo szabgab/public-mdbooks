@@ -5,7 +5,7 @@ If you think the error is incorrect, please open an issue on [our repository](ht
 If you think the problem is with the specific mdbook, please open an issue on the repository of that mdbook.
 We still need to clean up the error messages.
 
-Total number of errors 12 (in 62 books)
+Total number of errors 10 (in 62 books)
 
 ---
 
@@ -117,18 +117,6 @@ unknown field `git-repository-url`, expected one of `title`, `src`, `language`, 
 
 ---
 
-* [Lute manual](https://luteorg.github.io/lute-manual/)
-* [repo](https://github.com/luteorg/lute-manual)
-
-TOML parse error at line 10, column 1
-   |
-10 | extra-watch-dirs = [ "css" ]
-   | ^^^^^^^^^^^^^^^^
-unknown field `extra-watch-dirs`, expected one of `build-dir`, `build_dir`, `create-missing`, `create_missing`
-
-
----
-
 * [Telegram Bots Book](https://telegrambots.github.io/book/)
 * [repo](https://github.com/telegrambots/book)
 
@@ -137,18 +125,6 @@ TOML parse error at line 6, column 1
 6 | site-url = "https://telegrambots.github.io/book/"
   | ^^^^^^^^
 unknown field `site-url`, expected one of `title`, `src`, `language`, `text-direction`, `text_direction`, `multilingual`, `authors`, `description`
-
-
----
-
-* [Doc-Share](https://mr-addict.github.io/Doc-Share/)
-* [repo](https://github.com/mr-addict/doc-share)
-
-TOML parse error at line 10, column 1
-   |
-10 | use-default-preprocessors = false
-   | ^^^^^^^^^^^^^^^^^^^^^^^^^
-unknown field `use-default-preprocessors`, expected one of `build-dir`, `build_dir`, `create-missing`, `create_missing`
 
 
 ---

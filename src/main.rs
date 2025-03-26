@@ -68,6 +68,10 @@ struct Build {
     build_dir: Option<String>,
     #[serde(alias = "create-missing")]
     create_missing: Option<bool>,
+    #[serde(alias = "extra-watch-dirs")]
+    extra_watch_dirs: Option<Vec<String>>,
+    #[serde(alias = "use-default-preprocessors")]
+    use_default_preprocessors: Option<bool>,
 }
 
 fn main() {
@@ -378,8 +382,8 @@ fn rust_page(mdbooks: &Vec<MDBook>) {
 fn build_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# The build table\n\n");
 
-    md += "| Title | Repo | build-dir | create-missing |\n";
-    md += "|-------|------|-------------|--------| \n";
+    md += "| Title | Repo | build-dir | create-missing | extra-watch-dirs | use-default-preprocessors |\n";
+    md += "|-------|------|-------------|--------|------|------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -387,7 +391,7 @@ fn build_page(mdbooks: &Vec<MDBook>) {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | {} |\n",
+            "| [{}]({}) | [repo]({}) | {} | {} | {} | {} |\n",
             mdbook.title,
             mdbook.site.clone().unwrap_or("".to_string()),
             mdbook.repo.url(),
@@ -403,6 +407,20 @@ fn build_page(mdbooks: &Vec<MDBook>) {
                 Some(build) => match build.create_missing {
                     None => String::new(),
                     Some(create_missing) => create_missing.to_string(),
+                },
+            },
+            match &bk.build {
+                None => String::new(),
+                Some(build) => match build.extra_watch_dirs.clone() {
+                    None => String::new(),
+                    Some(extra_wath_dirs) => extra_wath_dirs.join(","),
+                },
+            },
+            match &bk.build {
+                None => String::new(),
+                Some(build) => match build.use_default_preprocessors {
+                    None => String::new(),
+                    Some(use_default_preprocessors) => use_default_preprocessors.to_string(),
                 },
             }
         )
