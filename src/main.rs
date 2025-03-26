@@ -112,8 +112,6 @@ fn main() {
             }
         };
         book.book = Some(data);
-
-        //println!("{:?}", data);
     }
 
     // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
@@ -128,14 +126,25 @@ fn main() {
     //    std::process::exit(0);
     //}
 
-    let mut index_md = String::from("# Public mdBooks\n\n");
-    index_md += "This is a list of mdBooks for which the source is also available available.\n";
-    index_md += "The list is generated from the `mdbooks.yaml` file.\n\n";
-    index_md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
-    index_md += "| Title | Repo | Description | Comment |\n";
-    index_md += "|-------|------|-------------|---------|\n";
-    for book in &books {
-        index_md += format!(
+    index_page(&books);
+    errors_page(&books);
+    src_page(&books);
+
+    if errors > 0 {
+        log::error!("There were {errors} errors");
+        std::process::exit(1);
+    }
+}
+
+fn index_page(books: &Vec<BookMeta>) {
+    let mut md = String::from("# Public mdBooks\n\n");
+    md += "This is a list of mdBooks for which the source is also available available.\n";
+    md += "The list is generated from the `mdbooks.yaml` file.\n\n";
+    md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
+    md += "| Title | Repo | Description | Comment |\n";
+    md += "|-------|------|-------------|---------|\n";
+    for book in books {
+        md += format!(
             "| [{}]({}) | [repo]({}) | {} | {} |\n",
             book.title,
             book.site.clone().unwrap_or("".to_string()),
@@ -145,36 +154,29 @@ fn main() {
         )
         .as_str();
     }
-    std::fs::write("report/src/index.md", index_md).unwrap();
+    std::fs::write("report/src/index.md", md).unwrap();
+}
 
-    src_page(&books);
-
-    // Errors
-    let mut index_md = String::from("# Errors in the mdbooks\n\n");
-    index_md +=
-        "The errors are as reported by our parser. They might or might not be real problems.\n\n";
-    index_md += "If you think the error is incorrect, please open an issue.\n\n";
-    index_md += "We still need to clean up the error messages.\n\n";
+fn errors_page(books: &Vec<BookMeta>) {
+    let mut md = String::from("# Errors in the mdbooks\n\n");
+    md += "The errors are as reported by our parser. They might or might not be real problems.\n\n";
+    md += "If you think the error is incorrect, please open an issue.\n\n";
+    md += "We still need to clean up the error messages.\n\n";
 
     for book in books {
         if book.error.is_none() {
             continue;
         }
-        index_md += format!(
+        md += format!(
             "* [{}]({})\n* [repo]({})\n\n{}\n\n---\n\n",
             book.title,
-            book.site.unwrap_or("".to_string()),
+            book.site.clone().unwrap_or("".to_string()),
             book.repo.url(),
-            book.error.unwrap_or("".to_string())
+            book.error.clone().unwrap_or("".to_string())
         )
         .as_str();
     }
-    std::fs::write("report/src/errors.md", index_md).unwrap();
-
-    if errors > 0 {
-        log::error!("There were {errors} errors");
-        std::process::exit(1);
-    }
+    std::fs::write("report/src/errors.md", md).unwrap();
 }
 
 fn src_page(books: &Vec<BookMeta>) {
