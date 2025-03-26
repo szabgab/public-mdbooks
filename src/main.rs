@@ -16,12 +16,16 @@ struct Cli {
 
 #[derive(Debug, Deserialize)]
 #[allow(unused)]
+#[serde(deny_unknown_fields)]
 struct BookMeta {
     title: String,
 
     #[serde(deserialize_with = "from_url")]
     repo: Repository,
+    folder: Option<String>,
+
     site: Option<String>,
+    description: Option<String>,
     comment: Option<String>,
 }
 
@@ -29,13 +33,14 @@ struct BookMeta {
 #[serde(deny_unknown_fields)]
 struct Book {
     title: String,
-    src: String,
+    src: Option<String>,
     language: Option<String>,
 
     #[serde(alias = "text-direction")]
     text_direction: Option<String>,
     multilingual: Option<bool>,
     authors: Vec<String>,
+    description: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -70,19 +75,25 @@ fn main() {
         if args.limit > 0 && count >= args.limit {
             break;
         }
-        let book_toml = book.repo.path(&repos_dir).join("book.toml");
-        if !book_toml.exists() {
-            log::error!("book.toml does not exist: {:?}", book_toml);
+        let book_toml_file = if let Some(folder) = book.folder {
+            book.repo.path(&repos_dir).join(folder).join("book.toml")
+        } else {
+            book.repo.path(&repos_dir).join("book.toml")
+        };
+
+        log::info!("book.toml: {:?}", book_toml_file);
+        if !book_toml_file.exists() {
+            log::error!("book.toml does not exist: {:?}", book_toml_file);
             errors += 1;
             continue;
         }
 
-        let content = std::fs::read_to_string(&book_toml).unwrap();
+        let content = std::fs::read_to_string(&book_toml_file).unwrap();
 
         let data = match toml::from_str::<BookToml>(&content) {
             Ok(data) => data,
             Err(err) => {
-                log::error!("Error parsing toml {book_toml:?}: {:?}", err);
+                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
                 errors += 1;
                 continue;
             }
