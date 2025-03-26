@@ -44,7 +44,7 @@ jobs:
         env:
           RUST_LOG: debug
         run: |
-          ./target/debug/public-mdbooks --repor
+          ./target/debug/public-mdbooks --report
 
       - name: Download mdBook
         run: |
