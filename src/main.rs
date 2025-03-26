@@ -28,7 +28,7 @@ struct BookMeta {
     description: Option<String>,
     comment: Option<String>,
 
-    book: Option<Book>,
+    book: Option<BookToml>,
     error: Option<String>,
 }
 
@@ -111,7 +111,9 @@ fn main() {
                 continue;
             }
         };
-        println!("{:?}", data);
+        book.book = Some(data);
+
+        //println!("{:?}", data);
     }
 
     // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
@@ -126,7 +128,10 @@ fn main() {
     //    std::process::exit(0);
     //}
 
-    let mut index_md = String::from("# mdbooks\n\n");
+    let mut index_md = String::from("# Public mdBooks\n\n");
+    index_md += "This is a list of mdBooks for which the source is also available available.\n";
+    index_md += "The list is generated from the `mdbooks.yaml` file.\n\n";
+    index_md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
     index_md += "| Title | Repo | Description | Comment |\n";
     index_md += "|-------|------|-------------|---------|\n";
     for book in &books {
@@ -142,8 +147,15 @@ fn main() {
     }
     std::fs::write("report/src/index.md", index_md).unwrap();
 
-    // Erorrors
+    src_page(&books);
+
+    // Errors
     let mut index_md = String::from("# Errors in the mdbooks\n\n");
+    index_md +=
+        "The errors are as reported by our parser. They might or might not be real problems.\n\n";
+    index_md += "If you think the error is incorrect, please open an issue.\n\n";
+    index_md += "We still need to clean up the error messages.\n\n";
+
     for book in books {
         if book.error.is_none() {
             continue;
@@ -163,6 +175,34 @@ fn main() {
         log::error!("There were {errors} errors");
         std::process::exit(1);
     }
+}
+
+fn src_page(books: &Vec<BookMeta>) {
+    let mut md = String::from("# The src field\n\n");
+
+    md += "| Title | Repo | src |\n";
+    md += "|-------|------|-------------|\n";
+    for book in books {
+        if book.book.is_none() {
+            continue;
+        }
+
+        let bk = book.book.as_ref().unwrap();
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            book.title,
+            book.site.clone().unwrap_or("".to_string()),
+            book.repo.url(),
+            if bk.book.src.is_none() {
+                "-".to_string()
+            } else {
+                bk.book.src.clone().unwrap()
+            }
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/src.md", md).unwrap();
 }
 
 fn read_the_mdbooks_file() -> Vec<BookMeta> {

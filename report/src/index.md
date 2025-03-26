@@ -1,4 +1,9 @@
-# mdbooks
+# Public mdBooks
+
+This is a list of mdBooks for which the source is also available available.
+The list is generated from the `mdbooks.yaml` file.
+
+If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.
 
 | Title | Repo | Description | Comment |
 |-------|------|-------------|---------|

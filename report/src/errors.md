@@ -1,5 +1,11 @@
 # Errors in the mdbooks
 
+The errors are as reported by our parser. They might or might not be real problems.
+
+If you think the error is incorrect, please open an issue.
+
+We still need to clean up the error messages.
+
 * [The cargo book](https://doc.rust-lang.org/cargo/)
 * [repo](https://github.com/rust-lang/cargo)
 
