@@ -112,6 +112,8 @@ fn main() {
     if args.report {
         log::info!("Start processing repos");
         let mut count = 0;
+        std::fs::create_dir("report/src").unwrap();
+        std::fs::copy("report/SUMMARY.md", "report/src/SUMMARY.md").unwrap();
         for mdbook in &mut mdbooks {
             log::info!("book: {:?}", mdbook);
             count += 1;
