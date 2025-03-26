@@ -256,3 +256,30 @@
   repo: https://github.com/MghRepo/pse-mdbook
   site: https://mghrepo.github.io/pse-mdbook/
   comment: French
+
+- title: Doc-Share
+  repo: https://github.com/MR-Addict/Doc-Share
+  site: https://mr-addict.github.io/Doc-Share/
+  comment: Chinese
+
+- title: privacy.noarch
+  repo: https://github.com/privacy-noarch/privacy
+  site: https://privacy.n0ar.ch/
+  comment: Chinese
+
+- title: Let's Build a Compiler -- pretty
+  repo: https://github.com/xmonader/letsbuildacompiler-pretty
+  site: https://xmonader.github.io/letsbuildacompiler-pretty/
+
+- title: XJTU-ICS Textbook
+  repo: https://github.com/xjtu-ics/textbook
+  site: https://xjtu-ics.github.io/textbook/
+
+- title: Barnum
+  repo: https://github.com/stormasm/barnum
+  site: https://stormasm.github.io/barnum/
+
+- title: The Rust Crypto book
+  repo: https://github.com/RustCrypto/book
+  site: https://rustcrypto.org/
+  

@@ -140,3 +140,15 @@ unknown field `site-url`, expected one of `title`, `src`, `language`, `text-dire
 
 ---
 
+* [Doc-Share](https://mr-addict.github.io/Doc-Share/)
+* [repo](https://github.com/mr-addict/doc-share)
+
+TOML parse error at line 10, column 1
+   |
+10 | use-default-preprocessors = false
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+unknown field `use-default-preprocessors`, expected one of `build-dir`, `build_dir`, `create-missing`, `create_missing`
+
+
+---
+

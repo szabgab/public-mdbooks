@@ -47,3 +47,8 @@
 | [Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz](https://szfmv2021-osz.github.io/handout/) | [repo](https://github.com/pintergreg/handout) | html  | 
 | [r/GraphicsProgramming Wiki](https://cody-duncan.github.io/r-graphicsprogramming-wiki/) | [repo](https://github.com/cody-duncan/r-graphicsprogramming-wiki) | html  | 
 | [Programme informatique du concours d'inspecteur PSE](https://mghrepo.github.io/pse-mdbook/) | [repo](https://github.com/mghrepo/pse-mdbook) |  | 
+| [privacy.noarch](https://privacy.n0ar.ch/) | [repo](https://github.com/privacy-noarch/privacy) | html  | 
+| [Let's Build a Compiler -- pretty](https://xmonader.github.io/letsbuildacompiler-pretty/) | [repo](https://github.com/xmonader/letsbuildacompiler-pretty) | html  | 
+| [XJTU-ICS Textbook](https://xjtu-ics.github.io/textbook/) | [repo](https://github.com/xjtu-ics/textbook) | html  | 
+| [Barnum](https://stormasm.github.io/barnum/) | [repo](https://github.com/stormasm/barnum) | html  | 
+| [The Rust Crypto book](https://rustcrypto.org/) | [repo](https://github.com/rustcrypto/book) |  | 
