@@ -107,7 +107,7 @@ fn main() {
             Err(err) => {
                 log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
                 errors += 1;
-                book.error = Some(format!("Error parsing toml {book_toml_file:?}: {:?}", err));
+                book.error = Some(err.to_string());
                 continue;
             }
         };
@@ -127,21 +127,37 @@ fn main() {
     //}
 
     let mut index_md = String::from("# mdbooks\n\n");
-    index_md += "| Title | Repo | Description | Comment | Error |\n";
-    index_md += "|-------|------|-------------|---------|-------|\n";
-    for book in books {
+    index_md += "| Title | Repo | Description | Comment |\n";
+    index_md += "|-------|------|-------------|---------|\n";
+    for book in &books {
         index_md += format!(
-            "| [{}]({}) | [repo]({}) | {} | {} | {} |\n",
+            "| [{}]({}) | [repo]({}) | {} | {} |\n",
             book.title,
-            book.site.unwrap_or("".to_string()),
+            book.site.clone().unwrap_or("".to_string()),
             book.repo.url(),
-            book.description.unwrap_or("".to_string()),
-            book.comment.unwrap_or("".to_string()),
-            book.error.unwrap_or("".to_string())
+            book.description.clone().unwrap_or("".to_string()),
+            book.comment.clone().unwrap_or("".to_string()),
         )
         .as_str();
     }
     std::fs::write("report/src/index.md", index_md).unwrap();
+
+    // Erorrors
+    let mut index_md = String::from("# Errors in the mdbooks\n\n");
+    for book in books {
+        if book.error.is_none() {
+            continue;
+        }
+        index_md += format!(
+            "* [{}]({})\n* [repo]({})\n\n{}\n\n---\n\n",
+            book.title,
+            book.site.unwrap_or("".to_string()),
+            book.repo.url(),
+            book.error.unwrap_or("".to_string())
+        )
+        .as_str();
+    }
+    std::fs::write("report/src/errors.md", index_md).unwrap();
 
     if errors > 0 {
         log::error!("There were {errors} errors");

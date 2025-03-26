@@ -11,7 +11,7 @@
 
 - title: The cargo book
   repo: https://github.com/rust-lang/cargo/
-  folder: doc/src
+  folder: src/doc
   site: https://doc.rust-lang.org/cargo/
 
 - title: Void Docs
