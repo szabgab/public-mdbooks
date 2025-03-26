@@ -2,7 +2,10 @@
 
 - [mdbooks](./index.md)
 - [errors](./errors.md)
-- [src](./src.md)
+- [book](./book.md)
+  - [src](./src.md)
+  - [language](./language.md)
+
 - [rust](./rust.md)
 - [build](./build.md)
 - [extra](./extra.md)

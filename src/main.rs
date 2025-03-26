@@ -160,6 +160,7 @@ fn main() {
     index_page(&mdbooks);
     errors_page(&mdbooks);
     src_page(&mdbooks);
+    language_page(&mdbooks);
     rust_page(&mdbooks);
     build_page(&mdbooks);
     extra_page(&mdbooks);
@@ -240,6 +241,34 @@ fn src_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/src.md", md).unwrap();
+}
+
+fn language_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# The book.language field\n\n");
+
+    md += "| Title | Repo | language |\n";
+    md += "|-------|------|-------------|\n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let bk = mdbook.book.as_ref().unwrap();
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            if bk.book.language.is_none() {
+                "-".to_string()
+            } else {
+                bk.book.language.clone().unwrap()
+            }
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/language.md", md).unwrap();
 }
 
 fn rust_page(mdbooks: &Vec<MDBook>) {
