@@ -1,5 +1,6 @@
 use clap::Parser;
 use serde::{Deserialize, Serialize};
+use toml::{Table, Value, map::Map};
 
 use git_digger::Repository;
 
@@ -29,6 +30,7 @@ struct MDBook {
     comment: Option<String>,
 
     book: Option<BookToml>,
+    everything: Option<Map<String, Value>>,
     error: Option<String>,
 }
 
@@ -119,6 +121,18 @@ fn main() {
 
         let content = std::fs::read_to_string(&book_toml_file).unwrap();
 
+        let everything = match toml::from_str::<Table>(&content) {
+            Ok(data) => data,
+            Err(err) => {
+                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+                errors += 1;
+                mdbook.error = Some(err.to_string());
+                continue;
+            }
+        };
+
+        mdbook.everything = Some(everything);
+
         let data = match toml::from_str::<BookToml>(&content) {
             Ok(data) => data,
             Err(err) => {
@@ -148,6 +162,7 @@ fn main() {
     src_page(&mdbooks);
     rust_page(&mdbooks);
     build_page(&mdbooks);
+    extra_page(&mdbooks);
 
     if errors > 0 {
         log::error!("There were {errors} errors");
@@ -179,7 +194,8 @@ fn index_page(mdbooks: &Vec<MDBook>) {
 fn errors_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# Errors in the mdbooks\n\n");
     md += "The errors are as reported by our parser. They might or might not be real problems.\n\n";
-    md += "If you think the error is incorrect, please open an issue.\n\n";
+    md += "If you think the error is incorrect, please open an issue on [our repository](https://github.com/szabgab/public-mdbooks).\n\n";
+    md += "If you think the problem is with the specific mdbook, please open an issue on the repository of that mdbook.\n\n";
     md += "We still need to clean up the error messages.\n\n";
 
     for mdbook in mdbooks {
@@ -288,6 +304,45 @@ fn build_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/build.md", md).unwrap();
+}
+
+fn extra_page(mdbooks: &Vec<MDBook>) {
+    let mut md = String::from("# Extra fields in book.toml\n\n");
+
+    let known = [
+        String::from("book"),
+        String::from("rust"),
+        String::from("build"),
+    ];
+
+    md += "| Title | Repo | extra fields | \n";
+    md += "|-------|------|-------------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let table = mdbook.everything.as_ref().unwrap();
+        let mut fields = String::new();
+        table
+            .iter()
+            .filter(|(k, v)| !known.contains(*k))
+            .for_each(|(k, v)| {
+                fields += k;
+                fields += " ";
+            });
+
+        md += format!(
+            "| [{}]({}) | [repo]({}) | {} | \n",
+            mdbook.title,
+            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.repo.url(),
+            fields,
+        )
+        .as_str();
+    }
+
+    std::fs::write("report/src/extra.md", md).unwrap();
 }
 
 fn read_the_mdbooks_file() -> Vec<MDBook> {
