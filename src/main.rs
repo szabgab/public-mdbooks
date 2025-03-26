@@ -46,6 +46,7 @@ struct BookToml {
 fn main() {
     env_logger::init();
     let args = Cli::parse();
+    let mut errors = 0;
 
     let repos_dir = std::fs::canonicalize("repos").unwrap();
 
@@ -72,6 +73,7 @@ fn main() {
         let book_toml = book.repo.path(&repos_dir).join("book.toml");
         if !book_toml.exists() {
             log::error!("book.toml does not exist: {:?}", book_toml);
+            errors += 1;
             continue;
         }
 
@@ -81,6 +83,7 @@ fn main() {
             Ok(data) => data,
             Err(err) => {
                 log::error!("Error parsing toml {book_toml:?}: {:?}", err);
+                errors += 1;
                 continue;
             }
         };
@@ -98,6 +101,11 @@ fn main() {
 
     //    std::process::exit(0);
     //}
+
+    if errors > 0 {
+        log::error!("There were {errors} errors");
+        std::process::exit(1);
+    }
 }
 
 fn read_the_mdbooks_file() -> Vec<BookMeta> {
