@@ -14,3 +14,7 @@ e.g. which configuration options do they use with which values, which plugins th
 * [Awesome mdbook](https://github.com/softprops/awesome-mdbook)
 * [mdbooks](https://github.com/search?o=desc&q=mdbook&s=stars&type=Repositories)
 
+## Display
+
+* List of mdbooks (title, description, link to site, link to repository,)
+* List of errors
