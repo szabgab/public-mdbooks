@@ -29,6 +29,11 @@ jobs:
       - name: Checkout site source
         uses: actions/checkout@v4
 
+      - name: Collect data
+        run: |
+          mkdir repos
+          cargo run
+
       - name: Download mdBook
         run: |
           set -x
