@@ -198,11 +198,13 @@ fn main() {
 }
 
 fn index_page(mdbooks: &Vec<MDBook>) {
+    let now = chrono::Utc::now();
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks for which the source is also available available.\n";
     md += "The list is generated from the `mdbooks.yaml` file.\n\n";
     md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
     md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
+    md += format!("Generated at: {}\n\n", now.format("%Y-%m-%d %H:%M:%S")).as_str();
     md += "| Title | Repo | Description | Comment |\n";
     md += "|-------|------|-------------|---------|\n";
     for mdbook in mdbooks {
