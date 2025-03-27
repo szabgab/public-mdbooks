@@ -82,13 +82,13 @@ struct Build {
     use_default_preprocessors: Option<bool>,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
     let args = Cli::parse();
 
-    let repos_dir = std::fs::canonicalize("repos").unwrap();
+    let repos_dir = std::fs::canonicalize("repos")?;
 
-    let mut mdbooks = read_the_mdbooks_file();
+    let mut mdbooks = read_the_mdbooks_file()?;
 
     if args.clone {
         let mut count = 0;
@@ -114,10 +114,10 @@ fn main() {
         let mut count = 0;
         let src_path = Path::new("report/src");
         if !src_path.exists() {
-            std::fs::create_dir("report/src").unwrap();
+            std::fs::create_dir("report/src")?;
         }
 
-        std::fs::copy("report/SUMMARY.md", "report/src/SUMMARY.md").unwrap();
+        std::fs::copy("report/SUMMARY.md", "report/src/SUMMARY.md")?;
         for mdbook in &mut mdbooks {
             log::info!("book: {:?}", mdbook);
             count += 1;
@@ -137,7 +137,7 @@ fn main() {
                 continue;
             }
 
-            let content = std::fs::read_to_string(&book_toml_file).unwrap();
+            let content = std::fs::read_to_string(&book_toml_file)?;
 
             let everything = match toml::from_str::<Table>(&content) {
                 Ok(data) => data,
@@ -195,6 +195,7 @@ fn main() {
         log::error!("There were {count_errors} errors");
         //std::process::exit(1);
     }
+    Ok(())
 }
 
 fn index_page(mdbooks: &Vec<MDBook>) {
@@ -203,6 +204,7 @@ fn index_page(mdbooks: &Vec<MDBook>) {
     md += "This is a list of mdBooks for which the source is also available available.\n";
     md += "The list is generated from the `mdbooks.yaml` file.\n\n";
     md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
+    md += "Check out the [mdBook User manual](https://rust-lang.github.io/mdBook/) for more information.\n\n";
     md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
     md += format!("Generated at: {}\n\n", now.format("%Y-%m-%d %H:%M:%S")).as_str();
     md += "| Title | Repo | Description | Comment |\n";
@@ -581,11 +583,11 @@ fn extra_page(mdbooks: &Vec<MDBook>) {
     std::fs::write("report/src/extra.md", md).unwrap();
 }
 
-fn read_the_mdbooks_file() -> Vec<MDBook> {
-    let file = std::fs::read_to_string("mdbooks.yaml").unwrap();
-    let mut books: Vec<MDBook> = serde_yaml::from_str(&file).unwrap();
+fn read_the_mdbooks_file() -> Result<Vec<MDBook>, Box<dyn std::error::Error>> {
+    let file = std::fs::read_to_string("mdbooks.yaml")?;
+    let mut books: Vec<MDBook> = serde_yaml::from_str(&file)?;
     books.sort_by(|a, b| a.title.cmp(&b.title));
-    books
+    Ok(books)
 }
 
 use serde::de;
