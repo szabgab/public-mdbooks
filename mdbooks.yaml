@@ -247,6 +247,10 @@
   site: https://lean-ja.github.io/lean-by-example/
   comment: Japanese
 
+- title: Mathematics in type thoery
+  repo: https://github.com/lean-ja/math-in-type-theory-ja
+  site: https://lean-ja.github.io/math-in-type-theory-ja/
+
 - title: Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz
   repo: https://github.com/pintergreg/handout
   site: https://szfmv2021-osz.github.io/handout/
@@ -264,6 +268,11 @@
 - title: Doc-Share
   repo: https://github.com/MR-Addict/Doc-Share
   site: https://mr-addict.github.io/Doc-Share/
+  comment: Chinese
+
+- title: Notes
+  repo: https://github.com/MR-Addict/notes
+  site: https://mr-addict.github.io/notes/
   comment: Chinese
 
 - title: privacy.noarch
@@ -411,3 +420,80 @@
 - title: The mdbook User manual in Chinese
   site: https://hellowac.github.io/mdbook-doc-zh/
   repo: https://github.com/hellowac/mdbook-doc-zh
+
+
+- title: Story Gametypes and Maps
+  site: https://insultingpros.github.io/KFStory/
+  repo: https://github.com/InsultingPros/KFStory
+
+- title: GAMES 101
+  repo: https://github.com/CaterpillarStudyGroup/GAMES101_mdbook
+  site: https://caterpillarstudygroup.github.io/GAMES101_mdbook/
+  comment: Chinese
+
+- title: Game development in Rust with Macroquad 
+  site: https://mq.agical.se/
+  repo: https://github.com/ollej/macroquad-introduktion
+
+- title: MoneroPay documentation
+  site: https://moneropay.eu/
+  repo: https://github.com/moneropay/moneropay-docs
+
+- title: Revisions_PSE
+  repo: https://github.com/Isyonir/Revisions_PSE
+  comment: French
+
+- title: Elasticsearch Book
+  repo: https://github.com/Asquera/elasticsearch-workshop-book
+
+- title: ETH Course Guide
+  repo: https://github.com/xivid/ETH-Course-Guide-mdbook
+
+- title: Angular CookBook
+  site: https://multivers-dev.github.io/angular-cookbook/en/
+  repo: https://github.com/multivers-dev/angular-cookbook?tab=readme-ov-file
+
+- title: Circom101
+  description: Circom circuit implementations with in-depth explanations.
+  repo: https://github.com/erhant/circom101
+  site: https://circom.erhant.me/
+
+- title: The Rust How-To Book
+  repo: https://github.com/john-cd/rust_howto
+  site: https://john-cd.com/rust_howto/
+
+- title: 3324Documentation
+  repo: https://github.com/frc3324/3324Documentation
+
+- title: Linutil - Chris Titus Tech's Linux Utility
+  site: https://harilvfs.github.io/rustmdbook/
+  repo: https://github.com/harilvfs/rustmdbook
+
+- title: Context-Generic Programming Patterns
+  repo: https://github.com/contextgeneric/cgp-patterns
+  site: https://patterns.contextgeneric.dev/
+
+- title: Haskell Performance Tuning Book
+  repo: https://github.com/Kleidukos/gotta-go-fast
+
+- title: Hamud_Book
+  repo: https://github.com/Hamud-Lang/Hamud_Book
+  site: https://hamud.pj568.sbs/
+  comment: Arabic, Chinese, and English
+
+- title: The Cryptographer's Codex
+  repo: https://github.com/ubcctf/crypto-mdbook
+  site: https://crypto.maplebacon.org/
+
+- title: Study Guide
+  repo: https://github.com/schwarmau/study-guide
+  description: A study guide for software development
+
+- title: Documentaiton for NetAuth 
+  repo: https://github.com/netauth/docs
+
+- title: Molybdenum
+  description: Minimal Authentication Server built on Node.js, Express.js, MySQL and Typescript.
+  repo: https://github.com/opeolluwa/molybdenum
+  folder: docs
+  site: https://opeolluwa.github.io/molybdenum/
