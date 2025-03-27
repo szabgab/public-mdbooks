@@ -173,6 +173,10 @@
   repo: https://github.com/foundry-rs/book
   site: https://book.getfoundry.sh/
 
+- title: Solidity in Foundry
+  repo: https://github.com/Genesis3800/Solidity-in-Foundry-mdbook
+  site: https://www.solidity-in-foundry.com/
+
 - title: The Little Book of Rust Books
   repo: https://github.com/lborb/book
   site: https://lborb.github.io/book/
@@ -283,3 +287,35 @@
   repo: https://github.com/RustCrypto/book
   site: https://rustcrypto.org/
   
+- title: Zsh Manual 
+  repo: https://github.com/hyperreal64/zsh-manual-mdbook
+  site: https://zsh-manual.netlify.app/
+  folder: zsh-manual
+  comment: Generated
+
+- title: Zsh User's Guide by Peter Stephenson
+  repo: https://github.com/hyperreal64/zsh-manual-mdbook
+  site: https://zsh-user-guide.netlify.app/
+  folder: zsh-guide
+  comment: Generated
+
+- title: Validator Toolbox Manual
+  repo: https://github.com/CryptoBlocks-pro/mdbook_validatortoolbox
+
+- title: "Pràctiques de Sistemes Operatius amb Debian: Hands-On per a Estudiants de Grau en Informàtica"
+  repo: https://github.com/OS-GEI-IGUALADA-2223/HandsOn
+  site: https://os-gei-igualada-2223.github.io/HandsOn/
+  comment: Catalan
+
+- title: Example-mdBook
+  repo: https://github.com/tylerdotrar/Example-mdBook
+  site: https://tylerdotrar.github.io/Example-mdBook/
+
+- title: mdBook Pikchr
+  repo: https://github.com/podsvirov/mdbook-pikchr
+  site: https://podsvirov.github.io/mdbook-pikchr/
+
+- title: modelo mdbook
+  repo: https://github.com/Rapha-Borges/modelo-mdbook
+  site: https://r11s.com.br/modelo-mdbook/
+  folder: pt
