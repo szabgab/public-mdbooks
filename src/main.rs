@@ -6,6 +6,8 @@ use toml::{Table, Value, map::Map};
 
 use git_digger::Repository;
 
+const PREPROCESSORS: [&str; 3] = ["admonish", "alerts", "embedify"];
+
 #[derive(Parser, Debug)]
 #[command(version)]
 struct Cli {
@@ -183,6 +185,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         build_page(&mdbooks);
         output_page(&mdbooks);
         preprocessor_page(&mdbooks);
+        for name in PREPROCESSORS {
+            preprocessor_details_page(&mdbooks, name);
+        }
         extra_page(&mdbooks);
     }
 
@@ -513,7 +518,11 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) {
                 match preprocessor {
                     Value::Table(t) => {
                         t.iter().for_each(|(k, _v)| {
-                            fields += k;
+                            if PREPROCESSORS.contains(&k.as_str()) {
+                                fields += format!("[{k}](preprocessor-{k}.md)").as_str();
+                            } else {
+                                fields += k;
+                            }
                             fields += " ";
                         });
                     }
@@ -536,6 +545,50 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/preprocessor.md", md).unwrap();
+}
+
+fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &str) {
+    let mut md = format!("# preprocessor {preprocessor}\n\n");
+
+    md += "| Title | Repo | preprocessor field | \n";
+    md += "|-------|------|-------------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let table = mdbook.everything.as_ref().unwrap();
+        match table.get("preprocessor") {
+            None => continue,
+            Some(preprocessor_table) => match preprocessor_table.get(preprocessor) {
+                None => continue,
+                Some(data) => {
+                    let mut fields = String::new();
+                    match data {
+                        Value::Table(t) => {
+                            t.iter().for_each(|(k, _v)| {
+                                fields += k;
+                                fields += " ";
+                            });
+                        }
+                        _ => {
+                            fields += "unknown";
+                        }
+                    }
+                    md += format!(
+                        "| [{}]({}) | [repo]({}) | {} | \n",
+                        mdbook.title,
+                        mdbook.site.clone().unwrap_or("".to_string()),
+                        mdbook.repo.url(),
+                        fields,
+                    )
+                    .as_str();
+                }
+            },
+        };
+    }
+    let path = format!("report/src/preprocessor-{preprocessor}.md");
+    std::fs::write(path, md).unwrap();
 }
 
 fn extra_page(mdbooks: &Vec<MDBook>) {

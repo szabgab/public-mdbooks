@@ -11,4 +11,7 @@
 - [build](./build.md)
 - [output](./output.md)
 - [preprocessor](./preprocessor.md)
+  - [embedify](./preprocessor-embedify.md)
+  - [alerts](./preprocessor-alerts.md)
+  - [admonish](./preprocessor-admonish.md)
 - [extra](./extra.md)
