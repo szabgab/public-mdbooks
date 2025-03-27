@@ -319,3 +319,49 @@
   repo: https://github.com/Rapha-Borges/modelo-mdbook
   site: https://r11s.com.br/modelo-mdbook/
   folder: pt
+
+- title: Tauri
+  repo: https://github.com/huangjj27/huangjj27.github.io
+  site: https://huangjj27.github.io/
+
+- title: Kokanu
+  site: https://en.kokanu.com/
+  repo: https://github.com/Kokanu/kokanu-mdbook-website
+
+- title: The OpenRA Book
+  site: https://www.openra.net/book/
+  repo: https://github.com/OpenRA/book
+
+- title: passcode.name
+  site: https://passcod.name/
+  repo: https://github.com/passcod/blook
+
+- title: Hacknum-Opus
+  site: https://bit-bandits.com/
+  repo: https://github.com/NukingDragons/hacknum-opus
+
+- title: BTC Map wiki
+  repo: https://github.com/teambtcmap/btcmap-wiki
+  site: https://wiki.btcmap.org/
+
+- title: Brane framework
+  repo: https://github.com/epi-project/brane-documentation
+  site: https://wiki.enablingpersonalizedinterventions.nl/user-guide/
+
+- title: unsafe Gotchas
+  repo: https://github.com/exphp-share/unsafe-gotchas
+  site: https://exphp.github.io/unsafe-gotchas/
+
+- title: Crypto Book
+  repo: https://github.com/yannickseurin/crypto-book?tab=readme-ov-file
+  site: https://yannickseurin.github.io/crypto-book/
+
+- title: UniBook
+  repo: https://github.com/teamkw/unibook
+  site: https://teamkw.github.io/unibook/
+  comment: Korean
+
+- title: fablore - Flesh and Blood lore
+  site: https://legendarystories.net/
+  repo: https://github.com/nathaneastwood/fablore
+  
