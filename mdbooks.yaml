@@ -353,7 +353,7 @@
   site: https://exphp.github.io/unsafe-gotchas/
 
 - title: Crypto Book
-  repo: https://github.com/yannickseurin/crypto-book?tab=readme-ov-file
+  repo: https://github.com/yannickseurin/crypto-book
   site: https://yannickseurin.github.io/crypto-book/
 
 - title: UniBook
@@ -364,4 +364,50 @@
 - title: fablore - Flesh and Blood lore
   site: https://legendarystories.net/
   repo: https://github.com/nathaneastwood/fablore
-  
+
+
+- title: Polkadot SDK Best Practices
+  repo: https://github.com/blockdeep/libro
+  site: https://libro.blockdeep.dev/
+
+- title: Integrating with Kaspa
+  repo: https://github.com/aspectron/kaspa-mdbook
+  site: https://kaspa.aspectron.org/
+
+
+- title: Polkadot Blockchain Academy
+  site: https://polkadot-blockchain-academy.github.io/pba-book/
+  repo: https://github.com/Polkadot-Blockchain-Academy/pba-book
+
+- title: Power analysis Introductory Walkthrough
+  site: https://coastalwhite.github.io/intro-power-analysis/
+  repo: https://github.com/coastalwhite/intro-power-analysis
+
+- title: Data Structures and Algorithms in Rust
+  site: https://rust-dsa.github.io/
+  repo: https://github.com/rust-dsa/rust-dsa.github.io
+
+- title: study.dev-notes
+  site: https://netpyoung.github.io/study.dev-notes/
+  repo: https://github.com/netpyoung/study.dev-notes
+  comment: Korean
+
+- title: Curso de C++ - Material
+  repo: https://github.com/tarcisioe/cpp-mdbook
+  comment: Portuguese
+
+- title: A guide to Rust for Kotlin developers
+  site: https://emmabritton.github.io/kotlin-rust-guide/
+  repo: https://github.com/emmabritton/kotlin-rust-guide
+
+
+- title: newsletters
+  repo: https://github.com/op-rs/newsletters
+
+- title: wtd-bayarea-mdbook
+  repo: https://github.com/joshrotenberg/wtd-bayarea-mdbook
+  site: https://joshrotenberg.com/wtd-bayarea-mdbook/
+
+- title: The mdbook User manual in Chinese
+  site: https://hellowac.github.io/mdbook-doc-zh/
+  repo: https://github.com/hellowac/mdbook-doc-zh
