@@ -353,9 +353,20 @@
   repo: https://github.com/teambtcmap/btcmap-wiki
   site: https://wiki.btcmap.org/
 
-- title: Brane framework
+- title: Brane framework - User Guide
   repo: https://github.com/epi-project/brane-documentation
   site: https://wiki.enablingpersonalizedinterventions.nl/user-guide/
+  folder: user-guide
+
+- title: Brane framework - Specification
+  repo: https://github.com/epi-project/brane-documentation
+  site: https://wiki.enablingpersonalizedinterventions.nl/specification/
+  folder: specification
+
+- title: Brane framework - Tutorials
+  repo: https://github.com/epi-project/brane-documentation
+  site: https://wiki.enablingpersonalizedinterventions.nl/tutorials/
+  folder: tutorials
 
 - title: unsafe Gotchas
   repo: https://github.com/exphp-share/unsafe-gotchas
@@ -432,8 +443,14 @@
   comment: Chinese
 
 - title: Game development in Rust with Macroquad 
+  repo: https://github.com/ollej/macroquad-introduktion
+  folder: macroquad-introduction-book
+  comment: Swedish
+
+- title: Game development in Rust with Macroquad 
   site: https://mq.agical.se/
   repo: https://github.com/ollej/macroquad-introduktion
+  folder: macroquad-introduction-book-english
 
 - title: MoneroPay documentation
   site: https://moneropay.eu/
@@ -451,16 +468,18 @@
 
 - title: Angular CookBook
   site: https://multivers-dev.github.io/angular-cookbook/en/
-  repo: https://github.com/multivers-dev/angular-cookbook?tab=readme-ov-file
+  repo: https://github.com/multivers-dev/angular-cookbook
 
 - title: Circom101
   description: Circom circuit implementations with in-depth explanations.
   repo: https://github.com/erhant/circom101
   site: https://circom.erhant.me/
+  folder: book
 
 - title: The Rust How-To Book
   repo: https://github.com/john-cd/rust_howto
   site: https://john-cd.com/rust_howto/
+  folder: bk
 
 - title: 3324Documentation
   repo: https://github.com/frc3324/3324Documentation
@@ -519,6 +538,7 @@
 - title: Introduction of Tutorials for THU iOS Club
   repo: https://github.com/THU-iOS/tutorials
   site: https://thu-ios.github.io/tutorials/
+  folder: mdbook
 
 - title: pulumi-az-sql
   repo: https://github.com/bitquip/pulumi-az-sql
