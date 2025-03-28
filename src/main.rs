@@ -11,7 +11,7 @@ struct Preprocessor {
     cratesio: &'static str,
     description: &'static str,
 }
-const PREPROCESSORS: [Preprocessor; 12] = [
+const PREPROCESSORS: [Preprocessor; 16] = [
     Preprocessor {
         name: "admonish",
         cratesio: "https://crates.io/crates/mdbook-admonish",
@@ -23,24 +23,14 @@ const PREPROCESSORS: [Preprocessor; 12] = [
         description: "mdBook preprocessor to add GitHub Flavored Markdown's Alerts to your book.",
     },
     Preprocessor {
+        name: "aquascope",
+        cratesio: "https://crates.io/crates/mdbook-aquascope",
+        description: "Interactive Aquascope editor for your mdBook",
+    },
+    Preprocessor {
         name: "embedify",
         cratesio: "https://crates.io/crates/mdbook-embedify",
         description: "A rust based mdbook preprocessor plugin that allows you to embed apps to your book, like youtube, codepen and some other apps.",
-    },
-    Preprocessor {
-        name: "katex",
-        cratesio: "https://crates.io/crates/mdbook-katex",
-        description: "mdBook preprocessor rendering LaTeX equations to HTML.",
-    },
-    Preprocessor {
-        name: "mermaid",
-        cratesio: "https://crates.io/crates/mdbook-mermaid",
-        description: "mdbook preprocessor to add mermaid support.",
-    },
-    Preprocessor {
-        name: "toc",
-        cratesio: "https://crates.io/crates/mdbook-toc",
-        description: "mdbook preprocessor to add Table of Contents",
     },
     Preprocessor {
         name: "footnote",
@@ -48,9 +38,24 @@ const PREPROCESSORS: [Preprocessor; 12] = [
         description: "mdbook preprocessor for footnotes.",
     },
     Preprocessor {
+        name: "hints",
+        cratesio: "https://crates.io/crates/mdbook-hints",
+        description: "mdBook preprocessor to add hover hints to your book.",
+    },
+    Preprocessor {
+        name: "katex",
+        cratesio: "https://crates.io/crates/mdbook-katex",
+        description: "mdBook preprocessor rendering LaTeX equations to HTML.",
+    },
+    Preprocessor {
         name: "mathpunc",
         cratesio: "https://crates.io/crates/mdbook-mathpunc",
         description: "An mdbook preprocessor that prevents line breaks between inline math blocks and punctuation marks when using katex.",
+    },
+    Preprocessor {
+        name: "mermaid",
+        cratesio: "https://crates.io/crates/mdbook-mermaid",
+        description: "mdbook preprocessor to add mermaid support.",
     },
     Preprocessor {
         name: "numeq",
@@ -63,14 +68,29 @@ const PREPROCESSORS: [Preprocessor; 12] = [
         description: "An mdbook preprocessor for automatically numbering theorems, lemmas, etc.",
     },
     Preprocessor {
+        name: "pikchr",
+        cratesio: "https://crates.io/crates/mdbook-pikchr",
+        description: "A mdbook preprocessor to render pikchr code blocks as images in your book.",
+    },
+    Preprocessor {
+        name: "quiz",
+        cratesio: "https://crates.io/crates/mdbook-quiz",
+        description: "Interactive quizzes for your mdBook.",
+    },
+    Preprocessor {
         name: "repl",
         cratesio: "https://crates.io/crates/mdbook-repl",
         description: "A rust based mdbook preprocessor that allows you to execute code in your mdbook without any server. Python, Typescript, Javascript etc.",
     },
     Preprocessor {
-        name: "quiz",
-        cratesio: "https://crates.io/crates/mdbook-quiz",
-        description: "Interactive quizzes for your mdBook",
+        name: "template",
+        cratesio: "https://crates.io/crates/mdbook-template",
+        description: "A mdbook preprocessor that allows the re-usability of template files with dynamic arguments. (deprecated)",
+    },
+    Preprocessor {
+        name: "toc",
+        cratesio: "https://crates.io/crates/mdbook-toc",
+        description: "mdbook preprocessor to add Table of Contents.",
     },
 ];
 
