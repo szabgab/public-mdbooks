@@ -132,6 +132,13 @@ struct MDBook {
     error: Option<String>,
 }
 
+impl MDBook {
+    fn relative(&self) -> String {
+        let relative = self.repo.path(Path::new(""));
+        relative.as_os_str().to_str().unwrap().to_string()
+    }
+}
+
 fn default_empty_string() -> String {
     String::new()
 }
@@ -361,13 +368,7 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
         log::warn!("filename: {:?}", filename);
         std::fs::write(filename, md).unwrap();
 
-        let relative = mdbook.repo.path(Path::new(""));
-        summary += format!(
-            "  * [{}](./{}.md)\n",
-            mdbook.title,
-            relative.as_os_str().to_str().unwrap()
-        )
-        .as_str();
+        summary += format!("  * [{}](./{}.md)\n", mdbook.title, mdbook.relative()).as_str();
     }
     summary
 }
@@ -688,8 +689,8 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# preprocessor\n\n");
     let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
-    md += "| Title | Repo | preprocessor field | \n";
-    md += "|-------|------|-------------| \n";
+    md += "| Title | preprocessors | \n";
+    md += "|-------|-------------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -720,10 +721,9 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
         };
 
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}](./{}.md) |  {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             fields,
         )
         .as_str();
