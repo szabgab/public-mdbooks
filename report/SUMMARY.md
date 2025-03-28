@@ -1,6 +1,7 @@
 # Summary
 
 - [mdbooks](./index.md)
+- [errors](./errors.md)
 - [book.toml](./book-toml.md)
   - [book](./book.md)
     - [src](./src.md)
@@ -10,8 +11,4 @@
   - [rust](./rust.md)
   - [build](./build.md)
   - [output](./output.md)
-  - [preprocessor](./preprocessor.md)
-    - [embedify](./preprocessor-embedify.md)
-    - [alerts](./preprocessor-alerts.md)
-    - [admonish](./preprocessor-admonish.md)
-  - [errors](./errors.md)
+

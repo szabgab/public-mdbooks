@@ -9,19 +9,38 @@ use git_digger::Repository;
 struct Preprocessor {
     name: &'static str,
     cratesio: &'static str,
+    description: &'static str,
 }
-const PREPROCESSORS: [Preprocessor; 3] = [
+const PREPROCESSORS: [Preprocessor; 6] = [
     Preprocessor {
         name: "admonish",
         cratesio: "https://crates.io/crates/mdbook-admonish",
+        description: "A preprocessor for mdbook to add Material Design admonishments.",
     },
     Preprocessor {
         name: "alerts",
         cratesio: "https://crates.io/crates/mdbook-alerts",
+        description: "mdBook preprocessor to add GitHub Flavored Markdown's Alerts to your book.",
     },
     Preprocessor {
         name: "embedify",
         cratesio: "https://crates.io/crates/mdbook-embedify",
+        description: "A rust based mdbook preprocessor plugin that allows you to embed apps to your book, like youtube, codepen and some other apps.",
+    },
+    Preprocessor {
+        name: "katex",
+        cratesio: "https://crates.io/crates/mdbook-katex",
+        description: "mdBook preprocessor rendering LaTeX equations to HTML.",
+    },
+    Preprocessor {
+        name: "mermaid",
+        cratesio: "https://crates.io/crates/mdbook-mermaid",
+        description: "mdbook preprocessor to add mermaid support.",
+    },
+    Preprocessor {
+        name: "toc",
+        cratesio: "https://crates.io/crates/mdbook-toc",
+        description: "mdbook preprocessor to add Table of Contents",
     },
 ];
 
@@ -231,12 +250,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         multilingual_page(&mdbooks);
         rust_page(&mdbooks);
         build_page(&mdbooks);
-        output_page(&mdbooks);
-        preprocessor_page(&mdbooks);
         books_page();
+        output_page(&mdbooks);
+        let preprocessor_summary = preprocessor_page(&mdbooks);
         let books_summary = create_book_pages(&mdbooks);
 
         let mut summary = std::fs::read_to_string("report/SUMMARY.md")?;
+        summary.push_str(&preprocessor_summary);
         summary.push_str(&books_summary);
 
         std::fs::write("report/src/SUMMARY.md", summary.as_bytes())?;
@@ -614,7 +634,7 @@ fn output_page(mdbooks: &Vec<MDBook>) {
     std::fs::write("report/src/output.md", md).unwrap();
 }
 
-fn preprocessor_page(mdbooks: &Vec<MDBook>) {
+fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# preprocessor\n\n");
     let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
@@ -659,7 +679,18 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) {
         .as_str();
     }
 
+    let mut summary = String::from("  - [preprocessor](./preprocessor.md)\n");
     std::fs::write("report/src/preprocessor.md", md).unwrap();
+
+    for preprocessor in PREPROCESSORS.iter() {
+        summary += format!(
+            "    - [{}](./preprocessor-{}.md)\n",
+            preprocessor.name, preprocessor.name
+        )
+        .as_str();
+    }
+
+    summary
 }
 
 fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor) {
@@ -670,6 +701,7 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor)
         preprocessor.name, preprocessor.cratesio
     )
     .as_str();
+    md += format!("{}\n\n", preprocessor.description).as_str();
 
     md += "| Title | Repo | preprocessor field | \n";
     md += "|-------|------|-------------| \n";
