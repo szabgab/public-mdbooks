@@ -15,4 +15,3 @@
     - [alerts](./preprocessor-alerts.md)
     - [admonish](./preprocessor-admonish.md)
   - [errors](./errors.md)
-  - [extra](./extra.md)

@@ -150,6 +150,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             };
 
+            {
+                let valid_fields = [
+                    String::from("book"),
+                    String::from("rust"),
+                    String::from("build"),
+                    String::from("output"),
+                    String::from("preprocessor"),
+                ];
+                let mut fields = String::new();
+                everything
+                    .iter()
+                    .filter(|(k, _v)| !valid_fields.contains(*k))
+                    .for_each(|(k, _v)| {
+                        fields += k;
+                        fields += " ";
+                    });
+
+                if !fields.is_empty() {
+                    log::error!("Extra fields in book.toml {book_toml_file:?}: {:?}", fields);
+                    mdbook.error = Some(format!("Extra fields in book.toml: {:?}", fields));
+                }
+            }
+
             mdbook.everything = Some(everything);
 
             let data = match toml::from_str::<BookToml>(&content) {
@@ -160,6 +183,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     continue;
                 }
             };
+
             mdbook.book = Some(data);
         }
 
@@ -189,7 +213,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         for name in PREPROCESSORS {
             preprocessor_details_page(&mdbooks, name);
         }
-        extra_page(&mdbooks);
     }
 
     let count_errors = mdbooks
@@ -232,7 +255,8 @@ fn index_page(mdbooks: &Vec<MDBook>) {
 fn book_toml_page() {
     let mut md = String::from("# book.toml\n\n");
     md += "The book.toml file is the main [configuration file](https://rust-lang.github.io/mdBook/format/configuration/) of every mdbook.\n";
-    md += "In this chapter we analyzet the content of the book.toml files in the listed mdbooks.\n\n";
+    md +=
+        "In this chapter we analyzet the content of the book.toml files in the listed mdbooks.\n\n";
     std::fs::write("report/src/book-toml.md", md).unwrap();
 }
 
@@ -597,51 +621,6 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &str) {
     }
     let path = format!("report/src/preprocessor-{preprocessor}.md");
     std::fs::write(path, md).unwrap();
-}
-
-fn extra_page(mdbooks: &Vec<MDBook>) {
-    let mut md = String::from("# Extra fields in book.toml\n\n");
-    md += "We have not dealt with these fields yet. If there are any fields here that should be probably reported as an error.\n\n";
-
-    let known = [
-        String::from("book"),
-        String::from("rust"),
-        String::from("build"),
-        String::from("output"),
-        String::from("preprocessor"),
-    ];
-
-    md += "| Title | Repo | extra fields | \n";
-    md += "|-------|------|-------------| \n";
-    for mdbook in mdbooks {
-        if mdbook.book.is_none() {
-            continue;
-        }
-
-        let table = mdbook.everything.as_ref().unwrap();
-        let mut fields = String::new();
-        table
-            .iter()
-            .filter(|(k, _v)| !known.contains(*k))
-            .for_each(|(k, _v)| {
-                fields += k;
-                fields += " ";
-            });
-        if fields.is_empty() {
-            fields = String::from("-");
-        }
-
-        md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
-            mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
-            fields,
-        )
-        .as_str();
-    }
-
-    std::fs::write("report/src/extra.md", md).unwrap();
 }
 
 fn read_the_mdbooks_file() -> Result<Vec<MDBook>, Box<dyn std::error::Error>> {
