@@ -119,22 +119,22 @@
 - title: Code Maven in Hebrew
   repo: https://github.com/szabgab/he.code-maven.com
   site: https://he.code-maven.com/
-  comment: Hebrew, RTL
+  comment: Hebrew
 
 - title: Rust Maven in Hebrew
   site: https://rust-he.code-maven.com/
   repo: https://github.com/szabgab/rust-he.code-maven.com
-  comment: Hebrew, RTL
+  comment: Hebrew
 
 - title: Python Maven in Hebrew
   site: https://python-he.code-maven.com/
   repo: https://github.com/szabgab/python-he.code-maven.com
-  comment: Hebrew, RTL
+  comment: Hebrew
 
 - title: Git Maven in Hebrew
   site: https://git-he.code-maven.com/
   repo: https://github.com/szabgab/git-he.code-maven.com
-  comment: Hebrew, RTL
+  comment: Hebrew
 
 - title: mdBook Maven
   site: https://mdbook.code-maven.com/
