@@ -11,7 +11,7 @@ struct Preprocessor {
     cratesio: &'static str,
     description: &'static str,
 }
-const PREPROCESSORS: [Preprocessor; 6] = [
+const PREPROCESSORS: [Preprocessor; 12] = [
     Preprocessor {
         name: "admonish",
         cratesio: "https://crates.io/crates/mdbook-admonish",
@@ -41,6 +41,36 @@ const PREPROCESSORS: [Preprocessor; 6] = [
         name: "toc",
         cratesio: "https://crates.io/crates/mdbook-toc",
         description: "mdbook preprocessor to add Table of Contents",
+    },
+    Preprocessor {
+        name: "footnote",
+        cratesio: "https://crates.io/crates/mdbook-footnote",
+        description: "mdbook preprocessor for footnotes.",
+    },
+    Preprocessor {
+        name: "mathpunc",
+        cratesio: "https://crates.io/crates/mdbook-mathpunc",
+        description: "An mdbook preprocessor that prevents line breaks between inline math blocks and punctuation marks when using katex.",
+    },
+    Preprocessor {
+        name: "numeq",
+        cratesio: "https://crates.io/crates/mdbook-numeq",
+        description: "An mdbook preprocessor for automatically numbering centered equations.",
+    },
+    Preprocessor {
+        name: "numthm",
+        cratesio: "https://crates.io/crates/mdbook-numthm",
+        description: "An mdbook preprocessor for automatically numbering theorems, lemmas, etc.",
+    },
+    Preprocessor {
+        name: "repl",
+        cratesio: "https://crates.io/crates/mdbook-repl",
+        description: "A rust based mdbook preprocessor that allows you to execute code in your mdbook without any server. Python, Typescript, Javascript etc.",
+    },
+    Preprocessor {
+        name: "quiz",
+        cratesio: "https://crates.io/crates/mdbook-quiz",
+        description: "Interactive quizzes for your mdBook",
     },
 ];
 
