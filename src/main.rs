@@ -6,7 +6,24 @@ use toml::{Table, Value, map::Map};
 
 use git_digger::Repository;
 
-const PREPROCESSORS: [&str; 3] = ["admonish", "alerts", "embedify"];
+struct Preprocessor {
+    name: &'static str,
+    cratesio: &'static str,
+}
+const PREPROCESSORS: [Preprocessor; 3] = [
+    Preprocessor {
+        name: "admonish",
+        cratesio: "https://crates.io/crates/mdbook-admonish",
+    },
+    Preprocessor {
+        name: "alerts",
+        cratesio: "https://crates.io/crates/mdbook-alerts",
+    },
+    Preprocessor {
+        name: "embedify",
+        cratesio: "https://crates.io/crates/mdbook-embedify",
+    },
+];
 
 #[derive(Parser, Debug)]
 #[command(version)]
@@ -224,8 +241,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         std::fs::write("report/src/SUMMARY.md", summary.as_bytes())?;
 
-        for name in PREPROCESSORS {
-            preprocessor_details_page(&mdbooks, name);
+        for preprocessor in PREPROCESSORS {
+            preprocessor_details_page(&mdbooks, &preprocessor);
         }
     }
 
@@ -599,6 +616,7 @@ fn output_page(mdbooks: &Vec<MDBook>) {
 
 fn preprocessor_page(mdbooks: &Vec<MDBook>) {
     let mut md = String::from("# preprocessor\n\n");
+    let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
     md += "| Title | Repo | preprocessor field | \n";
     md += "|-------|------|-------------| \n";
@@ -615,7 +633,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) {
                 match preprocessor {
                     Value::Table(t) => {
                         t.iter().for_each(|(k, _v)| {
-                            if PREPROCESSORS.contains(&k.as_str()) {
+                            if preprocessor_names.contains(&k.as_str()) {
                                 fields += format!("[{k}](preprocessor-{k}.md)").as_str();
                             } else {
                                 fields += k;
@@ -644,8 +662,14 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) {
     std::fs::write("report/src/preprocessor.md", md).unwrap();
 }
 
-fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &str) {
-    let mut md = format!("# preprocessor {preprocessor}\n\n");
+fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor) {
+    let mut md = format!("# preprocessor {}\n\n", preprocessor.name);
+
+    md += format!(
+        "The preprocessor {} is available on [crates.io]({}).\n\n",
+        preprocessor.name, preprocessor.cratesio
+    )
+    .as_str();
 
     md += "| Title | Repo | preprocessor field | \n";
     md += "|-------|------|-------------| \n";
@@ -657,7 +681,7 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &str) {
         let table = mdbook.everything.as_ref().unwrap();
         match table.get("preprocessor") {
             None => continue,
-            Some(preprocessor_table) => match preprocessor_table.get(preprocessor) {
+            Some(preprocessor_table) => match preprocessor_table.get(preprocessor.name) {
                 None => continue,
                 Some(data) => {
                     let mut fields = String::new();
@@ -684,7 +708,7 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &str) {
             },
         };
     }
-    let path = format!("report/src/preprocessor-{preprocessor}.md");
+    let path = format!("report/src/preprocessor-{}.md", preprocessor.name);
     std::fs::write(path, md).unwrap();
 }
 
