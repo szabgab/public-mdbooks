@@ -39,9 +39,15 @@ struct MDBook {
     description: Option<String>,
     comment: Option<String>,
 
+    #[serde(default = "default_empty_string")]
+    raw_book_toml: String,
     book: Option<BookToml>,
     everything: Option<Map<String, Value>>,
     error: Option<String>,
+}
+
+fn default_empty_string() -> String {
+    String::new()
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -119,7 +125,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             std::fs::create_dir("report/src")?;
         }
 
-        std::fs::copy("report/SUMMARY.md", "report/src/SUMMARY.md")?;
         for mdbook in &mut mdbooks {
             log::info!("book: {:?}", mdbook);
             count += 1;
@@ -140,6 +145,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             let content = std::fs::read_to_string(&book_toml_file)?;
+            mdbook.raw_book_toml = content.clone();
 
             let everything = match toml::from_str::<Table>(&content) {
                 Ok(data) => data,
@@ -210,6 +216,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         build_page(&mdbooks);
         output_page(&mdbooks);
         preprocessor_page(&mdbooks);
+        books_page();
+        let books_summary = create_book_pages(&mdbooks);
+
+        let mut summary = std::fs::read_to_string("report/SUMMARY.md")?;
+        summary.push_str(&books_summary);
+
+        std::fs::write("report/src/SUMMARY.md", summary.as_bytes())?;
+
         for name in PREPROCESSORS {
             preprocessor_details_page(&mdbooks, name);
         }
@@ -225,6 +239,50 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //std::process::exit(1);
     }
     Ok(())
+}
+
+fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
+    let mut summary = String::from("* [Public mdBooks](./books.md)\n");
+    for mdbook in mdbooks {
+        let filename = mdbook
+            .repo
+            .path(&std::fs::canonicalize("report/src/").unwrap());
+        let path = filename.parent().unwrap();
+        log::warn!("path: {:?}", path);
+        std::fs::create_dir_all(path).unwrap();
+        let mut md = format!("# {}\n\n", mdbook.title);
+        md += format!("* [repo]({})\n", mdbook.repo.url()).as_str();
+        md += format!(
+            "* [site]({})\n",
+            mdbook.site.clone().unwrap_or("".to_string())
+        )
+        .as_str();
+        md += format!(
+            "* description: {}\n",
+            mdbook.description.clone().unwrap_or("NA".to_string())
+        )
+        .as_str();
+        md += format!(
+            "* comment: {}\n",
+            mdbook.comment.clone().unwrap_or("NA".to_string())
+        )
+        .as_str();
+        md += format!("\n## book.toml\n\n```toml\n{}\n```\n", mdbook.raw_book_toml).as_str();
+
+        // TODO: use add_extension when it becomes available
+        let filename = format!("{}.md", filename.as_os_str().to_str().unwrap());
+        log::warn!("filename: {:?}", filename);
+        std::fs::write(filename, md).unwrap();
+
+        let relative = mdbook.repo.path(Path::new(""));
+        summary += format!(
+            "  * [{}](./{}.md)\n",
+            mdbook.title,
+            relative.as_os_str().to_str().unwrap()
+        )
+        .as_str();
+    }
+    summary
 }
 
 fn index_page(mdbooks: &Vec<MDBook>) {
@@ -250,6 +308,13 @@ fn index_page(mdbooks: &Vec<MDBook>) {
         .as_str();
     }
     std::fs::write("report/src/index.md", md).unwrap();
+}
+
+fn books_page() {
+    let mut md = String::from("# Public mdBooks\n\n");
+    md += "In this section you can find detailed information about the mdBooks.\n";
+
+    std::fs::write("report/src/books.md", md).unwrap();
 }
 
 fn book_toml_page() {
