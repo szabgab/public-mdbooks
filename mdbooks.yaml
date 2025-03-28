@@ -497,3 +497,67 @@
   repo: https://github.com/opeolluwa/molybdenum
   folder: docs
   site: https://opeolluwa.github.io/molybdenum/
+
+- title: learnings-notebook
+  description: My personal notes of the things I am learning. Published for fellow explorers. by Nihal Kumar
+  repo: https://github.com/nihalxkumar/learnings-notebook
+
+- title: MisNotas by Andres Pallares Lopez
+  repo: https://github.com/andrespallareslopez/MisNotas
+
+- title: Swift Rust Python
+  site: https://ericliuhusky.github.io/Knowledge/
+  repo: https://github.com/ericliuhusky/Knowledge
+
+- title: Explorer
+  repo: https://github.com/hoodrunio/explorer-backend-mdbook
+
+- title: esp-docs-mdbook Theme
+  repo: https://github.com/espressif/esp-docs-mdbook
+  site: https://espressif.github.io/esp-docs-mdbook/
+
+- title: Introduction of Tutorials for THU iOS Club
+  repo: https://github.com/THU-iOS/tutorials
+  site: https://thu-ios.github.io/tutorials/
+
+- title: pulumi-az-sql
+  repo: https://github.com/bitquip/pulumi-az-sql
+
+- title: tc3_installation
+  description: Short mdbook documentation on installing Twincat 3 and supporting MS Visual Studio 2019.
+  repo: https://github.com/luminize/tc3_installation
+  site: https://m-inau.github.io/technical_documentation_how_to_/
+
+- title: my-first-book
+  repo: https://github.com/poneding/my-first-book
+  site: https://pding.top/my-first-book/
+
+- title: HPC monitoring documentation
+  site: https://hpcmonitoring.github.io/docs/
+  repo: https://github.com/HPCMonitoring/docs
+
+- title: Rust Augsburg Meetup
+  site: https://rust-augsburg.github.io/meetup/
+  repo: https://github.com/rust-augsburg/meetup
+
+- title: "Sakubi: Yesterday's Grammar Guide"
+  repo: https://github.com/tysonwu/sakubi
+  site: https://tylab.dev/sakubi/
+
+- title: Study mdBook
+  repo: https://github.com/kkAyataka/study-mdbook
+
+- title: mokshamarg prakashak
+  repo: https://github.com/JinSwara/mokshamarg-prakashak-mdbook
+  comment: Hindi
+
+- title: Krossbar book
+  repo: https://github.com/krossbar-platform/krossbar-book
+
+- title: vimkim blog
+  site: https://blog.vimkim.dev/
+  repo: https://github.com/vimkim/blog
+
+- title: Blender book
+  repo: https://github.com/Blender4Pepu/blender_book
+  site: https://blender-l2-privacy.web.app/book/
