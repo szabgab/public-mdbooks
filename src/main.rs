@@ -176,6 +176,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //}
 
         index_page(&mdbooks);
+        book_toml_page();
         errors_page(&mdbooks);
         src_page(&mdbooks);
         language_page(&mdbooks);
@@ -207,8 +208,8 @@ fn index_page(mdbooks: &Vec<MDBook>) {
     let now = chrono::Utc::now();
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks for which the source is also available available.\n";
-    md += "The list is generated from the `mdbooks.yaml` file.\n\n";
-    md += "If you would like to add a book to this list, please submit a PR to the `mdbooks.yaml` file.\n\n";
+    md += "The list is generated from the `mdbooks.yaml` file in our [repository](https://github.com/szabgab/public-mdbooks).\n\n";
+    md += "If you would like to add a book to this list, or add a description please submit a PR to the `mdbooks.yaml` file.\n\n";
     md += "Check out the [mdBook User manual](https://rust-lang.github.io/mdBook/) for more information.\n\n";
     md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
     md += format!("Generated at: {}\n\n", now.format("%Y-%m-%d %H:%M:%S")).as_str();
@@ -226,6 +227,13 @@ fn index_page(mdbooks: &Vec<MDBook>) {
         .as_str();
     }
     std::fs::write("report/src/index.md", md).unwrap();
+}
+
+fn book_toml_page() {
+    let mut md = String::from("# book.toml\n\n");
+    md += "The book.toml file is the main [configuration file](https://rust-lang.github.io/mdBook/format/configuration/) of every mdbook.\n";
+    md += "In this chapter we analyzet the content of the book.toml files in the listed mdbooks.\n\n";
+    std::fs::write("report/src/book-toml.md", md).unwrap();
 }
 
 fn errors_page(mdbooks: &Vec<MDBook>) {
