@@ -298,6 +298,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //    std::process::exit(0);
         //}
 
+        let mut summary = std::fs::read_to_string("report/SUMMARY.md")?;
+
         index_page(&mdbooks);
         book_toml_page();
         errors_page(&mdbooks);
@@ -310,17 +312,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         books_page();
         output_page(&mdbooks);
         let preprocessor_summary = preprocessor_page(&mdbooks);
-        let books_summary = create_book_pages(&mdbooks);
-
-        let mut summary = std::fs::read_to_string("report/SUMMARY.md")?;
         summary.push_str(&preprocessor_summary);
+
+        let books_summary = create_book_pages(&mdbooks);
         summary.push_str(&books_summary);
 
         std::fs::write("report/src/SUMMARY.md", summary.as_bytes())?;
-
-        for preprocessor in PREPROCESSORS {
-            preprocessor_details_page(&mdbooks, &preprocessor);
-        }
     }
 
     let count_errors = mdbooks
@@ -733,6 +730,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     std::fs::write("report/src/preprocessor.md", md).unwrap();
 
     for preprocessor in PREPROCESSORS.iter() {
+        preprocessor_details_page(&mdbooks, &preprocessor);
         summary += format!(
             "    - [{}](./preprocessor-{}.md)\n",
             preprocessor.name, preprocessor.name
