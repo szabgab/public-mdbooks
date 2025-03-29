@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{collections::HashSet, path::Path};
 
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -6,11 +6,67 @@ use toml::{Table, Value, map::Map};
 
 use git_digger::Repository;
 
+const REPO: &str = "https://github.com/szabgab/public-mdbooks/";
+struct Language {
+    code: &'static str,
+    name: &'static str,
+}
 struct Preprocessor {
     name: &'static str,
     cratesio: &'static str,
     description: &'static str,
 }
+const LANGUAGES: [Language; 12] = [
+    Language {
+        code: "en",
+        name: "English",
+    },
+    Language {
+        code: "de",
+        name: "German",
+    },
+    Language {
+        code: "fr",
+        name: "French",
+    },
+    Language {
+        code: "es",
+        name: "Spanish",
+    },
+    Language {
+        code: "ja",
+        name: "Japanese",
+    },
+    Language {
+        code: "he",
+        name: "Hebrew",
+    },
+    Language {
+        code: "zh",
+        name: "Chinese",
+    },
+    Language {
+        code: "vi",
+        name: "Vietnamese",
+    },
+    Language {
+        code: "pt",
+        name: "Portuguese",
+    },
+    Language {
+        code: "kr",
+        name: "Korean",
+    },
+    Language {
+        code: "ca",
+        name: "Catalan",
+    },
+    Language {
+        code: "sv",
+        name: "Swedish",
+    },
+];
+
 const PREPROCESSORS: [Preprocessor; 16] = [
     Preprocessor {
         name: "admonish",
@@ -135,10 +191,7 @@ struct MDBook {
 impl MDBook {
     fn relative(&self) -> String {
         let relative = self.repo.path(Path::new(""));
-        format!(
-            "./{}.md",
-            relative.as_os_str().to_str().unwrap().to_string()
-        )
+        format!("./{}.md", relative.as_os_str().to_str().unwrap())
     }
 }
 
@@ -457,8 +510,34 @@ fn src_page(mdbooks: &Vec<MDBook>) -> String {
 }
 
 fn language_page(mdbooks: &Vec<MDBook>) -> String {
-    let summary = String::from("    - [language](./language.md)\n");
+    let mut summary = String::from("    - [language](./language.md)\n");
     let mut md = String::from("# The book.language field\n\n");
+
+    let mut missing = HashSet::new();
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+        let bk = mdbook.book.as_ref().unwrap();
+        if bk.book.language.is_none() {
+            continue;
+        }
+        if LANGUAGES
+            .iter()
+            .any(|l| l.code == bk.book.language.clone().unwrap())
+        {
+            continue;
+        }
+        missing.insert(bk.book.language.clone().unwrap());
+    }
+    if !missing.is_empty() {
+        md += format!(
+            "The following languages are not in our list of supported languages: {:?} Please open an [issue]({})\n\n",
+            missing,
+            REPO
+        )
+        .as_str();
+    }
 
     md += "| Title | language |\n";
     md += "|-------|-------------|\n";
@@ -482,6 +561,48 @@ fn language_page(mdbooks: &Vec<MDBook>) -> String {
     }
 
     std::fs::write("report/src/language.md", md).unwrap();
+
+    for language in LANGUAGES {
+        summary.push_str(single_language_page(mdbooks, &language).as_str());
+    }
+
+    summary
+}
+
+fn single_language_page(mdbooks: &Vec<MDBook>, language: &Language) -> String {
+    let summary = format!(
+        "      - [{}](./language-{}.md)\n",
+        language.name, language.code
+    );
+    let mut md = format!(
+        "# {} - book.language = {}\n\n",
+        language.name, language.code
+    );
+
+    md += "| Title | language |\n";
+    md += "|-------|-------------|\n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let bk = mdbook.book.as_ref().unwrap();
+        if bk.book.language.is_none() {
+            continue;
+        }
+        if bk.book.language.clone().unwrap() != language.code {
+            continue;
+        }
+        md += format!(
+            "| [{}]({}) | {} | \n",
+            mdbook.title,
+            mdbook.relative(),
+            bk.book.language.clone().unwrap()
+        )
+        .as_str();
+    }
+
+    std::fs::write(format!("report/src/language-{}.md", language.code), md).unwrap();
 
     summary
 }
