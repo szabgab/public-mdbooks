@@ -385,9 +385,11 @@ fn index_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("- [mdBooks](./index.md)\n");
     let now = chrono::Utc::now();
     let mut md = String::from("# Public mdBooks\n\n");
-    md += "This is a list of mdBooks for which the source is also available available.\n";
+    md += "This is a list of mdBooks with public source.\n";
+    md += "If you are using mdBook we hope that this site will help you learn how other are using it, which plugins are available and how to use those.\n";
+    md += "If you are developing plugins for mdBook or the mdBook itself, then we hope this will help you see who uses your plugin and how it is being used.\n";
     md += "The list is generated from the `mdbooks.yaml` file in our [repository](https://github.com/szabgab/public-mdbooks).\n\n";
-    md += "If you would like to add a book to this list, or add a description please submit a PR to the `mdbooks.yaml` file.\n\n";
+    md += "If you would like to add a book to this list, or add a description please submit a PR to change the `mdbooks.yaml` file.\n\n";
     md += "Check out the [mdBook User manual](https://rust-lang.github.io/mdBook/) for more information.\n\n";
     md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
     md += format!("Generated at: {}\n\n", now.format("%Y-%m-%d %H:%M:%S")).as_str();
