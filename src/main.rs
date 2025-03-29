@@ -452,14 +452,18 @@ fn errors_page(mdbooks: &Vec<MDBook>) -> String {
         if mdbook.error.is_none() {
             continue;
         }
+        md += format!("* [details](./{}.md)\n", mdbook.relative(),).as_str();
+
         md += format!(
-            "* [{}]({})\n* [repo]({})\n\n{}\n\n---\n\n",
+            "* [{}]({})\n",
             mdbook.title,
             mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
-            mdbook.error.clone().unwrap_or("".to_string())
         )
         .as_str();
+
+        md += format!("* [repo]({})\n\n", mdbook.repo.url(),).as_str();
+        md += format!("{}\n\n", mdbook.error.clone().unwrap_or("".to_string())).as_str();
+        md += "---\n\n";
     }
     std::fs::write("report/src/errors.md", md).unwrap();
 
