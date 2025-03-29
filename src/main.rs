@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use clap::{Parser, builder::Str};
+use clap::Parser;
 use serde::{Deserialize, Serialize};
 use toml::{Table, Value, map::Map};
 
@@ -298,15 +298,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //    std::process::exit(0);
         //}
 
-        let mut summary = std::fs::read_to_string("report/SUMMARY.md")?;
+        let mut summary = String::from("# Summary\n\n");
 
-        index_page(&mdbooks);
-        book_toml_page();
-        errors_page(&mdbooks);
-        src_page(&mdbooks);
-        language_page(&mdbooks);
-        text_direction_page(&mdbooks);
-        multilingual_page(&mdbooks);
+        summary.push_str(index_page(&mdbooks).as_str());
+        summary.push_str(errors_page(&mdbooks).as_str());
+        summary.push_str(book_toml_page().as_str());
+        summary.push_str(book_page(&mdbooks).as_str());
         summary.push_str(rust_page(&mdbooks).as_str());
         summary.push_str(build_page(&mdbooks).as_str());
         summary.push_str(output_page(&mdbooks).as_str());
@@ -368,7 +365,8 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
     summary
 }
 
-fn index_page(mdbooks: &Vec<MDBook>) {
+fn index_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("- [mdBooks](./index.md)\n");
     let now = chrono::Utc::now();
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks for which the source is also available available.\n";
@@ -391,6 +389,8 @@ fn index_page(mdbooks: &Vec<MDBook>) {
         .as_str();
     }
     std::fs::write("report/src/index.md", md).unwrap();
+
+    summary
 }
 
 fn books_page() {
@@ -400,15 +400,35 @@ fn books_page() {
     std::fs::write("report/src/books.md", md).unwrap();
 }
 
-fn book_toml_page() {
+fn book_toml_page() -> String {
+    let summary = String::from("- [book.toml](./book-toml.md)\n");
+
     let mut md = String::from("# book.toml\n\n");
     md += "The book.toml file is the main [configuration file](https://rust-lang.github.io/mdBook/format/configuration/) of every mdbook.\n";
     md +=
         "In this chapter we analyzet the content of the book.toml files in the listed mdbooks.\n\n";
     std::fs::write("report/src/book-toml.md", md).unwrap();
+
+    summary
 }
 
-fn errors_page(mdbooks: &Vec<MDBook>) {
+fn book_page(mdbooks: &Vec<MDBook>) -> String {
+    let mut summary = String::from("  - [book](./book.md)\n");
+
+    let mut md = String::from("# book\n\n");
+    md += "The `book` section in the `book.toml file\n";
+    std::fs::write("report/src/book.md", md).unwrap();
+
+    summary.push_str(src_page(mdbooks).as_str());
+    summary.push_str(language_page(mdbooks).as_str());
+    summary.push_str(text_direction_page(mdbooks).as_str());
+    summary.push_str(multilingual_page(mdbooks).as_str());
+
+    summary
+}
+
+fn errors_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("- [errors](./errors.md)\n");
     let mut md = String::from("# Errors in the mdbooks\n\n");
 
     let count_errors = mdbooks
@@ -442,9 +462,12 @@ fn errors_page(mdbooks: &Vec<MDBook>) {
         .as_str();
     }
     std::fs::write("report/src/errors.md", md).unwrap();
+
+    summary
 }
 
-fn src_page(mdbooks: &Vec<MDBook>) {
+fn src_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("    - [src](./src.md)\n");
     let mut md = String::from("# The book.src field\n\n");
 
     md += "| Title | Repo | src |\n";
@@ -470,9 +493,12 @@ fn src_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/src.md", md).unwrap();
+
+    summary
 }
 
-fn language_page(mdbooks: &Vec<MDBook>) {
+fn language_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("    - [language](./language.md)\n");
     let mut md = String::from("# The book.language field\n\n");
 
     md += "| Title | Repo | language |\n";
@@ -498,9 +524,12 @@ fn language_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/language.md", md).unwrap();
+
+    summary
 }
 
-fn text_direction_page(mdbooks: &Vec<MDBook>) {
+fn text_direction_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("    - [text-direction](./text-direction.md)\n");
     let mut md = String::from("# The book.text-direction field\n\n");
 
     md += "| Title | Repo | text-direction |\n";
@@ -526,9 +555,12 @@ fn text_direction_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/text-direction.md", md).unwrap();
+
+    summary
 }
 
-fn multilingual_page(mdbooks: &Vec<MDBook>) {
+fn multilingual_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("    - [multilingual](./multilingual.md)\n");
     let mut md = String::from("# The book.multilingual field\n\n");
 
     md += "| Title | Repo | multilingual |\n";
@@ -557,6 +589,8 @@ fn multilingual_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/multilingual.md", md).unwrap();
+
+    summary
 }
 
 fn rust_page(mdbooks: &Vec<MDBook>) -> String {
@@ -738,7 +772,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     std::fs::write("report/src/preprocessor.md", md).unwrap();
 
     for preprocessor in PREPROCESSORS.iter() {
-        preprocessor_details_page(&mdbooks, &preprocessor);
+        preprocessor_details_page(mdbooks, preprocessor);
         summary += format!(
             "    - [{}](./preprocessor-{}.md)\n",
             preprocessor.name, preprocessor.name
