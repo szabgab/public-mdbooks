@@ -328,46 +328,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
-    let mut summary = String::from("* [Public mdBooks](./books.md)\n");
-    books_page();
-
-    for mdbook in mdbooks {
-        let filename = mdbook
-            .repo
-            .path(&std::fs::canonicalize("report/src/").unwrap());
-        let path = filename.parent().unwrap();
-        log::warn!("path: {:?}", path);
-        std::fs::create_dir_all(path).unwrap();
-        let mut md = format!("# {}\n\n", mdbook.title);
-        md += format!("* [repo]({})\n", mdbook.repo.url()).as_str();
-        md += format!(
-            "* [site]({})\n",
-            mdbook.site.clone().unwrap_or("".to_string())
-        )
-        .as_str();
-        md += format!(
-            "* description: {}\n",
-            mdbook.description.clone().unwrap_or("NA".to_string())
-        )
-        .as_str();
-        md += format!(
-            "* comment: {}\n",
-            mdbook.comment.clone().unwrap_or("NA".to_string())
-        )
-        .as_str();
-        md += format!("\n## book.toml\n\n```toml\n{}\n```\n", mdbook.raw_book_toml).as_str();
-
-        // TODO: use add_extension when it becomes available
-        let filename = format!("{}.md", filename.as_os_str().to_str().unwrap());
-        log::warn!("filename: {:?}", filename);
-        std::fs::write(filename, md).unwrap();
-
-        summary += format!("  * [{}]({})\n", mdbook.title, mdbook.relative()).as_str();
-    }
-    summary
-}
-
 fn index_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("- [mdBooks](./index.md)\n");
     let now = chrono::Utc::now();
@@ -394,13 +354,6 @@ fn index_page(mdbooks: &Vec<MDBook>) -> String {
     std::fs::write("report/src/index.md", md).unwrap();
 
     summary
-}
-
-fn books_page() {
-    let mut md = String::from("# Public mdBooks\n\n");
-    md += "In this section you can find detailed information about the mdBooks.\n";
-
-    std::fs::write("report/src/books.md", md).unwrap();
 }
 
 fn book_toml_page() -> String {
@@ -477,8 +430,8 @@ fn src_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("    - [src](./src.md)\n");
     let mut md = String::from("# The book.src field\n\n");
 
-    md += "| Title | Repo | src |\n";
-    md += "|-------|------|-------------|\n";
+    md += "| Title | src |\n";
+    md += "|-------|-------------|\n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -486,10 +439,9 @@ fn src_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             if bk.book.src.is_none() {
                 "-".to_string()
             } else {
@@ -508,8 +460,8 @@ fn language_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("    - [language](./language.md)\n");
     let mut md = String::from("# The book.language field\n\n");
 
-    md += "| Title | Repo | language |\n";
-    md += "|-------|------|-------------|\n";
+    md += "| Title | language |\n";
+    md += "|-------|-------------|\n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -517,10 +469,9 @@ fn language_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             if bk.book.language.is_none() {
                 "-".to_string()
             } else {
@@ -539,8 +490,8 @@ fn text_direction_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("    - [text-direction](./text-direction.md)\n");
     let mut md = String::from("# The book.text-direction field\n\n");
 
-    md += "| Title | Repo | text-direction |\n";
-    md += "|-------|------|-------------|\n";
+    md += "| Title |  text-direction |\n";
+    md += "|-------|-------------|\n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -548,10 +499,9 @@ fn text_direction_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             if bk.book.text_direction.is_none() {
                 "-".to_string()
             } else {
@@ -570,8 +520,8 @@ fn multilingual_page(mdbooks: &Vec<MDBook>) -> String {
     let summary = String::from("    - [multilingual](./multilingual.md)\n");
     let mut md = String::from("# The book.multilingual field\n\n");
 
-    md += "| Title | Repo | multilingual |\n";
-    md += "|-------|------|-------------|\n";
+    md += "| Title | multilingual |\n";
+    md += "|-------|-------------|\n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -579,10 +529,9 @@ fn multilingual_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             if bk.book.multilingual.is_none() {
                 "-".to_string()
             } else {
@@ -605,8 +554,8 @@ fn rust_page(mdbooks: &Vec<MDBook>) -> String {
 
     let mut md = String::from("# The rust.edition field\n\n");
 
-    md += "| Title | Repo | editon |\n";
-    md += "|-------|------|-------------|\n";
+    md += "| Title | editon |\n";
+    md += "|-------|-------------|\n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -614,10 +563,9 @@ fn rust_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             match &bk.rust {
                 None => String::new(),
                 Some(rust) => rust.edition.clone(),
@@ -635,8 +583,8 @@ fn build_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# The build table\n\n");
     let summary = String::from("  - [build](./build.md)\n");
 
-    md += "| Title | Repo | build-dir | create-missing | extra-watch-dirs | use-default-preprocessors |\n";
-    md += "|-------|------|-------------|--------|------|------| \n";
+    md += "| Title | build-dir | create-missing | extra-watch-dirs | use-default-preprocessors |\n";
+    md += "|-------|-------------|--------|------|------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -644,10 +592,9 @@ fn build_page(mdbooks: &Vec<MDBook>) -> String {
 
         let bk = mdbook.book.as_ref().unwrap();
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | {} | {} | {} |\n",
+            "| [{}]({}) | {} | {} | {} | {} |\n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             match &bk.build {
                 None => String::new(),
                 Some(build) => match build.build_dir.clone() {
@@ -689,8 +636,8 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# output\n\n");
     let summary = String::from("  - [output](./output.md)\n");
 
-    md += "| Title | Repo | output field | \n";
-    md += "|-------|------|-------------| \n";
+    md += "| Title | output field | \n";
+    md += "|-------|-------------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -717,10 +664,9 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
         };
 
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | \n",
+            "| [{}]({}) | {} | \n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-            mdbook.repo.url(),
+            mdbook.relative(),
             fields,
         )
         .as_str();
@@ -800,8 +746,8 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor)
     .as_str();
     md += format!("{}\n\n", preprocessor.description).as_str();
 
-    md += "| Title | Repo | preprocessor field | \n";
-    md += "|-------|------|-------------| \n";
+    md += "| Title | preprocessor field | \n";
+    md += "|-------|-------------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -826,10 +772,9 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor)
                         }
                     }
                     md += format!(
-                        "| [{}]({}) | [repo]({}) | {} | \n",
+                        "| [{}]({}) | {} | \n",
                         mdbook.title,
-                        mdbook.site.clone().unwrap_or("".to_string()),
-                        mdbook.repo.url(),
+                        mdbook.relative(),
                         fields,
                     )
                     .as_str();
@@ -839,6 +784,58 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor)
     }
     let path = format!("report/src/preprocessor-{}.md", preprocessor.name);
     std::fs::write(path, md).unwrap();
+}
+
+fn books_page() {
+    let mut md = String::from("# Public mdBooks\n\n");
+    md += "In this section you can find detailed information about the mdBooks.\n";
+
+    std::fs::write("report/src/books.md", md).unwrap();
+}
+
+fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
+    let mut summary = String::from("* [Public mdBooks](./books.md)\n");
+    books_page();
+
+    for mdbook in mdbooks {
+        let filename = mdbook
+            .repo
+            .path(&std::fs::canonicalize("report/src/").unwrap());
+        let path = filename.parent().unwrap();
+        log::warn!("path: {:?}", path);
+        std::fs::create_dir_all(path).unwrap();
+        let mut md = format!("# {}\n\n", mdbook.title);
+        let folder = if mdbook.folder.is_none() {
+            "".to_string()
+        } else {
+            format!("  (folder: {})", mdbook.folder.clone().unwrap())
+        };
+        md += format!("* [repo]({}){}\n", mdbook.repo.url(), folder).as_str();
+        md += format!(
+            "* [site]({})\n",
+            mdbook.site.clone().unwrap_or("".to_string())
+        )
+        .as_str();
+        md += format!(
+            "* description: {}\n",
+            mdbook.description.clone().unwrap_or("NA".to_string())
+        )
+        .as_str();
+        md += format!(
+            "* comment: {}\n",
+            mdbook.comment.clone().unwrap_or("NA".to_string())
+        )
+        .as_str();
+        md += format!("\n## book.toml\n\n```toml\n{}\n```\n", mdbook.raw_book_toml).as_str();
+
+        // TODO: use add_extension when it becomes available
+        let filename = format!("{}.md", filename.as_os_str().to_str().unwrap());
+        log::warn!("filename: {:?}", filename);
+        std::fs::write(filename, md).unwrap();
+
+        summary += format!("  * [{}]({})\n", mdbook.title, mdbook.relative()).as_str();
+    }
+    summary
 }
 
 fn read_the_mdbooks_file() -> Result<Vec<MDBook>, Box<dyn std::error::Error>> {
