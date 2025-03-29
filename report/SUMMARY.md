@@ -8,7 +8,4 @@
     - [language](./language.md)
     - [text-direction](./text-direction.md)
     - [multilingual](./multilingual.md)
-  - [rust](./rust.md)
-  - [build](./build.md)
-  - [output](./output.md)
 

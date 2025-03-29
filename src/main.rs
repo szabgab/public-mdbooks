@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use clap::Parser;
+use clap::{Parser, builder::Str};
 use serde::{Deserialize, Serialize};
 use toml::{Table, Value, map::Map};
 
@@ -307,15 +307,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         language_page(&mdbooks);
         text_direction_page(&mdbooks);
         multilingual_page(&mdbooks);
-        rust_page(&mdbooks);
-        build_page(&mdbooks);
-        books_page();
-        output_page(&mdbooks);
-        let preprocessor_summary = preprocessor_page(&mdbooks);
-        summary.push_str(&preprocessor_summary);
-
-        let books_summary = create_book_pages(&mdbooks);
-        summary.push_str(&books_summary);
+        summary.push_str(rust_page(&mdbooks).as_str());
+        summary.push_str(build_page(&mdbooks).as_str());
+        summary.push_str(output_page(&mdbooks).as_str());
+        summary.push_str(preprocessor_page(&mdbooks).as_str());
+        summary.push_str(create_book_pages(&mdbooks).as_str());
 
         std::fs::write("report/src/SUMMARY.md", summary.as_bytes())?;
     }
@@ -334,6 +330,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
     let mut summary = String::from("* [Public mdBooks](./books.md)\n");
+    books_page();
+
     for mdbook in mdbooks {
         let filename = mdbook
             .repo
@@ -561,7 +559,9 @@ fn multilingual_page(mdbooks: &Vec<MDBook>) {
     std::fs::write("report/src/multilingual.md", md).unwrap();
 }
 
-fn rust_page(mdbooks: &Vec<MDBook>) {
+fn rust_page(mdbooks: &Vec<MDBook>) -> String {
+    let summary = String::from("  - [rust](./rust.md)\n");
+
     let mut md = String::from("# The rust.edition field\n\n");
 
     md += "| Title | Repo | editon |\n";
@@ -586,10 +586,13 @@ fn rust_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/rust.md", md).unwrap();
+
+    summary
 }
 
-fn build_page(mdbooks: &Vec<MDBook>) {
+fn build_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# The build table\n\n");
+    let summary = String::from("  - [build](./build.md)\n");
 
     md += "| Title | Repo | build-dir | create-missing | extra-watch-dirs | use-default-preprocessors |\n";
     md += "|-------|------|-------------|--------|------|------| \n";
@@ -637,10 +640,13 @@ fn build_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/build.md", md).unwrap();
+
+    summary
 }
 
-fn output_page(mdbooks: &Vec<MDBook>) {
+fn output_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# output\n\n");
+    let summary = String::from("  - [output](./output.md)\n");
 
     md += "| Title | Repo | output field | \n";
     md += "|-------|------|-------------| \n";
@@ -680,6 +686,8 @@ fn output_page(mdbooks: &Vec<MDBook>) {
     }
 
     std::fs::write("report/src/output.md", md).unwrap();
+
+    summary
 }
 
 fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
