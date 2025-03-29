@@ -135,7 +135,10 @@ struct MDBook {
 impl MDBook {
     fn relative(&self) -> String {
         let relative = self.repo.path(Path::new(""));
-        relative.as_os_str().to_str().unwrap().to_string()
+        format!(
+            "./{}.md",
+            relative.as_os_str().to_str().unwrap().to_string()
+        )
     }
 }
 
@@ -360,7 +363,7 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
         log::warn!("filename: {:?}", filename);
         std::fs::write(filename, md).unwrap();
 
-        summary += format!("  * [{}](./{}.md)\n", mdbook.title, mdbook.relative()).as_str();
+        summary += format!("  * [{}]({})\n", mdbook.title, mdbook.relative()).as_str();
     }
     summary
 }
@@ -452,7 +455,7 @@ fn errors_page(mdbooks: &Vec<MDBook>) -> String {
         if mdbook.error.is_none() {
             continue;
         }
-        md += format!("* [details](./{}.md)\n", mdbook.relative(),).as_str();
+        md += format!("* [details]({})\n", mdbook.relative(),).as_str();
 
         md += format!(
             "* [{}]({})\n",
@@ -764,7 +767,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
         };
 
         md += format!(
-            "| [{}](./{}.md) |  {} | \n",
+            "| [{}]({}) |  {} | \n",
             mdbook.title,
             mdbook.relative(),
             fields,
