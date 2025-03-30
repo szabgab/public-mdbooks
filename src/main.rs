@@ -1,5 +1,5 @@
 use std::error::Error;
-use std::{collections::HashSet, path::Path};
+use std::{collections::HashSet, path::Path, path::PathBuf};
 
 use clap::Parser;
 use serde::{Deserialize, Serialize};
@@ -196,6 +196,13 @@ impl MDBook {
         let relative = self.repo.path(Path::new(""));
         format!("./{}.md", relative.as_os_str().to_str().unwrap())
     }
+    fn book_toml_file(&self, repos_dir: &Path) -> PathBuf {
+        if let Some(folder) = self.folder.clone() {
+            self.repo.path(repos_dir).join(folder).join("book.toml")
+        } else {
+            self.repo.path(repos_dir).join("book.toml")
+        }
+    }
 }
 
 fn default_empty_string() -> String {
@@ -313,11 +320,7 @@ fn collect_data(
         if args.limit > 0 && count >= args.limit {
             break;
         }
-        let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
-            mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
-        } else {
-            mdbook.repo.path(&repos_dir).join("book.toml")
-        };
+        let book_toml_file = mdbook.book_toml_file(&repos_dir);
 
         log::info!("book.toml: {:?}", book_toml_file);
         if !book_toml_file.exists() {
