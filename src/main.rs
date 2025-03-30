@@ -25,7 +25,11 @@ struct Output {
     description: &'static str,
 }
 
-const LANGUAGES: [Language; 12] = [
+const LANGUAGES: [Language; 16] = [
+    Language {
+        code: "ar",
+        name: "Arabic",
+    },
     Language {
         code: "en",
         name: "English",
@@ -63,7 +67,7 @@ const LANGUAGES: [Language; 12] = [
         name: "Portuguese",
     },
     Language {
-        code: "kr",
+        code: "ko",
         name: "Korean",
     },
     Language {
@@ -71,8 +75,20 @@ const LANGUAGES: [Language; 12] = [
         name: "Catalan",
     },
     Language {
+        code: "fa",
+        name: "Persian",
+    },
+    Language {
+        code: "ru",
+        name: "Russian",
+    },
+    Language {
         code: "sv",
         name: "Swedish",
+    },
+    Language {
+        code: "uk",
+        name: "Ukrainian",
     },
 ];
 const OUTPUT: [Output; 6] = [
