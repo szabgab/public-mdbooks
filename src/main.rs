@@ -219,7 +219,7 @@ struct BookToml {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Book {
-    title: String,
+    title: Option<String>,
     src: Option<String>,
     language: Option<String>,
 
