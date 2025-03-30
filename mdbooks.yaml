@@ -665,3 +665,34 @@
   site: https://rust-br.github.io/rust-book-pt-br/
   repo: https://github.com/rust-br/rust-book-pt-br
   description: The Rust Programming Language translated to Brazilian Portuguese
+
+- title: Rust 程序设计语言
+  site: https://kaisery.github.io/trpl-zh-cn/
+  repo: https://github.com/KaiserY/trpl-zh-cn
+  description: The Rust Programming Language translated to Chinese
+
+- title: The Rust book in Chinese
+  repo: https://github.com/gnu4cn/rust-lang-Zh_CN
+  description: The Rust Programming Language translated to Chinese
+
+- title: Rust 程式設計語言
+  repo: https://github.com/rust-tw/book-tw
+  site: https://rust-lang.tw/book-tw/
+  description: The Rust Programming Language translated to Chinese (Taiwan)
+
+- title: Мова Програмування Rust
+  site: https://rust-lang-ua.github.io/rustbook_ukrainian/
+  repo: https://github.com/rust-lang-ua/rustbook_ukrainian/
+  description: The Rust Programming Language translated to Ukrainian
+
+- title: Libro de Rust en Español!
+  repo: https://github.com/RustLangES/rust-book-es
+  site: https://book.rustlang-es.org/
+  description: The Rust Programming Language translated to Spanish
+
+- title: Язык программирования Rust
+  site: https://doc.rust-lang.ru/book/
+  repo: https://github.com/rust-lang-ru/book
+  description: The Rust Programming Language translated to Russian
+  folder: rustbook-ru
+
