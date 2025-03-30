@@ -583,3 +583,51 @@
 - title: Blender book
   repo: https://github.com/Blender4Pepu/blender_book
   site: https://blender-l2-privacy.web.app/book/
+
+- title: Leptos Web framework
+  site: https://book.leptos.dev/
+  repo: https://github.com/leptos-rs/book
+
+- title: Comprehensive Rust
+  site: https://google.github.io/comprehensive-rust/
+  repo: https://github.com/google/comprehensive-rust
+  description: Comprehensive Rust 🦀, a multi-day Rust course developed by the Android team.
+
+- title: GB ASM Tutorial
+  site: https://gbdev.io/gb-asm-tutorial/
+  repo: https://github.com/gbdev/gb-asm-tutorial
+  description: An online Game Boy assembly programming tutorial.
+
+- title: Ordinal Theory Handbook
+  site: https://docs.ordinals.com/
+  repo: https://github.com/ordinals/ord
+  folder: docs
+  description: Ordinal theory concerns itself with satoshis, giving them individual identities and allowing them to be tracked, transferred, and imbued with meaning.
+
+- title: Getting Started with SONiC
+  site: https://r12f.com/sonic-book/
+  repo: https://github.com/r12f/sonic-book
+  description: SONiC is an open-source network operating system (NOS) developed by Microsoft based on Debian.
+
+- title: ezlog
+  site: https://s1rius.github.io/ezlog/
+  repo: https://github.com/s1rius/ezlog
+  description: ezlog is a high-performance cross-platform file logging library.
+
+- title: The Cairo Book
+  site: https://book.cairo-lang.org/
+  repo: https://github.com/cairo-book/cairo-book
+  description: The Cairo Programming Language Book.
+
+- title: The Veryl Hardware Description Language
+  site: https://doc.veryl-lang.org/book/
+  repo: https://github.com/veryl-lang/doc
+  folder: book
+  description: "Veryl is a hardware description language based on SystemVerilog, providing the following advantages: Optimized Syntax; Interoperability; Productivity."
+
+- title: Rust by Example
+  site: https://doc.rust-lang.org/stable/rust-by-example/
+  repo: https://github.com/rust-lang/rust-by-example
+  description: Learn Rust with examples (Live code editor included)
+
+
