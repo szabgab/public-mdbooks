@@ -150,22 +150,27 @@
 - title: C Maven
   site: https://c.code-maven.com/
   repo: https://github.com/szabgab/c.code-maven.com
+  description: Learning again to write programs in C.
 
 - title: Exercises
   site: https://exercises.code-maven.com/
   repo: https://github.com/szabgab/exercises.code-maven.com
+  description: Exercises used while learning programming with solutions in a number of programming languages.
 
 - title: Git Maven
   site: https://git.code-maven.com/
   repo: https://github.com/szabgab/git.code-maven.com
+  description: Articles, and videos about git, GitHub, and GitLab.
 
 - title: Groovy Maven
   site: https://groovy.code-maven.com/
   repo: https://github.com/szabgab/groovy.code-maven.com
+  description: Programming in Groovy, especially for Jenkins users.
 
 - title: Ruby Maven
   site: https://ruby.code-maven.com/
   repo: https://github.com/szabgab/ruby.code-maven.com
+  description: Articles and examples about the Ruby programming language.
 
 - title: maubot
   repo: https://github.com/mautrix/docs
