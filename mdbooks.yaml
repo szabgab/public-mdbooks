@@ -738,4 +738,7 @@
   folder: 2018-edition
   description: The Rust Programming Language translated to Hindi
   
-  
+- title: Anki Manual
+  description: User manual for the flashcard software Anki
+  repo: https://github.com/ankitects/anki-manual
+  site: https://docs.ankiweb.net/
