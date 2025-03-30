@@ -1,4 +1,5 @@
 use std::error::Error;
+use std::fs::create_dir;
 use std::{collections::HashSet, path::Path, path::PathBuf};
 
 use clap::Parser;
@@ -253,7 +254,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init();
     let args = Cli::parse();
 
-    let repos_dir = std::fs::canonicalize("repos")?;
+    let repos_dir = get_repos_dir();
 
     let mut mdbooks = read_the_mdbooks_file()?;
 
@@ -289,6 +290,33 @@ fn main() -> Result<(), Box<dyn Error>> {
         //std::process::exit(1);
     }
     Ok(())
+}
+
+// Locally I use a symbolic link to an external disk which is not mounted after I reboot.
+// On the CI we create the folder.
+fn get_repos_dir() -> PathBuf {
+    let repos_dir = PathBuf::from("repos");
+
+    if repos_dir.exists() {
+        if repos_dir.is_file() {
+            eprintln!("The {:?} is a file but it needs to be a folder.", repos_dir);
+            std::process::exit(1);
+        }
+    } else {
+        if repos_dir.is_symlink() {
+            eprintln!(
+                "The {:?} is a symlink but it does not lead to anywhere.",
+                repos_dir
+            );
+            std::process::exit(1);
+        } else {
+            create_dir(&repos_dir)
+                .expect(format!("Could not create the {:?} folder. Aborting.", repos_dir).as_str());
+        }
+    }
+
+    std::fs::canonicalize(&repos_dir)
+        .expect(format!("The {:?} folder is missing.", repos_dir).as_str())
 }
 
 fn collect_data(
@@ -795,8 +823,13 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# preprocessor\n\n");
     let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
-    md += "| Title | preprocessors | \n";
-    md += "|-------|-------------| \n";
+    let mut md_count = String::new();
+    md_count += "| preprocessor | count |\n";
+    md_count += "|--------------|-------| \n";
+
+    let mut md_table = String::new();
+    md_table += "| Title | preprocessors | \n";
+    md_table += "|-------|-------------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -826,7 +859,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
             }
         };
 
-        md += format!(
+        md_table += format!(
             "| [{}]({}) |  {} | \n",
             mdbook.title,
             mdbook.relative(),
@@ -834,6 +867,10 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
         )
         .as_str();
     }
+
+    md += &md_count;
+    md += "\n\n";
+    md += &md_table;
 
     let mut summary = String::from("  - [preprocessor](./preprocessor.md)\n");
     std::fs::write("report/src/preprocessor.md", md).unwrap();

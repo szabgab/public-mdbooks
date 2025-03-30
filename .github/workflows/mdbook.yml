@@ -37,7 +37,6 @@ jobs:
         env:
           RUST_LOG: debug
         run: |
-          mkdir repos
           ./target/debug/public-mdbooks --clone
 
       - name: Collect data
