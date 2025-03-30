@@ -75,11 +75,31 @@ const LANGUAGES: [Language; 12] = [
         name: "Swedish",
     },
 ];
-const OUTPUT: [Output; 2] = [
+const OUTPUT: [Output; 6] = [
+    Output {
+        name: "angular",
+        cratesio: "https://crates.io/crates/mdbook-angular",
+        description: "A renderer for mdbook that turns angular code samples into running angular applications.",
+    },
+    Output {
+        name: "i18n",
+        cratesio: "https://crates.io/crates/mdbook-i18n",
+        description: "Simple mdBook i18n plugin.",
+    },
+    Output {
+        name: "latex",
+        cratesio: "https://crates.io/crates/mdbook-latex",
+        description: "An mdbook backend for generating LaTeX and PDF documents.",
+    },
     Output {
         name: "linkcheck",
         cratesio: "https://crates.io/crates/mdbook-linkcheck",
         description: "A backend for mdbook which will check your links for you. For use alongside the built-in HTML renderer.",
+    },
+    Output {
+        name: "pandoc",
+        cratesio: "https://crates.io/crates/mdbook-pandoc",
+        description: "A pandoc-powered mdbook backend. By relying on pandoc, many output formats are supported, although this project was mainly developed with LaTeX in mind.",
     },
     Output {
         name: "pdf",
