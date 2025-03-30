@@ -108,7 +108,7 @@ const OUTPUT: [Output; 6] = [
     },
 ];
 
-const PREPROCESSORS: [Preprocessor; 16] = [
+const PREPROCESSORS: [Preprocessor; 30] = [
     Preprocessor {
         name: "admonish",
         cratesio: "https://crates.io/crates/mdbook-admonish",
@@ -125,9 +125,29 @@ const PREPROCESSORS: [Preprocessor; 16] = [
         description: "Interactive Aquascope editor for your mdBook",
     },
     Preprocessor {
+        name: "bib",
+        cratesio: "https://crates.io/crates/mdbook-bib",
+        description: "mdbook plugin allowing to load and present a bibliography in BibLaTex format in your books and cite its references.",
+    },
+    Preprocessor {
+        name: "catppuccin",
+        cratesio: "https://crates.io/crates/mdbook-catppuccin",
+        description: "🎊 Soothing pastel theme for mdBook",
+    },
+    Preprocessor {
         name: "embedify",
         cratesio: "https://crates.io/crates/mdbook-embedify",
         description: "A rust based mdbook preprocessor plugin that allows you to embed apps to your book, like youtube, codepen and some other apps.",
+    },
+    Preprocessor {
+        name: "emojicodes",
+        cratesio: "https://crates.io/crates/mdbook-emojicodes",
+        description: "MDBook Preprocessor for converting your emojicodes (: cat :) into real emojis",
+    },
+    Preprocessor {
+        name: "external-links",
+        cratesio: "https://crates.io/crates/mdbook-external-links",
+        description: "Open external links inside your mdBooks in a different tab",
     },
     Preprocessor {
         name: "footnote",
@@ -140,9 +160,19 @@ const PREPROCESSORS: [Preprocessor; 16] = [
         description: "mdBook preprocessor to add hover hints to your book.",
     },
     Preprocessor {
+        name: "indexing",
+        cratesio: "https://crates.io/crates/mdbook-indexing",
+        description: "mdbook preprocessor for index generation",
+    },
+    Preprocessor {
         name: "katex",
         cratesio: "https://crates.io/crates/mdbook-katex",
         description: "mdBook preprocessor rendering LaTeX equations to HTML.",
+    },
+    Preprocessor {
+        name: "last-changed",
+        cratesio: "https://crates.io/crates/mdbook-last-changed",
+        description: "mdbook preprocessor to add the last modification date per page",
     },
     Preprocessor {
         name: "mathpunc",
@@ -165,9 +195,34 @@ const PREPROCESSORS: [Preprocessor; 16] = [
         description: "An mdbook preprocessor for automatically numbering theorems, lemmas, etc.",
     },
     Preprocessor {
+        name: "open-on-gh",
+        cratesio: "https://crates.io/crates/mdbok-open-on-gh",
+        description: "A preprocessor for mdbook to add a open-on-github link on every page.",
+    },
+    Preprocessor {
+        name: "pagetoc",
+        cratesio: "https://crates.io/crates/mdbook-pagetoc",
+        description: "A mdbook plugin that provides a table of contents for each page. Uses css/js from mdBook-pagetoc.",
+    },
+    Preprocessor {
         name: "pikchr",
         cratesio: "https://crates.io/crates/mdbook-pikchr",
         description: "A mdbook preprocessor to render pikchr code blocks as images in your book.",
+    },
+    Preprocessor {
+        name: "plantuml",
+        cratesio: "https://crates.io/crates/mdbook-plantuml",
+        description: "A preprocessor for mdbook which will convert plantuml code blocks into inline SVG diagrams",
+    },
+    Preprocessor {
+        name: "presentation-preprocessor",
+        cratesio: "https://crates.io/crates/mdbook-presentation-preprocessor",
+        description: "A preprocessor for utilizing an MDBook as slides for a presentation.",
+    },
+    Preprocessor {
+        name: "private",
+        cratesio: "https://crates.io/crates/mdbook-private",
+        description: "An mdbook preprocessor that controls visibility of private chapters and sections within them.",
     },
     Preprocessor {
         name: "quiz",
@@ -180,14 +235,30 @@ const PREPROCESSORS: [Preprocessor; 16] = [
         description: "A rust based mdbook preprocessor that allows you to execute code in your mdbook without any server. Python, Typescript, Javascript etc.",
     },
     Preprocessor {
+        name: "svgbob",
+        cratesio: "https://crates.io/crates/mdbook-svgbob",
+        description: "SvgBob mdbook preprocessor which swaps code-blocks with neat SVG.",
+    },
+    Preprocessor {
         name: "template",
         cratesio: "https://crates.io/crates/mdbook-template",
         description: "A mdbook preprocessor that allows the re-usability of template files with dynamic arguments. (deprecated)",
     },
     Preprocessor {
+        name: "theme",
+        cratesio: "https://crates.io/crates/mdbook-theme",
+        description: "A preprocessor and a backend to config theme for mdbook, especially creating a pagetoc on the right and setting full color themes from the offical ace editor",
+    },
+    Preprocessor {
         name: "toc",
         cratesio: "https://crates.io/crates/mdbook-toc",
         description: "mdbook preprocessor to add Table of Contents.",
+    },
+    // Is veryl really a preprocessor?
+    Preprocessor {
+        name: "veryl",
+        cratesio: "https://crates.io/crates/mdbook-veryl",
+        description: "A modern hardware description language",
     },
 ];
 
