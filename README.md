@@ -14,6 +14,7 @@ e.g. which configuration options do they use with which values, which plugins th
 * [Awesome mdbook](https://github.com/softprops/awesome-mdbook)
 * [mdbooks](https://github.com/search?o=desc&q=mdbook&s=stars&type=Repositories)
 * [mdbook-i18n-helpers](https://github.com/google/mdbook-i18n-helpers)
+* [The Rust Book translaions](https://doc.rust-lang.org/stable/book/appendix-06-translation.html)
 
 ## Display
 

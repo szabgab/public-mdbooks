@@ -654,3 +654,14 @@
 - title: Rust Compiler Development Guide
   site: https://rustc-dev-guide.rust-lang.org/
   repo: https://github.com/rust-lang/rustc-dev-guide
+
+
+- title: From Perl to Rust
+  site: https://oylenshpeegul.gitlab.io/from-perl-to-rust/
+  repo: https://gitlab.com/oylenshpeegul/from-perl-to-rust/
+  description: A guide to learning Rust for folks who already know Perl.
+
+- title: A Linguagem de Programação Rust
+  site: https://rust-br.github.io/rust-book-pt-br/
+  repo: https://github.com/rust-br/rust-book-pt-br
+  description: The Rust Programming Language translated to Brazilian Portuguese
