@@ -264,18 +264,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if args.report {
         collect_data(args, repos_dir, &mut mdbooks)?;
 
-        // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
-        //list content of a directory
-        //let path = PathBuf::from(repos_dir);
-        //let entries = std::fs::read_dir(path).unwrap();
-        //for entry in entries {
-        //    let entry = entry.unwrap();
-        //    let path = entry.path();
-        //    println!("{:?}", path);
-
-        //    std::process::exit(0);
-        //}
-
         let mut summary = String::from("# Summary\n\n");
 
         summary.push_str(index_page(&mdbooks).as_str());
