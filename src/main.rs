@@ -248,22 +248,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut mdbooks = read_the_mdbooks_file()?;
 
     if args.clone {
-        let mut count = 0;
-        for mdbook in &mut mdbooks {
-            log::info!("book: {:?}", mdbook);
-            match mdbook.repo.update_repository(&repos_dir, false) {
-                Ok(_) => {}
-                Err(err) => {
-                    log::error!("Error updating repo: {:?}", err);
-                    mdbook.error = Some(format!("{:?}", err));
-                    continue;
-                }
-            }
-            count += 1;
-            if args.limit > 0 && count >= args.limit {
-                break;
-            }
-        }
+        clone_repositories(&args, &repos_dir, &mut mdbooks);
     }
 
     if args.report {
@@ -379,6 +364,25 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         //std::process::exit(1);
     }
     Ok(())
+}
+
+fn clone_repositories(args: &Cli, repos_dir: &Path, mdbooks: &mut Vec<MDBook>) {
+    let mut count = 0;
+    for mdbook in mdbooks {
+        log::info!("book: {:?}", mdbook);
+        match mdbook.repo.update_repository(repos_dir, false) {
+            Ok(_) => {}
+            Err(err) => {
+                log::error!("Error updating repo: {:?}", err);
+                mdbook.error = Some(format!("{:?}", err));
+                continue;
+            }
+        }
+        count += 1;
+        if args.limit > 0 && count >= args.limit {
+            break;
+        }
+    }
 }
 
 fn index_page(mdbooks: &Vec<MDBook>) -> String {
