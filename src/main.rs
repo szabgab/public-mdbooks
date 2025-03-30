@@ -932,7 +932,7 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
     md_count += "|--------------|-------| \n";
 
     let mut outputs = counter.keys().collect::<Vec<_>>();
-    outputs.sort_by(|b, a| counter[*a].cmp(&counter[*b]));
+    outputs.sort_by(|b, a| (counter[*a], b).cmp(&(counter[*b], a)));
 
     for k in outputs {
         md_count += if output_names.contains(&k.as_str()) {
@@ -1063,7 +1063,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     md_count += "| preprocessor | count |\n";
     md_count += "|--------------|-------| \n";
     let mut preprocessors = counter.keys().collect::<Vec<_>>();
-    preprocessors.sort_by(|b, a| counter[*a].cmp(&counter[*b]));
+    preprocessors.sort_by(|b, a| (counter[*a], b).cmp(&(counter[*b], a)));
 
     for k in preprocessors {
         md_count += if preprocessor_names.contains(&k.as_str()) {
