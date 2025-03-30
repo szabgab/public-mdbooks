@@ -33,6 +33,9 @@ jobs:
         run: |
           cargo build
 
+      - name: Run Clippy on our code
+        run: cargo clippy -- --deny warnings
+
       - name: Clone repositories
         env:
           RUST_LOG: debug
