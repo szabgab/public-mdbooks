@@ -386,8 +386,8 @@ fn index_page(mdbooks: &Vec<MDBook>) -> String {
     let now = chrono::Utc::now();
     let mut md = String::from("# Public mdBooks\n\n");
     md += "This is a list of mdBooks with public source.\n";
-    md += "If you are using mdBook we hope that this site will help you learn how other are using it, which plugins are available and how to use those.\n";
-    md += "If you are developing plugins for mdBook or the mdBook itself, then we hope this will help you see who uses your plugin and how it is being used.\n";
+    md += "If you are using mdBook we hope that this site will help you learn how others are using it, which plugins are available and how to use those.\n";
+    md += "If you are developing plugins for mdBook or mdBook itself, then we hope this will help you see who uses your plugin and how it is being used.\n";
     md += "The list is generated from the `mdbooks.yaml` file in our [repository](https://github.com/szabgab/public-mdbooks).\n\n";
     md += "If you would like to add a book to this list, or add a description please submit a PR to change the `mdbooks.yaml` file.\n\n";
     md += "Check out the [mdBook User manual](https://rust-lang.github.io/mdBook/) for more information.\n\n";
@@ -399,7 +399,7 @@ fn index_page(mdbooks: &Vec<MDBook>) -> String {
         md += format!(
             "| [{}]({}) | [repo]({}) | {} | {} |\n",
             mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
+            mdbook.relative(),
             mdbook.repo.url(),
             mdbook.description.clone().unwrap_or("".to_string()),
             mdbook.comment.clone().unwrap_or("".to_string()),
