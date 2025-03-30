@@ -617,6 +617,7 @@
 - title: ezlog
   site: https://s1rius.github.io/ezlog/
   repo: https://github.com/s1rius/ezlog
+  folder: docs
   description: ezlog is a high-performance cross-platform file logging library.
 
 - title: The Cairo Book
