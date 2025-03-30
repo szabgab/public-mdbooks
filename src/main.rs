@@ -338,16 +338,16 @@ fn collect_data(
 
         {
             let valid_fields = [
-                String::from("book"),
-                String::from("rust"),
-                String::from("build"),
-                String::from("output"),
-                String::from("preprocessor"),
+                "book",
+                "rust",
+                "build",
+                "output",
+                "preprocessor",
             ];
             let mut fields = String::new();
             everything
                 .iter()
-                .filter(|(k, _v)| !valid_fields.contains(*k))
+                .filter(|(k, _v)| !valid_fields.contains(&k.as_str()))
                 .for_each(|(k, _v)| {
                     fields += k;
                     fields += " ";
