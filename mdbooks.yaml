@@ -207,9 +207,10 @@
   repo: https://github.com/Jeiwan/uniswapv3-book
   site: https://uniswapv3book.com/
 
-- title: learn-haskell-blog-generator
+- title: Learn Haskell by building a blog generator
   repo: https://github.com/soupi/learn-haskell-blog-generator
   site: https://learn-haskell.blog/
+  description: A project-oriented Haskell tutorial.
 
 - title: Unofficial Bevy Cheat Book
   repo: https://github.com/bevy-cheatbook/bevy-cheatbook
