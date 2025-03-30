@@ -313,7 +313,7 @@ fn collect_data(
         log::info!("book.toml: {:?}", book_toml_file);
         if !book_toml_file.exists() {
             log::error!("book.toml does not exist: {:?}", book_toml_file);
-            mdbook.error = Some("book.toml does not exist".to_string());
+            mdbook.error = Some("book.toml does not exist. Do we have the correct folder configured for this mdbook?".to_string());
             continue;
         }
 
