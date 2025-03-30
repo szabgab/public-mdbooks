@@ -823,11 +823,11 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# preprocessor\n\n");
     let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
-    let mut md_count = String::new();
-    md_count += "| preprocessor | count |\n";
-    md_count += "|--------------|-------| \n";
+    let mut preprocessor_count: std::collections::HashMap<String, u32> =
+        std::collections::HashMap::new();
 
     let mut md_table = String::new();
+    md_table += "## Books and preprocessors\n\n";
     md_table += "| Title | preprocessors | \n";
     md_table += "|-------|-------------| \n";
     for mdbook in mdbooks {
@@ -843,6 +843,8 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
                 match preprocessor {
                     Value::Table(t) => {
                         t.iter().for_each(|(k, _v)| {
+                            *preprocessor_count.entry(k.clone()).or_insert(0) += 1;
+
                             if preprocessor_names.contains(&k.as_str()) {
                                 fields += format!("[{k}](preprocessor-{k}.md)").as_str();
                             } else {
@@ -865,6 +867,25 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
             mdbook.relative(),
             fields,
         )
+        .as_str();
+    }
+
+    let mut md_count = String::new();
+    md_count += "## Counting number of uses of preprocessors\n\n";
+    md_count += "| preprocessor | count |\n";
+    md_count += "|--------------|-------| \n";
+    let mut preprocessors = preprocessor_count.keys().collect::<Vec<_>>();
+    preprocessors.sort_by(|b, a| preprocessor_count[*a].cmp(&preprocessor_count[*b]));
+
+    for k in preprocessors {
+        md_count += if preprocessor_names.contains(&k.as_str()) {
+            format!(
+                "| [{k}](preprocessor-{k}.md) | {} | \n",
+                preprocessor_count[k]
+            )
+        } else {
+            format!("| {k} | {} | \n", preprocessor_count[k])
+        }
         .as_str();
     }
 
