@@ -249,7 +249,7 @@ struct Build {
     use_default_preprocessors: Option<bool>,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init();
     let args = Cli::parse();
 
@@ -952,7 +952,7 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
     summary
 }
 
-fn read_the_mdbooks_file() -> Result<Vec<MDBook>, Box<dyn std::error::Error>> {
+fn read_the_mdbooks_file() -> Result<Vec<MDBook>, Box<dyn Error>> {
     let file = std::fs::read_to_string("mdbooks.yaml")?;
     let mut books: Vec<MDBook> = serde_yaml::from_str(&file)?;
     books.sort_by(|a, b| a.title.cmp(&b.title));
