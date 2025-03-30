@@ -697,3 +697,40 @@
   description: The Rust Programming Language translated to Russian
   folder: rustbook-ru
 
+- title: The Rust Programming Language in Korean
+  site: https://doc.rust-kr.org/
+  repo: https://github.com/rust-kr/doc.rust-kr.org
+  description: The Rust Programming Language translated to Korean
+
+- title: The Rust Programming Language 日本語版
+  repo: https://github.com/rust-lang-ja/book-ja
+  site: https://doc.rust-jp.rs/book-ja/
+  description: The Rust Programming Language translated to Japanese
+
+- title: Le langage de programmation Rust
+  repo: https://github.com/Jimskapt/rust-book-fr
+  site: https://jimskapt.github.io/rust-book-fr/
+  description: The Rust Programming Language translated to French
+
+- title: Język Programowania Rust
+  repo: https://github.com/beling/book-pl
+  site: http://rust.w8.pl/book/
+  description: The Rust Programming Language translated to Polish
+
+- title: زبان برنامه‌نویسی Rust
+  site: https://rustfarsi.github.io/book/
+  repo: https://github.com/RustFarsi/book
+  folder: FARSI
+  description: The Rust Programming Language translated to Farsi
+
+- title: زبان برنامه‌نویسی راست
+  site: https://rustbook.drunkleen.com/
+  repo: https://github.com/persian-rust/book
+  description: The Rust Programming Language translated to Persian
+
+- title: Die Programmiersprache Rust
+  repo: https://github.com/rust-lang-de/rustbook-de
+  site: https://rust-lang-de.github.io/rustbook-de/
+  description: The Rust Programming Language translated to German
+
+
