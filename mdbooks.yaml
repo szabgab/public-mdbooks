@@ -1,7 +1,7 @@
 - title: Async Book
   description: Asynchronous Programming in Rust
   repo: https://github.com/rust-lang/async-book
-  site: https://rust-lang.github.io/async-book/index.html
+  site: https://rust-lang.github.io/async-book/
 
 - title: Async Std Book
   description: Async programming in Rust with async-std
@@ -20,7 +20,7 @@
 
 - title: The Complete Works of Da Li Ao
   repo: https://github.com/whatot/leeao
-  site: https://whatot.github.io/leeao/index.html
+  site: https://whatot.github.io/leeao/
 
 - title: Whisky-book
   repo: https://github.com/Whisky-App/whisky-book
@@ -28,7 +28,7 @@
 
 - title: Command Line Applications in Rust
   repo: https://github.com/rust-cli/book
-  site: https://rust-cli.github.io/book/index.html
+  site: https://rust-cli.github.io/book/
 
 - title: Discovery microbit
   description: The Discovery Book will teach you about microcontrollers, peripherals, sensors and bare metal programming in Rust
@@ -45,12 +45,12 @@
 - title: The Embedded Rust Book
   description: The Embedded Rust Book will get you up to speed with embedded Rust development
   repo: https://github.com/rust-embedded/book
-  site: https://docs.rust-embedded.org/book/index.html
+  site: https://docs.rust-embedded.org/book/
 
 - title: The Embedonomicon
   description: For those that want to dive into the implementation of the foundational crates of the embedded ecosystem
   repo: https://github.com/rust-embedded/embedonomicon
-  site: https://docs.rust-embedded.org/embedonomicon/index.html
+  site: https://docs.rust-embedded.org/embedonomicon/
 
 - title: Firefox Data Documentation
   description: A guide for interpreting data gathered by the Firefox Telemetry system
@@ -636,4 +636,21 @@
   repo: https://github.com/rust-lang/rust-by-example
   description: Learn Rust with examples (Live code editor included)
 
+- title: The Rustonomicon
+  site: https://doc.rust-lang.org/nomicon/
+  repo: https://github.com/rust-lang/nomicon
+  description: The Dark Arts of Unsafe Rust
 
+- title: The Rust Edition Guide
+  repo: https://github.com/rust-lang/edition-guide
+  site: https://doc.rust-lang.org/edition-guide/
+  description: Editions are Rust's way of introducing changes into the language that would not otherwise be backwards compatible.
+
+- title: The Rust Reference
+  repo: https://github.com/rust-lang/reference/
+  site: https://doc.rust-lang.org/reference/
+  description: This book is the primary reference for the Rust programming language.
+
+- title: Rust Compiler Development Guide
+  site: https://rustc-dev-guide.rust-lang.org/
+  repo: https://github.com/rust-lang/rustc-dev-guide
