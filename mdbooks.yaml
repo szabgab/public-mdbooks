@@ -733,4 +733,9 @@
   site: https://rust-lang-de.github.io/rustbook-de/
   description: The Rust Programming Language translated to German
 
-
+- title: The Rust Programming Language in Hindi
+  repo: https://github.com/venkatarun95/rust-book-hindi
+  folder: 2018-edition
+  description: The Rust Programming Language translated to Hindi
+  
+  
