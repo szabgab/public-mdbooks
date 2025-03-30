@@ -463,14 +463,7 @@ fn errors_page(mdbooks: &Vec<MDBook>) -> String {
         if mdbook.error.is_none() {
             continue;
         }
-        md += format!("* [details]({})\n", mdbook.relative(),).as_str();
-
-        md += format!(
-            "* [{}]({})\n",
-            mdbook.title,
-            mdbook.site.clone().unwrap_or("".to_string()),
-        )
-        .as_str();
+        md += format!("* [{}]({})\n", mdbook.title, mdbook.relative(),).as_str();
 
         md += format!("* [repo]({})\n\n", mdbook.repo.url(),).as_str();
         md += format!("{}\n\n", mdbook.error.clone().unwrap_or("".to_string())).as_str();
@@ -934,10 +927,10 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
             format!("  (folder: {})", mdbook.folder.clone().unwrap())
         };
         md += format!("* [repo]({}){}\n", mdbook.repo.url(), folder).as_str();
-        md += format!(
-            "* [site]({})\n",
-            mdbook.site.clone().unwrap_or("".to_string())
-        )
+        md += match &mdbook.site {
+            Some(site) => format!("* [site]({})\n", site.to_owned()),
+            None => String::from("* site: NA\n"),
+        }
         .as_str();
         md += format!(
             "* description: {}\n",
