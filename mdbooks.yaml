@@ -743,6 +743,30 @@
   repo: https://github.com/ankitects/anki-manual
   site: https://docs.ankiweb.net/
 
+- title: Руководство по Anki
+  description: Russian translation of the Anki user manual
+  repo: https://github.com/alexeygorelov/anki-manual-ru
+  site: https://alexeygorelov.github.io/anki-manual-ru/
+  comment: Russian
+
+- title: Посібник Anki
+  description: Ukrainian translation of the Anki user manual
+  repo: https://github.com/astropsy999/anki-manual
+  site: https://astropsy999.github.io/anki-manual/
+  comment: Ukrainian
+
+- title: دليل استخدام أنكي
+  description: Arabic translation of the Anki user manual
+  repo: https://github.com/abdnh/anki-manual
+  site: https://www.abdnh.net/anki-manual/
+  comment: Arabic
+
+- title: Anki 手册
+  description: Chinese translation of the Anki user manual
+  repo: https://github.com/open-spaced-repetition/anki-manual-zh-CN
+  site: https://open-spaced-repetition.github.io/anki-manual-zh-CN/
+  comment: Chinese (simplified)
+
 - title: The Rust Programming Language in Hebrew
   repo: https://github.com/IttayWeiss/rustbook-heb
   description: The Rust Programming Language translated to Hebrew
