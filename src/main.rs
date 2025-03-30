@@ -412,21 +412,19 @@ fn get_repos_dir() -> PathBuf {
             eprintln!("The {:?} is a file but it needs to be a folder.", repos_dir);
             std::process::exit(1);
         }
+    } else if repos_dir.is_symlink() {
+        eprintln!(
+            "The {:?} is a symlink but it does not lead to anywhere.",
+            repos_dir
+        );
+        std::process::exit(1);
     } else {
-        if repos_dir.is_symlink() {
-            eprintln!(
-                "The {:?} is a symlink but it does not lead to anywhere.",
-                repos_dir
-            );
-            std::process::exit(1);
-        } else {
-            create_dir(&repos_dir)
-                .expect(format!("Could not create the {:?} folder. Aborting.", repos_dir).as_str());
-        }
+        create_dir(&repos_dir)
+            .unwrap_or_else(|_| panic!("Could not create the {:?} folder. Aborting.", repos_dir));
     }
 
     std::fs::canonicalize(&repos_dir)
-        .expect(format!("The {:?} folder is missing.", repos_dir).as_str())
+        .unwrap_or_else(|_| panic!("The {:?} folder is missing.", repos_dir))
 }
 
 fn collect_data(
