@@ -151,6 +151,8 @@ const PREPROCESSORS: [Preprocessor; 16] = [
     },
 ];
 
+const VALID_FIELDS: [&str; 5] = ["book", "rust", "build", "output", "preprocessor"];
+
 #[derive(Parser, Debug)]
 #[command(version)]
 struct Cli {
@@ -337,17 +339,10 @@ fn collect_data(
         };
 
         {
-            let valid_fields = [
-                "book",
-                "rust",
-                "build",
-                "output",
-                "preprocessor",
-            ];
             let mut fields = String::new();
             everything
                 .iter()
-                .filter(|(k, _v)| !valid_fields.contains(&k.as_str()))
+                .filter(|(k, _v)| !VALID_FIELDS.contains(&k.as_str()))
                 .for_each(|(k, _v)| {
                     fields += k;
                     fields += " ";
