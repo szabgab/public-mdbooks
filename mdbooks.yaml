@@ -116,22 +116,22 @@
   site: https://rusty-ecma.github.io/rusty-ecma-book/
   repo: https://github.com/rusty-ecma/rusty-ecma-book
 
-- title: Code Maven in Hebrew
+- title: מביני תכנות - מביני קוד
   repo: https://github.com/szabgab/he.code-maven.com
   site: https://he.code-maven.com/
   description: Hebrew version of the Code Maven site, mostly with videos.
 
-- title: Rust Maven in Hebrew
+- title: מביני תכנות בראסט
   site: https://rust-he.code-maven.com/
   repo: https://github.com/szabgab/rust-he.code-maven.com
   description: Videos about the Rust programming language in Hebrew.
 
-- title: Python Maven in Hebrew
+- title: מביני תכנות פייתון
   site: https://python-he.code-maven.com/
   repo: https://github.com/szabgab/python-he.code-maven.com
   description: Videos about the Python programming language in Hebrew.
 
-- title: Git Maven in Hebrew
+- title: מביני גיט, גיטהאב, גיטלאב
   site: https://git-he.code-maven.com/
   repo: https://github.com/szabgab/git-he.code-maven.com
   description: Videos about git, GitHub, and GitLab in Hebrew.
@@ -195,7 +195,6 @@
 - title: fltk-book in Chinese
   repo: https://github.com/Flatigers/fltk-book-zh
   site: https://fltk.flatig.vip/
-  comment: Chinese
 
 - title: Physics-Based Simulation
   repo: https://github.com/phys-sim-book/mdbook-src
@@ -239,7 +238,6 @@
 - title: Deutschsprachiges Handbuch für museum-digital
   repo: https://github.com/museum-digital/handbook-de
   site: https://de.handbook.museum-digital.info/
-  comment: German
 
 - title: Revolt Wiki
   repo: https://github.com/revoltchat/wiki
@@ -248,12 +246,10 @@
 - title: Rust Tiếng Việt
   repo: https://github.com/rust-tieng-viet/rust-tieng-viet.github.io
   site: https://rust-tieng-viet.github.io/
-  comment: Vietnamese
 
 - title: Lean by Example
   repo: https://github.com/lean-ja/lean-by-example
   site: https://lean-ja.github.io/lean-by-example/
-  comment: Japanese
 
 - title: Mathematics in type thoery
   repo: https://github.com/lean-ja/math-in-type-theory-ja
@@ -747,19 +743,16 @@
   description: Russian translation of the Anki user manual
   repo: https://github.com/alexeygorelov/anki-manual-ru
   site: https://alexeygorelov.github.io/anki-manual-ru/
-  comment: Russian
 
 - title: Посібник Anki
   description: Ukrainian translation of the Anki user manual
   repo: https://github.com/astropsy999/anki-manual
   site: https://astropsy999.github.io/anki-manual/
-  comment: Ukrainian
 
 - title: دليل استخدام أنكي
   description: Arabic translation of the Anki user manual
   repo: https://github.com/abdnh/anki-manual
   site: https://www.abdnh.net/anki-manual/
-  comment: Arabic
 
 - title: Anki 手册
   description: Chinese translation of the Anki user manual
