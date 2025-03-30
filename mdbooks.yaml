@@ -737,8 +737,12 @@
   repo: https://github.com/venkatarun95/rust-book-hindi
   folder: 2018-edition
   description: The Rust Programming Language translated to Hindi
-  
+
 - title: Anki Manual
   description: User manual for the flashcard software Anki
   repo: https://github.com/ankitects/anki-manual
   site: https://docs.ankiweb.net/
+
+- title: The Rust Programming Language in Hebrew
+  repo: https://github.com/IttayWeiss/rustbook-heb
+  description: The Rust Programming Language translated to Hebrew
