@@ -1,3 +1,4 @@
+use std::error::Error;
 use std::{collections::HashSet, path::Path};
 
 use clap::Parser;
@@ -252,80 +253,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     if args.report {
-        log::info!("Start processing repos");
-        let mut count = 0;
-        let src_path = Path::new("report/src");
-        if !src_path.exists() {
-            std::fs::create_dir("report/src")?;
-        }
-
-        for mdbook in &mut mdbooks {
-            log::info!("book: {:?}", mdbook);
-            count += 1;
-            if args.limit > 0 && count >= args.limit {
-                break;
-            }
-            let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
-                mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
-            } else {
-                mdbook.repo.path(&repos_dir).join("book.toml")
-            };
-
-            log::info!("book.toml: {:?}", book_toml_file);
-            if !book_toml_file.exists() {
-                log::error!("book.toml does not exist: {:?}", book_toml_file);
-                mdbook.error = Some("book.toml does not exist".to_string());
-                continue;
-            }
-
-            let content = std::fs::read_to_string(&book_toml_file)?;
-            mdbook.raw_book_toml = content.clone();
-
-            let everything = match toml::from_str::<Table>(&content) {
-                Ok(data) => data,
-                Err(err) => {
-                    log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
-                    mdbook.error = Some(err.to_string());
-                    continue;
-                }
-            };
-
-            {
-                let valid_fields = [
-                    String::from("book"),
-                    String::from("rust"),
-                    String::from("build"),
-                    String::from("output"),
-                    String::from("preprocessor"),
-                ];
-                let mut fields = String::new();
-                everything
-                    .iter()
-                    .filter(|(k, _v)| !valid_fields.contains(*k))
-                    .for_each(|(k, _v)| {
-                        fields += k;
-                        fields += " ";
-                    });
-
-                if !fields.is_empty() {
-                    log::error!("Extra fields in book.toml {book_toml_file:?}: {:?}", fields);
-                    mdbook.error = Some(format!("Extra fields in book.toml: {:?}", fields));
-                }
-            }
-
-            mdbook.everything = Some(everything);
-
-            let data = match toml::from_str::<BookToml>(&content) {
-                Ok(data) => data,
-                Err(err) => {
-                    log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
-                    mdbook.error = Some(err.to_string());
-                    continue;
-                }
-            };
-
-            mdbook.book = Some(data);
-        }
+        collect_data(args, repos_dir, &mut mdbooks)?;
 
         // Go over all the cloned repos and check if they are still in the mdbooks.yaml file
         //list content of a directory
@@ -363,6 +291,88 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         log::error!("There were {count_errors} errors");
         //std::process::exit(1);
     }
+    Ok(())
+}
+
+fn collect_data(
+    args: Cli,
+    repos_dir: std::path::PathBuf,
+    mdbooks: &mut Vec<MDBook>,
+) -> Result<(), Box<dyn Error>> {
+    log::info!("Start processing repos");
+    let mut count = 0;
+    let src_path = Path::new("report/src");
+    if !src_path.exists() {
+        std::fs::create_dir("report/src")?;
+    }
+    for mdbook in mdbooks {
+        log::info!("book: {:?}", mdbook);
+        count += 1;
+        if args.limit > 0 && count >= args.limit {
+            break;
+        }
+        let book_toml_file = if let Some(folder) = mdbook.folder.clone() {
+            mdbook.repo.path(&repos_dir).join(folder).join("book.toml")
+        } else {
+            mdbook.repo.path(&repos_dir).join("book.toml")
+        };
+
+        log::info!("book.toml: {:?}", book_toml_file);
+        if !book_toml_file.exists() {
+            log::error!("book.toml does not exist: {:?}", book_toml_file);
+            mdbook.error = Some("book.toml does not exist".to_string());
+            continue;
+        }
+
+        let content = std::fs::read_to_string(&book_toml_file)?;
+        mdbook.raw_book_toml = content.clone();
+
+        let everything = match toml::from_str::<Table>(&content) {
+            Ok(data) => data,
+            Err(err) => {
+                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+                mdbook.error = Some(err.to_string());
+                continue;
+            }
+        };
+
+        {
+            let valid_fields = [
+                String::from("book"),
+                String::from("rust"),
+                String::from("build"),
+                String::from("output"),
+                String::from("preprocessor"),
+            ];
+            let mut fields = String::new();
+            everything
+                .iter()
+                .filter(|(k, _v)| !valid_fields.contains(*k))
+                .for_each(|(k, _v)| {
+                    fields += k;
+                    fields += " ";
+                });
+
+            if !fields.is_empty() {
+                log::error!("Extra fields in book.toml {book_toml_file:?}: {:?}", fields);
+                mdbook.error = Some(format!("Extra fields in book.toml: {:?}", fields));
+            }
+        }
+
+        mdbook.everything = Some(everything);
+
+        let data = match toml::from_str::<BookToml>(&content) {
+            Ok(data) => data,
+            Err(err) => {
+                log::error!("Error parsing toml {book_toml_file:?}: {:?}", err);
+                mdbook.error = Some(err.to_string());
+                continue;
+            }
+        };
+
+        mdbook.book = Some(data);
+    }
+
     Ok(())
 }
 
