@@ -18,6 +18,13 @@ struct Preprocessor {
     cratesio: &'static str,
     description: &'static str,
 }
+
+struct Output {
+    name: &'static str,
+    cratesio: &'static str,
+    description: &'static str,
+}
+
 const LANGUAGES: [Language; 12] = [
     Language {
         code: "en",
@@ -66,6 +73,18 @@ const LANGUAGES: [Language; 12] = [
     Language {
         code: "sv",
         name: "Swedish",
+    },
+];
+const OUTPUT: [Output; 2] = [
+    Output {
+        name: "linkcheck",
+        cratesio: "https://crates.io/crates/mdbook-linkcheck",
+        description: "A backend for mdbook which will check your links for you. For use alongside the built-in HTML renderer.",
+    },
+    Output {
+        name: "pdf",
+        cratesio: "https://crates.io/crates/mdbook-pdf",
+        description: "A backend for mdBook written in Rust for generating PDF based on headless chrome and Chrome DevTools Protocol",
     },
 ];
 
@@ -775,11 +794,14 @@ fn build_page(mdbooks: &Vec<MDBook>) -> String {
 }
 
 fn output_page(mdbooks: &Vec<MDBook>) -> String {
+    let output_names = OUTPUT.iter().map(|p| p.name).collect::<Vec<&str>>();
     let mut md = String::from("# output\n\n");
-    let summary = String::from("  - [output](./output.md)\n");
 
-    md += "| Title | output field | \n";
-    md += "|-------|-------------| \n";
+    let mut counter: std::collections::HashMap<String, u32> = std::collections::HashMap::new();
+
+    let mut md_table = String::from("## Books and output\n\n");
+    md_table += "| Title | output field | \n";
+    md_table += "|-------|-------------| \n";
     for mdbook in mdbooks {
         if mdbook.book.is_none() {
             continue;
@@ -793,6 +815,7 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
                 match output {
                     Value::Table(t) => {
                         t.iter().for_each(|(k, _v)| {
+                            *counter.entry(k.clone()).or_insert(0) += 1;
                             fields += k;
                             fields += " ";
                         });
@@ -805,7 +828,7 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
             }
         };
 
-        md += format!(
+        md_table += format!(
             "| [{}]({}) | {} | \n",
             mdbook.title,
             mdbook.relative(),
@@ -814,17 +837,93 @@ fn output_page(mdbooks: &Vec<MDBook>) -> String {
         .as_str();
     }
 
+    let mut md_count = String::new();
+    md_count += "## Counting number of uses of output\n\n";
+    md_count += "| output | count |\n";
+    md_count += "|--------------|-------| \n";
+
+    let mut outputs = counter.keys().collect::<Vec<_>>();
+    outputs.sort_by(|b, a| counter[*a].cmp(&counter[*b]));
+
+    for k in outputs {
+        md_count += if output_names.contains(&k.as_str()) {
+            format!("| [{k}](output-{k}.md) | {} | \n", counter[k])
+        } else {
+            format!("| {k} | {} | \n", counter[k])
+        }
+        .as_str();
+    }
+
+    md += &md_count;
+    md += "\n\n";
+    md += &md_table;
+
     std::fs::write("report/src/output.md", md).unwrap();
 
+    let mut summary = String::from("  - [output](./output.md)\n");
+    for output in OUTPUT.iter() {
+        output_details_page(mdbooks, output);
+        summary += format!("    - [{}](./output-{}.md)\n", output.name, output.name).as_str();
+    }
+
     summary
+}
+
+fn output_details_page(mdbooks: &Vec<MDBook>, output: &Output) {
+    let mut md = format!("# output {}\n\n", output.name);
+
+    md += format!(
+        "The output {} is available on [crates.io]({}).\n\n",
+        output.name, output.cratesio
+    )
+    .as_str();
+    md += format!("{}\n\n", output.description).as_str();
+
+    md += "| Title | output field | \n";
+    md += "|-------|-------------| \n";
+    for mdbook in mdbooks {
+        if mdbook.book.is_none() {
+            continue;
+        }
+
+        let table = mdbook.everything.as_ref().unwrap();
+        match table.get("output") {
+            None => continue,
+            Some(output_table) => match output_table.get(output.name) {
+                None => continue,
+                Some(data) => {
+                    let mut fields = String::new();
+                    match data {
+                        Value::Table(t) => {
+                            t.iter().for_each(|(k, _v)| {
+                                fields += k;
+                                fields += " ";
+                            });
+                        }
+                        _ => {
+                            fields += "unknown";
+                        }
+                    }
+                    md += format!(
+                        "| [{}]({}) | {} | \n",
+                        mdbook.title,
+                        mdbook.relative(),
+                        fields,
+                    )
+                    .as_str();
+                }
+            },
+        };
+    }
+    let path = format!("report/src/output-{}.md", output.name);
+    std::fs::write(path, md).unwrap();
 }
 
 fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     let mut md = String::from("# preprocessor\n\n");
     let preprocessor_names = PREPROCESSORS.iter().map(|p| p.name).collect::<Vec<&str>>();
 
-    let mut preprocessor_count: std::collections::HashMap<String, u32> =
-        std::collections::HashMap::new();
+    let mut counter: std::collections::HashMap<String, u32> = std::collections::HashMap::new();
 
     let mut md_table = String::new();
     md_table += "## Books and preprocessors\n\n";
@@ -843,7 +942,7 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
                 match preprocessor {
                     Value::Table(t) => {
                         t.iter().for_each(|(k, _v)| {
-                            *preprocessor_count.entry(k.clone()).or_insert(0) += 1;
+                            *counter.entry(k.clone()).or_insert(0) += 1;
 
                             if preprocessor_names.contains(&k.as_str()) {
                                 fields += format!("[{k}](preprocessor-{k}.md)").as_str();
@@ -874,17 +973,14 @@ fn preprocessor_page(mdbooks: &Vec<MDBook>) -> String {
     md_count += "## Counting number of uses of preprocessors\n\n";
     md_count += "| preprocessor | count |\n";
     md_count += "|--------------|-------| \n";
-    let mut preprocessors = preprocessor_count.keys().collect::<Vec<_>>();
-    preprocessors.sort_by(|b, a| preprocessor_count[*a].cmp(&preprocessor_count[*b]));
+    let mut preprocessors = counter.keys().collect::<Vec<_>>();
+    preprocessors.sort_by(|b, a| counter[*a].cmp(&counter[*b]));
 
     for k in preprocessors {
         md_count += if preprocessor_names.contains(&k.as_str()) {
-            format!(
-                "| [{k}](preprocessor-{k}.md) | {} | \n",
-                preprocessor_count[k]
-            )
+            format!("| [{k}](preprocessor-{k}.md) | {} | \n", counter[k])
         } else {
-            format!("| {k} | {} | \n", preprocessor_count[k])
+            format!("| {k} | {} | \n", counter[k])
         }
         .as_str();
     }
