@@ -338,20 +338,18 @@ fn collect_data(
             }
         };
 
-        {
-            let mut fields = String::new();
-            everything
-                .iter()
-                .filter(|(k, _v)| !VALID_FIELDS.contains(&k.as_str()))
-                .for_each(|(k, _v)| {
-                    fields += k;
-                    fields += " ";
-                });
+        let mut fields = String::new();
+        everything
+            .iter()
+            .filter(|(k, _v)| !VALID_FIELDS.contains(&k.as_str()))
+            .for_each(|(k, _v)| {
+                fields += k;
+                fields += " ";
+            });
 
-            if !fields.is_empty() {
-                log::error!("Extra fields in book.toml {book_toml_file:?}: {:?}", fields);
-                mdbook.error = Some(format!("Extra fields in book.toml: {:?}", fields));
-            }
+        if !fields.is_empty() {
+            log::error!("Extra fields in book.toml {book_toml_file:?}: {:?}", fields);
+            mdbook.error = Some(format!("Extra fields in book.toml: {:?}", fields));
         }
 
         mdbook.everything = Some(everything);
