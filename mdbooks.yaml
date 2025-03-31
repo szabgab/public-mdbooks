@@ -779,3 +779,9 @@
   site: https://ariel-os.github.io/ariel-os/dev/docs/book/
   repo: https://github.com/ariel-os/ariel-os
   folder: book
+
+- title: Astra
+  description: Astra - 🔥 Blazingly Fast 🔥 web server runtime for Lua - Documentation
+  site: https://astra.arkforge.net/docs/latest/
+  repo: https://github.com/ArkForgeLabs/Astra
+  folder: src/docs/latest
