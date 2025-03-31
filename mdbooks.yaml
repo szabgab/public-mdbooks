@@ -748,6 +748,7 @@
   description: Ukrainian translation of the Anki user manual
   repo: https://github.com/astropsy999/anki-manual
   site: https://astropsy999.github.io/anki-manual/
+  #  branch: anki-manual-ukr
 
 - title: دليل استخدام أنكي
   description: Arabic translation of the Anki user manual
