@@ -17,7 +17,11 @@ e.g. which configuration options do they use with which values, which plugins th
 
 ## CONTRIBUTION
 
+Out site is itself an mdbook, but one where the md files are also generated.
+
 The `mdbooks.yaml` file contains the list of mdBooks. If you'd like to add another one, just add it to the end of the list.
+
+If you'd like to make improvements to the titles and/or the descriptions, you can do that too in the `mdbooks.yaml` file.
 
 * The `title` can be in the native language of the book.
 * The `description` should be in English and it should mention the native language.
@@ -25,6 +29,8 @@ The `mdbooks.yaml` file contains the list of mdBooks. If you'd like to add anoth
 * The `folder` is an optional field indicating in which subfolder is the `book.toml` file. If it is in the root of the repo then no need for this field.
 * The `site` is the `https` URL to the generated book, if available.
 * TODO: We will need to add a `branch` field to support projects where the book is not in the default branch. For now just add it as a comment. See the one we already have in the `mdbooks.yaml` file.
+
+In order to generate the `md` files for our book we clone all the repositories, collect the data from them and put them in the `report` folder where we already have our `book.toml` file.
 
 ## RUN locally
 
@@ -51,9 +57,13 @@ the report.
 
 ## TODO
 
-Some ideas for future development
+Add more books!
+
+Some ideas for future development:
 
 * Deal with non-default branches.
 * Deal with all the plugins that are not public.
 * Collect all the parameters and their values of all the plugins.
 * Shall we run the most recent version of `mdbook` on these books to see if it works? We need to be careful running arbitrary code in the plugins!
+
+
