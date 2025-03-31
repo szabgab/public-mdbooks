@@ -763,3 +763,9 @@
 - title: The Rust Programming Language in Hebrew
   repo: https://github.com/IttayWeiss/rustbook-heb
   description: The Rust Programming Language translated to Hebrew
+
+- title: Rust Bytes Weekly Challenges
+  description: These challenges, tips, and exercises are designed to help rustaceans get comfortable reading and writing Rust.
+  repo: https://github.com/Rust-Bytes/weekly-challenges?tab=readme-ov-file
+  site: https://rust-bytes.github.io/weekly-challenges/
+
