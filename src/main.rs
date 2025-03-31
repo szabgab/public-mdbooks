@@ -309,7 +309,6 @@ struct MDBook {
 
     site: Option<String>,
     description: Option<String>,
-    comment: Option<String>,
 
     #[serde(default = "default_empty_string")]
     raw_book_toml: String,
@@ -543,16 +542,15 @@ fn index_page(mdbooks: &Vec<MDBook>) -> String {
     md += "Check out the [mdBook User manual](https://rust-lang.github.io/mdBook/) for more information.\n\n";
     md += format!("Total number of books: {}\n\n", mdbooks.len()).as_str();
     md += format!("Generated at: {}\n\n", now.format("%Y-%m-%d %H:%M:%S")).as_str();
-    md += "| Title | Repo | Description | Comment |\n";
-    md += "|-------|------|-------------|---------|\n";
+    md += "| Title | Repo | Description |\n";
+    md += "|-------|------|-------------|\n";
     for mdbook in mdbooks {
         md += format!(
-            "| [{}]({}) | [repo]({}) | {} | {} |\n",
+            "| [{}]({}) | [repo]({}) | {} |\n",
             mdbook.title,
             mdbook.relative(),
             mdbook.repo.url(),
             mdbook.description.clone().unwrap_or("".to_string()),
-            mdbook.comment.clone().unwrap_or("".to_string()),
         )
         .as_str();
     }
@@ -1192,11 +1190,6 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
         md += format!(
             "* description: {}\n",
             mdbook.description.clone().unwrap_or("NA".to_string())
-        )
-        .as_str();
-        md += format!(
-            "* comment: {}\n",
-            mdbook.comment.clone().unwrap_or("NA".to_string())
         )
         .as_str();
         md += format!("\n## book.toml\n\n```toml\n{}\n```\n", mdbook.raw_book_toml).as_str();

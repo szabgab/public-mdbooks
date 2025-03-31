@@ -258,7 +258,7 @@
 - title: Jegyzet a "Szoftverfejlesztés multinacionális vállalatoknál" c. tárgyhoz
   repo: https://github.com/pintergreg/handout
   site: https://szfmv2021-osz.github.io/handout/
-  comment: Hungarian
+  description: Hungarian
 
 - title: r/GraphicsProgramming Wiki
   repo: https://github.com/Cody-Duncan/r-graphicsprogramming-wiki
@@ -267,22 +267,22 @@
 - title: Programme informatique du concours d'inspecteur PSE
   repo: https://github.com/MghRepo/pse-mdbook
   site: https://mghrepo.github.io/pse-mdbook/
-  comment: French
+  description: French
 
 - title: Doc-Share
   repo: https://github.com/MR-Addict/Doc-Share
   site: https://mr-addict.github.io/Doc-Share/
-  comment: Chinese
+  description: Chinese
 
 - title: Notes
   repo: https://github.com/MR-Addict/notes
   site: https://mr-addict.github.io/notes/
-  comment: Chinese
+  description: Chinese
 
 - title: privacy.noarch
   repo: https://github.com/privacy-noarch/privacy
   site: https://privacy.n0ar.ch/
-  comment: Chinese
+  description: Chinese
 
 - title: Let's Build a Compiler -- pretty
   repo: https://github.com/xmonader/letsbuildacompiler-pretty
@@ -304,13 +304,13 @@
   repo: https://github.com/hyperreal64/zsh-manual-mdbook
   site: https://zsh-manual.netlify.app/
   folder: zsh-manual
-  comment: Generated
+  description: This book is generated.
 
 - title: Zsh User's Guide by Peter Stephenson
   repo: https://github.com/hyperreal64/zsh-manual-mdbook
   site: https://zsh-user-guide.netlify.app/
   folder: zsh-guide
-  comment: Generated
+  description: This book is generated.
 
 - title: Validator Toolbox Manual
   repo: https://github.com/CryptoBlocks-pro/mdbook_validatortoolbox
@@ -318,7 +318,7 @@
 - title: "Pràctiques de Sistemes Operatius amb Debian: Hands-On per a Estudiants de Grau en Informàtica"
   repo: https://github.com/OS-GEI-IGUALADA-2223/HandsOn
   site: https://os-gei-igualada-2223.github.io/HandsOn/
-  comment: Catalan
+  description: Catalan
 
 - title: Example-mdBook
   repo: https://github.com/tylerdotrar/Example-mdBook
@@ -383,7 +383,7 @@
 - title: UniBook
   repo: https://github.com/teamkw/unibook
   site: https://teamkw.github.io/unibook/
-  comment: Korean
+  description: Korean
 
 - title: fablore - Flesh and Blood lore
   site: https://legendarystories.net/
@@ -414,11 +414,11 @@
 - title: study.dev-notes
   site: https://netpyoung.github.io/study.dev-notes/
   repo: https://github.com/netpyoung/study.dev-notes
-  comment: Korean
+  description: Korean
 
 - title: Curso de C++ - Material
   repo: https://github.com/tarcisioe/cpp-mdbook
-  comment: Portuguese
+  description: C++ course in Portuguese.
 
 - title: A guide to Rust for Kotlin developers
   site: https://emmabritton.github.io/kotlin-rust-guide/
@@ -444,12 +444,12 @@
 - title: GAMES 101
   repo: https://github.com/CaterpillarStudyGroup/GAMES101_mdbook
   site: https://caterpillarstudygroup.github.io/GAMES101_mdbook/
-  comment: Chinese
+  description: Chinese
 
 - title: Game development in Rust with Macroquad 
   repo: https://github.com/ollej/macroquad-introduktion
   folder: macroquad-introduction-book
-  comment: Swedish
+  description: Swedish
 
 - title: Game development in Rust with Macroquad 
   site: https://mq.agical.se/
@@ -462,7 +462,7 @@
 
 - title: Revisions_PSE
   repo: https://github.com/Isyonir/Revisions_PSE
-  comment: French
+  description: French
 
 - title: Elasticsearch Book
   repo: https://github.com/Asquera/elasticsearch-workshop-book
@@ -502,7 +502,7 @@
 - title: Hamud_Book
   repo: https://github.com/Hamud-Lang/Hamud_Book
   site: https://hamud.pj568.sbs/
-  comment: Arabic, Chinese, and English
+  description: Arabic, Chinese, and English
 
 - title: The Cryptographer's Codex
   repo: https://github.com/ubcctf/crypto-mdbook
@@ -573,7 +573,7 @@
 
 - title: mokshamarg prakashak
   repo: https://github.com/JinSwara/mokshamarg-prakashak-mdbook
-  comment: Hindi
+  description: Hindi
 
 - title: Krossbar book
   repo: https://github.com/krossbar-platform/krossbar-book
@@ -758,7 +758,6 @@
   description: Chinese translation of the Anki user manual
   repo: https://github.com/open-spaced-repetition/anki-manual-zh-CN
   site: https://open-spaced-repetition.github.io/anki-manual-zh-CN/
-  comment: Chinese (simplified)
 
 - title: The Rust Programming Language in Hebrew
   repo: https://github.com/IttayWeiss/rustbook-heb
