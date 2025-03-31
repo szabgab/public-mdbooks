@@ -774,4 +774,8 @@
   site: https://rust-lang.github.io/rfcs/
   repo: https://github.com/rust-lang/rfcs/
 
-
+- title: The Ariel OS manual
+  description: Ariel OS - an embedded library OS for small MCUs - Manual
+  site: https://ariel-os.github.io/ariel-os/dev/docs/book/
+  repo: https://github.com/ariel-os/ariel-os
+  folder: book
