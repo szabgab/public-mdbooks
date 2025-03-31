@@ -778,3 +778,4 @@
   description: Ariel OS - an embedded library OS for small MCUs - Manual
   site: https://ariel-os.github.io/ariel-os/dev/docs/book/
   repo: https://github.com/ariel-os/ariel-os
+  folder: book
