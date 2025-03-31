@@ -769,3 +769,9 @@
   repo: https://github.com/Rust-Bytes/weekly-challenges?tab=readme-ov-file
   site: https://rust-bytes.github.io/weekly-challenges/
 
+- title: The Rust RFC Book
+  description: Rust RFCs - RFC Book - Active RFC List
+  site: https://rust-lang.github.io/rfcs/
+  repo: https://github.com/rust-lang/rfcs/
+
+
