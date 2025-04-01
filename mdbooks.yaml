@@ -787,6 +787,14 @@
   folder: src/docs/latest
 
 - title: Rust Forge
-  description: Rust Forge serves as a repository of supplementary documentation useful for members of The Rust Programming Language. 
+  description: Rust Forge serves as a repository of supplementary documentation useful for members of The Rust Programming Language.
   site: https://forge.rust-lang.org/
   repo: https://github.com/rust-lang/rust-forge
+
+- title: Maturin User Guide
+  repo: https://github.com/PyO3/maturin
+  folder: guide
+  site: https://www.maturin.rs/
+  description: Maturin is a tool to publish Rust crates as Python packages with minimal configuration.
+
+
