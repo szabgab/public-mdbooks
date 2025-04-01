@@ -785,3 +785,8 @@
   site: https://astra.arkforge.net/docs/latest/
   repo: https://github.com/ArkForgeLabs/Astra
   folder: src/docs/latest
+
+- title: Rust Forge
+  description: Rust Forge serves as a repository of supplementary documentation useful for members of The Rust Programming Language. 
+  site: https://forge.rust-lang.org/
+  repo: https://github.com/rust-lang/rust-forge
