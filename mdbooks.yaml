@@ -797,4 +797,9 @@
   site: https://www.maturin.rs/
   description: Maturin is a tool to publish Rust crates as Python packages with minimal configuration.
 
+- title: Making Decentralized Social Easy
+  site: https://projectlibertylabs.github.io/gateway/
+  repo: https://github.com/ProjectLibertyLabs/gateway/
+  folder: docs
+  description: Getting started building on Decentralized Social is as easy as deploying a Web2 API.
 
