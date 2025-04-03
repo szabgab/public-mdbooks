@@ -803,3 +803,9 @@
   folder: docs
   description: Getting started building on Decentralized Social is as easy as deploying a Web2 API.
 
+- title: Frequency Documentation
+  site: https://docs.frequency.xyz/
+  repo: https://github.com/frequency-chain/docs
+  description: Technical documentation for the Frequency parachain.
+
+
