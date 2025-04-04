@@ -808,4 +808,20 @@
   repo: https://github.com/frequency-chain/docs
   description: Technical documentation for the Frequency parachain.
 
+- title: Rust Design Patterns
+  site: https://rust-unofficial.github.io/patterns/
+  repo: https://github.com/rust-unofficial/patterns
+  description: A catalogue of Rust design patterns, anti-patterns and idioms
+
+- title: Learning Rust With Entirely Too Many Linked Lists
+  site: https://rust-unofficial.github.io/too-many-lists/
+  repo: https://github.com/rust-unofficial/too-many-lists
+
+- title: Rust Practise Questions
+  site: https://rust-unofficial.github.io/rust-practise-questions/
+  repo: https://github.com/rust-unofficial/rust-practise-questions
+  description: A book 📖 of questions for practise in Rust, learn Rust the hard way
+
+
+
 
