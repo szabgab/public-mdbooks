@@ -837,3 +837,8 @@
   site: https://handbook.tmpdir.org/
   repo: https://gitlab.com/tmpdir/handbook
 
+- title: Metal³ user-guide
+  site: https://book.metal3.io/introduction.html
+  repo: https://github.com/metal3-io/metal3-docs
+  folder: docs/user-guide
+
