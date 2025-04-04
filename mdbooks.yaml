@@ -822,6 +822,8 @@
   repo: https://github.com/rust-unofficial/rust-practise-questions
   description: A book 📖 of questions for practise in Rust, learn Rust the hard way
 
-
-
+- title: Helix Editor
+  site: https://docs.helix-editor.com/
+  repo: https://github.com/helix-editor/helix
+  folder: book
 
