@@ -827,3 +827,13 @@
   repo: https://github.com/helix-editor/helix
   folder: book
 
+  # Takes too long to clone
+  #- title: The 'flow' book
+  #  site: https://mackenzie-serres.net/flow/
+  #  repo: https://github.com/andrewdavidmackenzie/flow
+  #  description: flow, a system for defining and running parallel, dataflow programs.
+
+- title: The TMPDIR Handbook
+  site: https://handbook.tmpdir.org/
+  repo: https://gitlab.com/tmpdir/handbook
+
