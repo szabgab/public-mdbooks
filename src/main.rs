@@ -1157,17 +1157,19 @@ fn preprocessor_details_page(mdbooks: &Vec<MDBook>, preprocessor: &Preprocessor)
     std::fs::write(path, md).unwrap();
 }
 
-fn books_page() {
+fn books_page(content: &str) {
     let mut md = String::from("# Public mdBooks\n\n");
     md += "In this section you can find detailed information about the mdBooks.\n";
+    md += content;
 
     std::fs::write("report/src/books.md", md).unwrap();
 }
 
 fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
     let mut summary = String::from("* [Public mdBooks](./books.md)\n");
-    books_page();
+    let mut list = String::new();
 
+    let mut seen = HashSet::new();
     for mdbook in mdbooks {
         let filename = mdbook
             .repo
@@ -1199,8 +1201,19 @@ fn create_book_pages(mdbooks: &Vec<MDBook>) -> String {
         log::warn!("filename: {:?}", filename);
         std::fs::write(filename, md).unwrap();
 
-        summary += format!("  * [{}]({})\n", mdbook.title, mdbook.relative()).as_str();
+        let relative = mdbook.relative();
+
+        list += format!("  * [{}]({})\n", mdbook.title, relative).as_str();
+
+        if seen.contains(&relative) {
+            continue;
+        }
+        seen.insert(relative.clone());
+
+        summary += format!("  * [{}]({})\n", mdbook.title, relative).as_str();
     }
+
+    books_page(&list);
     summary
 }
 
