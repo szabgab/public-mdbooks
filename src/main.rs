@@ -1231,6 +1231,6 @@ where
     D: de::Deserializer<'de>,
 {
     let s = String::deserialize(deserializer)?;
-    let r = Repository::from_url(&s).unwrap();
+    let r = Repository::from_url(&s).map_err(de::Error::custom)?;
     Ok(r)
 }
