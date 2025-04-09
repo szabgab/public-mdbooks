@@ -99,6 +99,11 @@
   site: https://rust-lang-nursery.github.io/rust-cookbook/
   repo: https://github.com/rust-lang-nursery/rust-cookbook
 
+- title: Rust for the Polyglot Programmer
+  description: Guide to Rust for advanced programmers
+  site: https://www.chiark.greenend.org.uk/%7Eianmdlvl/rust-polyglot/
+  repo: https://salsa.debian.org/iwj/rust-polyglot/
+
 
 - title: Rust Fuzz Book
   description: Guides and tutorials on how to fuzz Rust code
