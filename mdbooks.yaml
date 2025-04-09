@@ -847,3 +847,9 @@
   repo: https://github.com/metal3-io/metal3-docs
   folder: docs/user-guide
 
+
+- title: The twister P2P Book
+  site: https://twisterarmy.github.io/book/
+  repo: https://github.com/twisterarmy/book
+  description: Community-driven guide to twister p2p, based on Wiki data from various community repositories.
+
