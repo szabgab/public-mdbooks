@@ -200,9 +200,9 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "git-digger"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cfeb0fed3f24051ba27d59f77640c923f222f58f79c14afa597467a665af1f89"
+checksum = "0bece7ca4610b54be939f3045048502a3b851b625fd206e489e2413e12ab7df6"
 dependencies = [
  "log",
  "once_cell",
