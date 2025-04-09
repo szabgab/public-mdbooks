@@ -586,9 +586,10 @@
   site: https://blog.vimkim.dev/
   repo: https://github.com/vimkim/blog
 
-- title: Blender book
-  repo: https://github.com/Blender4Pepu/blender_book
-  site: https://blender-l2-privacy.web.app/book/
+  # The book disappeared
+  #- title: Blender book
+  #  repo: https://github.com/Blender4Pepu/blender_book
+  #  site: https://blender-l2-privacy.web.app/book/
 
 - title: Leptos Web framework
   site: https://book.leptos.dev/
