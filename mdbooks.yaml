@@ -152,6 +152,12 @@
   folder: book
   description: Examples and explanations about the axum web framework written in Rust.
 
+- title: The warp by examples book
+  site: https://warp.code-maven.com/
+  repo: https://github.com/szabgab/warp/
+  folder: book
+  description: Examples and explanations about the warp web framework written in Rust.
+
 - title: C Maven
   site: https://c.code-maven.com/
   repo: https://github.com/szabgab/c.code-maven.com
