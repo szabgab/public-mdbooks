@@ -8,6 +8,8 @@ use toml::{Table, Value, map::Map};
 
 use git_digger::Repository;
 
+use mdbook::config::TextDirection;
+
 const REPO: &str = "https://github.com/szabgab/public-mdbooks/";
 struct Language {
     code: &'static str,
@@ -690,8 +692,16 @@ fn language_page(mdbooks: &Vec<MDBook>) -> String {
         }
 
         let bk = mdbook.book.as_ref().unwrap();
+        let language_code = bk.book.language.clone().unwrap_or(String::from("en"));
+        let text_direction = TextDirection::from_lang_code(&language_code);
+        let dir = match text_direction {
+            TextDirection::LeftToRight => "ltr",
+            TextDirection::RightToLeft => "rtl",
+        };
+
         md += format!(
-            "| [{}]({}) | {} | \n",
+            r#"| <div dir="{}">[{}]({})</div> | {} |"#,
+            dir,
             mdbook.title,
             mdbook.relative(),
             if bk.book.language.is_none() {
@@ -701,6 +711,7 @@ fn language_page(mdbooks: &Vec<MDBook>) -> String {
             }
         )
         .as_str();
+        md  += "\n";
     }
 
     std::fs::write("report/src/language.md", md).unwrap();
