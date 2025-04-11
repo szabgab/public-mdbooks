@@ -470,10 +470,11 @@
   site: https://moneropay.eu/
   repo: https://github.com/moneropay/moneropay-docs
 
-- title: Revisions_PSE
-  repo: https://github.com/Isyonir/Revisions_PSE
-  description: French
-
+  # The book disappeared
+  #- title: Revisions_PSE
+  #  repo: https://github.com/Isyonir/Revisions_PSE
+  #  description: French
+  #
 - title: Elasticsearch Book
   repo: https://github.com/Asquera/elasticsearch-workshop-book
 
