@@ -456,12 +456,12 @@
   site: https://caterpillarstudygroup.github.io/GAMES101_mdbook/
   description: Chinese
 
-- title: Game development in Rust with Macroquad 
+- title: Game development in Rust with Macroquad in Swedish
   repo: https://github.com/ollej/macroquad-introduktion
   folder: macroquad-introduction-book
   description: Swedish
 
-- title: Game development in Rust with Macroquad 
+- title: Game development in Rust with Macroquad
   site: https://mq.agical.se/
   repo: https://github.com/ollej/macroquad-introduktion
   folder: macroquad-introduction-book-english
