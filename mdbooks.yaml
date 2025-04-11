@@ -864,3 +864,10 @@
   site: https://docs.simpleiot.org/
   repo: https://github.com/simpleiot/simpleiot
   description: Simple Iot enables you to add remote sensor data, telemetry, configuration, and device management to your project or product.
+
+- title: "Crux: Cross-platform app development in Rust"
+  site: https://redbadger.github.io/crux/
+  repo: https://github.com/redbadger/crux
+  folder: docs
+  description: Crux is a framework for building cross-platform applications with better testability, higher code and behavior reuse, better safety, security, and more joy from better tools.
+
