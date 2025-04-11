@@ -283,12 +283,12 @@
 - title: Doc-Share
   repo: https://github.com/MR-Addict/Doc-Share
   site: https://mr-addict.github.io/Doc-Share/
-  description: MR-Addict's personal notes book, written in Chinese.
+  description: The STAS Club's documentation covers C language, Arduino, microcontrollers, and related topics, written in Chinese.
 
 - title: Notes
   repo: https://github.com/MR-Addict/notes
   site: https://mr-addict.github.io/notes/
-  description: The STAS Club's documentation covers C language, Arduino, microcontrollers, and related topics.
+  description: MR-Addict's personal notes book, written in Chinese.
 
 - title: privacy.noarch
   repo: https://github.com/privacy-noarch/privacy
