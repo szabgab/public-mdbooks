@@ -871,3 +871,8 @@
   folder: docs
   description: Crux is a framework for building cross-platform applications with better testability, higher code and behavior reuse, better safety, security, and more joy from better tools.
 
+- title: System76 Technical Documentation
+  site: https://tech-docs.system76.com/
+  repo: https://github.com/system76/tech-docs
+  description: System76 provides laptops, desktops, servers, and accessories. This book contains technical documentation for System76 hardware.
+
