@@ -876,3 +876,8 @@
   repo: https://github.com/system76/tech-docs
   description: System76 provides laptops, desktops, servers, and accessories. This book contains technical documentation for System76 hardware.
 
+- title: Tree-sitter
+  repo: https://github.com/tree-sitter/tree-sitter
+  folder: docs
+  site: https://tree-sitter.github.io/tree-sitter/
+  description: Documentation for the code parsing library/tool Tree-sitter
