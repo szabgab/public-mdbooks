@@ -881,3 +881,8 @@
   folder: docs
   site: https://tree-sitter.github.io/tree-sitter/
   description: Documentation for the code parsing library/tool Tree-sitter
+
+- title: Anomaly Modding Book
+  repo: https://github.com/Igigog/anomaly-modding-book
+  site: https://igigog.github.io/anomaly-modding-book/
+  description: Introductory book for Stalker Anomaly modding
